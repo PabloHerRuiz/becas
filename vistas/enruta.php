@@ -11,5 +11,9 @@ if (isset($_GET['menu'])) {
         require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/identificacion.php';
 
     }
+    if ($_GET['menu'] == "registro") {
+        require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/registro.php';
+
+    }
 }
 ?>

@@ -4,14 +4,16 @@ class Usuario
     //properties
     private $idUser;
     private $nombre;
+    private $apellidos;
     private $email;
     private $password;
 
     //constructor
-    public function __construct($idUser,$nombre, $email, $password)
+    public function __construct($idUser, $nombre, $apellidos, $email, $password)
     {
         $this->idUser = $idUser;
         $this->nombre = $nombre;
+        $this->apellidos = $apellidos;
         $this->email = $email;
         $this->password = $password;
     }
@@ -35,6 +37,10 @@ class Usuario
     {
         return $this->password;
     }
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
 
     public function setNombre($nombre)
     {
@@ -49,6 +55,11 @@ class Usuario
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    public function setApellidos($apellidos)
+    {
+        $this->apellidos = $apellidos;
     }
 }
 ?>
