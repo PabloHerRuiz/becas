@@ -7,7 +7,7 @@ class db
     {
         if (self::$conexion === null) {
             try {
-                self::$conexion = new PDO('mysql:host=localhost;dbname=autoescuela', 'pablo', '1234');
+                self::$conexion = new PDO('mysql:host=localhost;dbname=becas', 'pablo', '1234');
             } catch (PDOException $e) {
                 echo "Error de conexión: " . $e->getMessage();
             }
