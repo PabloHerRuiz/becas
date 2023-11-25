@@ -5,7 +5,6 @@ class Beca
     private $idBeca;
     private $nombre;
     private $cantidad;
-
     private $fechaFin;
 
     // Constructor
@@ -42,7 +41,7 @@ class Beca
     {
         $this->cantidad = $cantidad;
     }
-    
+
     public function getFechaFin()
     {
         return $this->fechaFin;

@@ -3,14 +3,14 @@ class Solicitud
 {
     // Properties
     private $idSolicitud;
-    private $idUsuario;
+    private $idUser;
     private $idBeca;
 
     // Constructor
-    public function __construct($idSolicitud, $idUsuario, $idBeca)
+    public function __construct($idSolicitud, $idUser, $idBeca)
     {
         $this->idSolicitud = $idSolicitud;
-        $this->idUsuario = $idUsuario;
+        $this->idUser = $idUser;
         $this->idBeca = $idBeca;
     }
 
@@ -19,14 +19,14 @@ class Solicitud
     {
         return $this->idSolicitud;
     }
-    public function getIdUsuario()
+    public function getIdUser()
     {
-        return $this->idUsuario;
+        return $this->idUser;
     }
 
-    public function setIdUsuario($idUsuario)
+    public function setIdUser($idUser)
     {
-        $this->idUsuario = $idUsuario;
+        $this->idUser = $idUser;
     }
 
     public function getIdBeca()
