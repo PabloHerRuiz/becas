@@ -11,12 +11,18 @@ class Login
     public function user_login($usuario)
     {
         if ($usuario != null) {
-            // Inicio de sesión exitoso
-            $user = new User($usuario["idUser"], $usuario["nombre"],$usuario["password"],$usuario["rol"]);
-            Sesion::login_sesion($user);
-            return true;
+            // Verificar la contraseña
+            if (password_verify($_POST['password'], $usuario->getPassword())) {
+                // Inicio de sesión exitoso
+                $user = new Usuario($usuario->getNombre(), $usuario->getApellidos(), $usuario->getEmail(),$usuario->getPassword(), $usuario->getRol(), $usuario->getIdUser());
+                Sesion::login_sesion($user);
+                return true;
+            } else {
+                // Contraseña incorrecta
+                return false;
+            }
         } else {
-            // Credenciales incorrectas
+            // Usuario no existe
             return false;
         }
     }

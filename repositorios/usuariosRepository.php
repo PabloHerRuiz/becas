@@ -1,5 +1,5 @@
 <?php
-class UsuariosRepository
+class usuariosRepository
 {
     private $conexion;
 
@@ -8,21 +8,21 @@ class UsuariosRepository
         $this->conexion = $conexion;
     }
 
-    public function getAllUsuarios()
+    public function getAllusuario()
     {
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM usuario";
         $result = $this->conexion->query($sql);
-        $usuarios = [];
+        $usuario = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $usuarios[] = new Usuario($row['nombre'], $row['apellidos'], $row['email'], $row['password'], $row['rol'], $row['idUser']);
+            $usuario[] = new Usuario($row['nombre'], $row['apellidos'], $row['email'], $row['password'], $row['rol'], $row['idUser']);
         }
-        return $usuarios;
+        return $usuario;
     }
 
     //CRUD
     public function getUsuarioById($id)
     {
-        $sql = "SELECT * FROM usuarios WHERE idUser = $id";
+        $sql = "SELECT * FROM usuario WHERE idUser = $id";
         $result = $this->conexion->query($sql);
         $usuario = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -33,7 +33,7 @@ class UsuariosRepository
 
     public function addUsuario($usuario)
     {
-        $sql = "INSERT INTO usuarios (nombre, apellidos,email, password) VALUES ('{$usuario->getNombre()}', '{$usuario->getApellidos()}','{$usuario->getEmail()}', '{$usuario->getPassword()}')";
+        $sql = "INSERT INTO usuario (nombre, apellidos,email, password) VALUES ('{$usuario->getNombre()}', '{$usuario->getApellidos()}','{$usuario->getEmail()}', '{$usuario->getPassword()}')";
         if($this->conexion->exec($sql)){
             return true;
         }else{
@@ -43,20 +43,20 @@ class UsuariosRepository
 
     public function updateUsuario($usuario)
     {
-        $sql = "UPDATE usuarios SET nombre = '{$usuario->getNombre()}', email = '{$usuario->getEmail()}', password = '{$usuario->getPassword()}' WHERE idUser = {$usuario->getIdUser()}";
+        $sql = "UPDATE usuario SET nombre = '{$usuario->getNombre()}', email = '{$usuario->getEmail()}', password = '{$usuario->getPassword()}' WHERE idUser = {$usuario->getIdUser()}";
         $this->conexion->exec($sql);
     }
 
     public function deleteUsuario($id)
     {
-        $sql = "DELETE FROM usuarios WHERE idUser = $id";
+        $sql = "DELETE FROM usuario WHERE idUser = $id";
         $this->conexion->exec($sql);
     }
 
     //Login
     public function login($nombre, $password)
     {
-        $sql = "SELECT * FROM usuarios WHERE nombre = '$nombre'";
+        $sql = "SELECT * FROM usuario WHERE nombre = '$nombre'";
         $result = $this->conexion->query($sql);
         $usuario = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {

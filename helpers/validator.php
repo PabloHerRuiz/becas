@@ -12,28 +12,22 @@ class Validator
     {
         $errors = [];
 
-        if (empty($usuario->nombre)) {
+        if (empty($usuario->getNombre())) {
             $errors[] = "El campo 'nombre' es obligatorio.";
         }
 
-        if (empty($usuario->apellidos)) {
+        if (empty($usuario->getApellidos())) {
             $errors[] = "El campo 'apellidos' es obligatorio.";
         }
 
-        if (empty($usuario->email)) {
+        if (empty($usuario->getEmail())) {
             $errors[] = "El campo 'email' es obligatorio.";
-        } elseif (!filter_var($usuario->email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (!filter_var($usuario->getEmail(), FILTER_VALIDATE_EMAIL)) {
             $errors[] = "El campo 'email' no es válido.";
         }
 
-        if (empty($usuario->password)) {
+        if (empty($usuario->getPassword())) {
             $errors[] = "El campo 'password' es obligatorio.";
-        }
-
-        if (empty($usuario->rol)) {
-            $errors[] = "El campo 'rol' es obligatorio.";
-        } elseif ($usuario->rol != "admin" && $usuario->rol != "user") {
-            $errors[] = "El campo 'rol' no es válido.";
         }
 
         return $errors;

@@ -12,7 +12,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="/registro" method="post">
+            <form action="/API/apiRegistro.php" method="post" id="formRegistro">
                 <h1>Registro</h1>
                 <input type="text" name="nombre" placeholder="Nombre">
                 <input type="text" name="apellidos" placeholder="Apellidos">
@@ -22,7 +22,7 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="/login" method="post">
+            <form action="/API/apiLogin.php" method="post" id="formLogin">
                 <h1>Login</h1>
                 <input type="text" name="username" placeholder="Usuario">
                 <input type="password" name="password" placeholder="Password">
