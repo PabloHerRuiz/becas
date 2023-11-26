@@ -1,5 +1,5 @@
 <?php
-class usuariosRepository
+class solicitudRepository
 {
     private $conexion;
 
@@ -8,43 +8,43 @@ class usuariosRepository
         $this->conexion = $conexion;
     }
 
-    public function getAllUsuarios()
+    public function getAllsolicitud()
     {
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM solicitud";
         $result = $this->conexion->query($sql);
-        $usuarios = [];
+        $solicitud = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $usuarios[] = new Usuario($row['idUser'], $row['nombre'], $row['email'], $row['password']);
+            $solicitud[] = new Solicitud($row['idSolicitud'], $row['idBeca'], $row['idUser']);
         }
-        return $usuarios;
+        return $solicitud;
     }
 
-    public function getUsuarioById($id)
+    public function getSolicitudById($id)
     {
-        $sql = "SELECT * FROM usuarios WHERE idUser = $id";
+        $sql = "SELECT * FROM solicitud WHERE idSolicitud = $id";
         $result = $this->conexion->query($sql);
-        $usuario = null;
+        $solicitud = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $usuario = new Usuario($row['idUser'], $row['nombre'], $row['email'], $row['password']);
+            $solicitud = new Solicitud($row['idSolicitud'], $row['idBeca'], $row['idUser']);
         }
-        return $usuario;
+        return $solicitud;
     }
 
-    public function addUsuario($usuario)
+    public function addSolicitud($solicitud)
     {
-        $sql = "INSERT INTO usuarios (nombre, email, password) VALUES ('$usuario->nombre', '$usuario->email', '$usuario->password')";
+        $sql = "INSERT INTO solicitud (idBeca, idUser) VALUES ($solicitud->idBeca, $solicitud->idUser)";
         $this->conexion->exec($sql);
     }
 
-    public function updateUsuario($usuario)
+    public function updateSolicitud($solicitud)
     {
-        $sql = "UPDATE usuarios SET nombre = '$usuario->nombre', email = '$usuario->email', password = '$usuario->password' WHERE idUser = $usuario->idUser";
+        $sql = "UPDATE solicitud SET idBeca = $solicitud->idBeca, idUser = $solicitud->idUser WHERE idSolicitud = $solicitud->idSolicitud";
         $this->conexion->exec($sql);
     }
 
-    public function deleteUsuario($id)
+    public function deleteSolicitud($id)
     {
-        $sql = "DELETE FROM usuarios WHERE idUser = $id";
+        $sql = "DELETE FROM solicitud WHERE idSolicitud = $id";
         $this->conexion->exec($sql);
     }
 }

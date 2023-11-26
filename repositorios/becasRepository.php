@@ -14,7 +14,7 @@ class becasRepository
         $result = $this->conexion->query($sql);
         $becas = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $becas[] = new Beca($row['idBeca'], $row['nombre'], $row['cantidad'], $row['fechaFin']);
+            $becas[] = new Beca($row['nombre'], $row['cantidad'], $row['fechaFin'],$row['idBeca']);
         }
         return $becas;
     }
@@ -25,7 +25,7 @@ class becasRepository
         $result = $this->conexion->query($sql);
         $beca = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $beca = new Beca($row['idBeca'], $row['nombre'], $row['cantidad'], $row['fechaFin']);
+            $beca = new Beca($row['nombre'], $row['cantidad'], $row['fechaFin'],$row['idBeca']);
         }
         return $beca;
     }

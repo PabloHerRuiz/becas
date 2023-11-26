@@ -8,12 +8,12 @@ class Beca
     private $fechaFin;
 
     // Constructor
-    public function __construct($idBeca, $nombre, $cantidad, $fechaFin)
+    public function __construct($nombre, $cantidad, $fechaFin,$idBeca = null)
     {
-        $this->idBeca = $idBeca;
         $this->nombre = $nombre;
         $this->cantidad = $cantidad;
         $this->fechaFin = $fechaFin;
+        $this->idBeca = $idBeca;
     }
 
     // Getters and Setters

@@ -14,7 +14,7 @@ class usuariosRepository
         $result = $this->conexion->query($sql);
         $usuarios = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $usuarios[] = new Usuario($row['idUser'], $row['nombre'], $row['email'], $row['password']);
+            $usuarios[] = new Usuario($row['nombre'],$row['apellidos'], $row['email'], $row['password'],$row['rol'],$row['idUser']);
         }
         return $usuarios;
     }
@@ -25,7 +25,7 @@ class usuariosRepository
         $result = $this->conexion->query($sql);
         $usuario = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $usuario = new Usuario($row['idUser'], $row['nombre'], $row['email'], $row['password']);
+            $usuario = new Usuario($row['nombre'],$row['apellidos'], $row['email'], $row['password'],$row['rol'],$row['idUser']);
         }
         return $usuario;
     }
