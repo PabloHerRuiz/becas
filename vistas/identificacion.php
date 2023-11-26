@@ -14,18 +14,18 @@
         <div class="form-container sign-up-container">
             <form action="/registro" method="post">
                 <h1>Registro</h1>
-                <input type="text" name="nombre" placeholder="Nombre" required>
-                <input type="text" name="apellidos" placeholder="Apellidos" required>
-                <input type="email" name="correo" placeholder="Correo" required>
-                <input type="password" name="contraseña" placeholder="Contraseña" required>
+                <input type="text" name="nombre" placeholder="Nombre">
+                <input type="text" name="apellidos" placeholder="Apellidos">
+                <input type="email" name="correo" placeholder="Correo">
+                <input type="password" name="pass" placeholder="Contraseña">
                 <button type="submit">Registrarse</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form action="/login" method="post">
                 <h1>Login</h1>
-                <input type="text" name="username" placeholder="Usuario" required>
-                <input type="password" name="password" placeholder="Password" required>
+                <input type="text" name="username" placeholder="Usuario">
+                <input type="password" name="password" placeholder="Password">
                 <button type="submit">Login</button>
             </form>
         </div>

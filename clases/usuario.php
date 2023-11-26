@@ -10,7 +10,7 @@ class Usuario
     private $rol;
 
     //constructor
-    public function __construct($nombre, $apellidos, $email, $password, $rol, $idUser = null)
+    public function __construct($nombre, $apellidos, $email, $password, $rol=null, $idUser = null)
     {
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
