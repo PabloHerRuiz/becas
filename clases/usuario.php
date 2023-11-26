@@ -7,22 +7,25 @@ class Usuario
     private $apellidos;
     private $email;
     private $password;
+    private $rol;
 
     //constructor
-    public function __construct($idUser, $nombre, $apellidos, $email, $password)
+    public function __construct($idUser, $nombre, $apellidos, $email, $password, $rol)
     {
         $this->idUser = $idUser;
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->email = $email;
         $this->password = $password;
+        $this->rol = $rol;
     }
 
-    //getter y setter
+    //getter and setter
     public function getIdUser()
     {
         return $this->idUser;
     }
+
     public function getNombre()
     {
         return $this->nombre;
@@ -37,9 +40,15 @@ class Usuario
     {
         return $this->password;
     }
+
     public function getApellidos()
     {
         return $this->apellidos;
+    }
+
+    public function getRol()
+    {
+        return $this->rol;
     }
 
     public function setNombre($nombre)
@@ -60,6 +69,11 @@ class Usuario
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
+    }
+
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
     }
 }
 ?>
