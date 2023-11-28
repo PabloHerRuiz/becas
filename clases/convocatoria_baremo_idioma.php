@@ -4,12 +4,14 @@ class Convocatoria_baremo_idioma {
     private $idNivel;
     private $idConvocatorias;
     private $idItem_baremables;
+    private $puntos;
 
     //constructor
-    public function __construct($idNivel, $idConvocatorias, $idItem_baremables) {
+    public function __construct($idNivel, $idConvocatorias, $idItem_baremables, $puntos) {
         $this->idNivel = $idNivel;
         $this->idConvocatorias = $idConvocatorias;
         $this->idItem_baremables = $idItem_baremables;
+        $this->puntos = $puntos;
     }
 
     //getter y setter
@@ -25,6 +27,13 @@ class Convocatoria_baremo_idioma {
         return $this->idItem_baremables;
     }
 
+    public function getPuntos() {
+        return $this->puntos;
+    }
+
+    public function setIdNivel($idNivel) {
+        $this->idNivel = $idNivel;
+    }
 }
 
 ?>

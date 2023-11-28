@@ -14,8 +14,8 @@
         <div class="form-container sign-up-container">
             <form action="/API/apiRegistro.php" method="post" id="formRegistro">
                 <h1>Registro</h1>
+                <input type="text" name="dni" placeholder="DNI">
                 <input type="text" name="nombre" placeholder="Nombre">
-                <input type="text" name="apellidos" placeholder="Apellidos">
                 <input type="email" name="correo" placeholder="Correo">
                 <input type="password" name="pass" placeholder="Contraseña">
                 <button type="submit">Registrarse</button>

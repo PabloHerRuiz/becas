@@ -5,9 +5,9 @@ class Nivel_idiomas {
     private $nombre;
 
     //constructor
-    public function __construct($idNivel, $nombre) {
-        $this->idNivel = $idNivel;
+    public function __construct($nombre, $idNivel = null) {
         $this->nombre = $nombre;
+        $this->idNivel = $idNivel;
     }
 
     //getter y setter

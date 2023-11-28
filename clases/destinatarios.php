@@ -6,10 +6,10 @@ class Destinatarios {
     private $nombre;
 
     //constructor
-    public function __construct($idDestinatarios, $codGrupo, $nombre) {
-        $this->idDestinatarios = $idDestinatarios;
+    public function __construct($codGrupo, $nombre, $idDestinatarios = null) {
         $this->codGrupo = $codGrupo;
         $this->nombre = $nombre;
+        $this->idDestinatarios = $idDestinatarios;
     }
 
     //getter y setter

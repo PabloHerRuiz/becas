@@ -11,7 +11,7 @@ class Candidato_convocatorias {
     private $telefono;
     private $tutor;
 
-    public function __construct($idCandidato, $idConvocatorias, $nombre, $apellidos, $correo, $curso, $domicilio, $dni, $telefono, $tutor) {
+    public function __construct($idCandidato, $idConvocatorias, $nombre, $apellidos, $correo, $curso, $domicilio, $dni, $telefono, $tutor=null) {
         $this->idCandidato = $idCandidato;
         $this->idConvocatorias = $idConvocatorias;
         $this->nombre = $nombre;

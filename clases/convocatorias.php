@@ -13,8 +13,7 @@ class Convocatorias {
     private $fecha_lis_provisional;
   
     //constructor
-    public function __construct($idConvocatorias, $codProyecto, $movilidades, $tipo, $fecha_ini, $fecha_fin, $fecha_ini_pruebas, $fecha_fin_pruebas, $fecha_lis_definitiva, $fecha_lis_provisional) {
-        $this->idConvocatorias = $idConvocatorias;
+    public function __construct($codProyecto, $movilidades, $tipo, $fecha_ini, $fecha_fin, $fecha_ini_pruebas, $fecha_fin_pruebas, $fecha_lis_definitiva, $fecha_lis_provisional, $idConvocatorias = null) {
         $this->codProyecto = $codProyecto;
         $this->movilidades = $movilidades;
         $this->tipo = $tipo;
@@ -24,6 +23,7 @@ class Convocatorias {
         $this->fecha_fin_pruebas = $fecha_fin_pruebas;
         $this->fecha_lis_definitiva = $fecha_lis_definitiva;
         $this->fecha_lis_provisional = $fecha_lis_provisional;
+        $this->idConvocatorias = $idConvocatorias;
     }
 
     //getter y setter

@@ -15,8 +15,7 @@ class Candidato {
     private $rol;
 
     //constructor
-    public function __construct($idCandidato, $nombre, $apellidos, $dni, $password, $curso, $correo, $telefono, $domicilio, $fecha_nacimiento, $tutor=null,$rol=null) {
-        $this->idCandidato = $idCandidato;
+    public function __construct($nombre, $apellidos, $dni, $password, $curso, $correo, $telefono, $domicilio, $fecha_nacimiento, $tutor=null,$rol=null, $idCandidato = null) {
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->dni = $dni;
@@ -28,6 +27,7 @@ class Candidato {
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->tutor = $tutor;
         $this->rol = $rol;
+        $this->idCandidato = $idCandidato;
     }
 
     //getter y setter

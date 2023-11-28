@@ -5,9 +5,9 @@ class Item_baremables {
     private $nombre;
 
     //constructor
-    public function __construct($idItem_baremables, $nombre) {
-        $this->idItem_baremables = $idItem_baremables;
+    public function __construct($nombre, $idItem_baremables = null) {
         $this->nombre = $nombre;
+        $this->idItem_baremables = $idItem_baremables;
     }
 
     //getter y setter

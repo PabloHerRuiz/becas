@@ -8,12 +8,12 @@ class Proyectos{
     private $fecha_fin;
 
     //constructor
-    public function __construct($codProyecto, $nombre, $fecha_ini, $fecha_fin)
+    public function __construct($nombre, $fecha_ini, $fecha_fin, $codProyecto = null)
     {
-        $this->codProyecto = $codProyecto;
         $this->nombre = $nombre;
         $this->fecha_ini = $fecha_ini;
         $this->fecha_fin = $fecha_fin;
+        $this->codProyecto = $codProyecto;
     }
 
     //getter y setter
