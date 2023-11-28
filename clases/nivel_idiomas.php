@@ -1,5 +1,5 @@
 <?php
-class nivel_idiomas {
+class Nivel_idiomas {
     //atributos
     private $idNivel;
     private $nombre;

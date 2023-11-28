@@ -1,5 +1,5 @@
 <?php
-class convocatoria_baremo_idioma {
+class Convocatoria_baremo_idioma {
     //atributos
     private $idNivel;
     private $idConvocatorias;

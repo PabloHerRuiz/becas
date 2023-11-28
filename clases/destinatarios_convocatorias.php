@@ -1,5 +1,5 @@
 <?php
-class destinatarios_convocatorias
+class Destinatarios_convocatorias
 {
     //atributos
     private $idConvocatorias;

@@ -1,5 +1,5 @@
 <?php
-class item_baremables {
+class Item_baremables {
     //atributos
     private $idItem_baremables;
     private $nombre;

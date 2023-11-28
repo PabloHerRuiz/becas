@@ -1,5 +1,5 @@
 <?php
-class convocatoria_baremo {
+class Convocatoria_baremo {
     //atributos
     private $idConvocatorias;
     private $idItem_baremables;

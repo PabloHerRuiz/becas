@@ -2,7 +2,6 @@
 class Convocatorias {
     //atributos
     private $idConvocatorias;
-    private $idCandidato;
     private $codProyecto;
     private $movilidades;
     private $tipo;
@@ -14,9 +13,8 @@ class Convocatorias {
     private $fecha_lis_provisional;
   
     //constructor
-    public function __construct($idConvocatorias, $idCandidato, $codProyecto, $movilidades, $tipo, $fecha_ini, $fecha_fin, $fecha_ini_pruebas, $fecha_fin_pruebas, $fecha_lis_definitiva, $fecha_lis_provisional) {
+    public function __construct($idConvocatorias, $codProyecto, $movilidades, $tipo, $fecha_ini, $fecha_fin, $fecha_ini_pruebas, $fecha_fin_pruebas, $fecha_lis_definitiva, $fecha_lis_provisional) {
         $this->idConvocatorias = $idConvocatorias;
-        $this->idCandidato = $idCandidato;
         $this->codProyecto = $codProyecto;
         $this->movilidades = $movilidades;
         $this->tipo = $tipo;
@@ -31,10 +29,6 @@ class Convocatorias {
     //getter y setter
     public function getIdConvocatorias() {
         return $this->idConvocatorias;
-    }
-
-    public function getIdCandidato() {
-        return $this->idCandidato;
     }
 
     public function getCodProyecto() {
