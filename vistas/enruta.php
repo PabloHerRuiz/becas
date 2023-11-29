@@ -19,5 +19,9 @@ if (isset($_GET['menu'])) {
         require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/perfil.php';
 
     }
+    if ($_GET['menu'] == "crea") {
+        require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/crearConvocatoria.php';
+
+    }
 }
 ?>
