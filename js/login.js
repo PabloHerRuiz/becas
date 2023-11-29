@@ -42,13 +42,28 @@ window.addEventListener("load", function () {
         const email = form2.elements["correo"].value;
         const contra = form2.elements["pass"].value;
 
+
         // Realiza las validaciones aquí...
         if (nombre === '' || contra === '' || dni === '' || email === '') {
             alert('Por favor, rellena todos los campos.');
+        } else if (!validadni(dni)) {
+            alert('El DNI no es válido.');
         } else {
             // Si las validaciones pasan, envía el formulario
             form2.submit();
         }
     });
+
+    function validadni(dni) {
+        const letras = 'TRWAGMYFPDXBNJZSQVHLCKE';
+        const letra = dni.charAt(dni.length - 1).toUpperCase();
+        const numeros = dni.substring(0, dni.length - 1);
+
+        if (letras.charAt(numeros % 23) === letra) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 })

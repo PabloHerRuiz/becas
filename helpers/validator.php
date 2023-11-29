@@ -7,6 +7,23 @@ class Validator
         return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
     }
 
+    //funcion valida dni
+    public static function validarDNI($dni) {
+        $letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+    
+        // Extraer los números y la letra
+        $numeros = substr($dni, 0, -1);
+        $letra = substr($dni, -1);
+        $letra= strtoupper($letra);
+    
+        // Calcular la letra correcta
+        $letraCorrecta = $letras[$numeros % 23];
+    
+        // Comparar la letra proporcionada con la letra correcta
+        return $letra == $letraCorrecta;
+    }
+
+
     //valida usuarios
     public static function validateCandidato($candidato)
     {
@@ -15,9 +32,11 @@ class Validator
         if (empty($candidato->getNombre())) {
             $errors[] = "El campo 'nombre' es obligatorio.";
         }
-
+ 
         if (empty($candidato->getDni())) {
-            $errors[] = "El campo 'apellidos' es obligatorio.";
+            $errors[] = "El campo 'dni' es obligatorio.";
+        } elseif (!self::validarDNI($candidato->getDni())) {
+            $errors[] = "El campo 'dni' no es válido.";
         }
 
         if (empty($candidato->getCorreo())) {
