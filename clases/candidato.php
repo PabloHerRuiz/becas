@@ -15,7 +15,7 @@ class Candidato {
     private $rol;
 
     //constructor
-    public function __construct($nombre, $apellidos, $dni, $password, $curso, $correo, $telefono, $domicilio, $fecha_nacimiento, $tutor=null,$rol=null, $idCandidato = null) {
+    public function __construct($nombre, $apellidos=null, $dni, $password, $curso=null, $correo, $telefono=null, $domicilio=null, $fecha_nacimiento=null, $tutor=null,$rol=null, $idCandidato = null) {
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->dni = $dni;

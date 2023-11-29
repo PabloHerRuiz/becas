@@ -8,14 +8,14 @@ class Login
         $this->conexion = $conexion;
     }
     //funcion que inicia sesion del usuario
-    public function user_login($usuario)
+    public function user_login($candidato)
     {
-        if ($usuario != null) {
+        if ($candidato != null) {
             // Verificar la contraseña
-            if (password_verify($_POST['password'], $usuario->getPassword())) {
+            if (password_verify($_POST['password'], $candidato->getPassword())) {
                 // Inicio de sesión exitoso
-                $user = new Usuario($usuario->getNombre(), $usuario->getApellidos(), $usuario->getEmail(),$usuario->getPassword(), $usuario->getRol(), $usuario->getIdUser());
-                Sesion::login_sesion($user);
+                $candi = new Candidato($candidato->getNombre(), $candidato->getApellidos(), $candidato->getDni(),$candidato->getPassword(),$candidato->getCurso(),$candidato->getCorreo(),$candidato->getTelefono(),$candidato->getDomicilio(),$candidato->getFechaNacimiento(),$candidato->getTutor(), $candidato->getRol(), $candidato->getIdCandidato());
+                Sesion::login_sesion($candi);
                 return true;
             } else {
                 // Contraseña incorrecta

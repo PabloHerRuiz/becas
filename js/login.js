@@ -37,13 +37,13 @@ window.addEventListener("load", function () {
     form2.addEventListener('submit', (event) => {
         event.preventDefault(); // Evita el envío del formulario
 
+        const dni = form2.elements["dni"].value;
         const nombre = form2.elements["nombre"].value;
-        const apellidos = form2.elements["apellidos"].value;
-        const contra = form2.elements["pass"].value;
         const email = form2.elements["correo"].value;
+        const contra = form2.elements["pass"].value;
 
         // Realiza las validaciones aquí...
-        if (nombre === '' || contra === '' || apellidos === '' || email === '') {
+        if (nombre === '' || contra === '' || dni === '' || email === '') {
             alert('Por favor, rellena todos los campos.');
         } else {
             // Si las validaciones pasan, envía el formulario
