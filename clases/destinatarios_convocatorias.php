@@ -1,5 +1,5 @@
 <?php
-class Destinatarios_convocatorias
+class Destinatarios_convocatorias implements JsonSerializable
 {
     //atributos
     private $idConvocatorias;
@@ -22,7 +22,12 @@ class Destinatarios_convocatorias
     {
         return $this->idDestinatarios;
     }
-
+    //metodos
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
+    }
 }
 
 ?>

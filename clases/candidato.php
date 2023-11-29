@@ -1,5 +1,6 @@
 <?php
-class Candidato {
+class Candidato implements JsonSerializable
+{
     //atributos
     private $idCandidato;
     private $nombre;
@@ -15,7 +16,8 @@ class Candidato {
     private $rol;
 
     //constructor
-    public function __construct($nombre, $apellidos=null, $dni, $password, $curso=null, $correo, $telefono=null, $domicilio=null, $fecha_nacimiento=null, $tutor=null,$rol=null, $idCandidato = null) {
+    public function __construct($nombre, $apellidos = null, $dni, $password, $curso = null, $correo, $telefono = null, $domicilio = null, $fecha_nacimiento = null, $tutor = null, $rol = null, $idCandidato = null)
+    {
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->dni = $dni;
@@ -31,97 +33,126 @@ class Candidato {
     }
 
     //getter y setter
-    public function getIdCandidato() {
+    public function getIdCandidato()
+    {
         return $this->idCandidato;
     }
 
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre) {
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function getApellidos() {
+    public function getApellidos()
+    {
         return $this->apellidos;
     }
 
-    public function setApellidos($apellidos) {
+    public function setApellidos($apellidos)
+    {
         $this->apellidos = $apellidos;
     }
 
-    public function getDni() {
+    public function getDni()
+    {
         return $this->dni;
     }
 
-    public function setDni($dni) {
+    public function setDni($dni)
+    {
         $this->dni = $dni;
     }
 
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
     }
 
-    public function getCurso() {
+    public function getCurso()
+    {
         return $this->curso;
     }
 
-    public function setCurso($curso) {
+    public function setCurso($curso)
+    {
         $this->curso = $curso;
     }
 
-    public function getCorreo() {
+    public function getCorreo()
+    {
         return $this->correo;
     }
 
-    public function setCorreo($correo) {
+    public function setCorreo($correo)
+    {
         $this->correo = $correo;
     }
 
-    public function getTelefono() {
+    public function getTelefono()
+    {
         return $this->telefono;
     }
 
-    public function setTelefono($telefono) {
+    public function setTelefono($telefono)
+    {
         $this->telefono = $telefono;
     }
 
-    public function getDomicilio() {
+    public function getDomicilio()
+    {
         return $this->domicilio;
     }
 
-    public function setDomicilio($domicilio) {
+    public function setDomicilio($domicilio)
+    {
         $this->domicilio = $domicilio;
     }
 
-    public function getFechaNacimiento() {
+    public function getFechaNacimiento()
+    {
         return $this->fecha_nacimiento;
     }
 
-    public function setFechaNacimiento($fecha_nacimiento) {
+    public function setFechaNacimiento($fecha_nacimiento)
+    {
         $this->fecha_nacimiento = $fecha_nacimiento;
     }
 
-    public function getTutor() {
+    public function getTutor()
+    {
         return $this->tutor;
     }
 
-    public function setTutor($tutor) {
+    public function setTutor($tutor)
+    {
         $this->tutor = $tutor;
     }
 
 
-    public function getRol() {
+    public function getRol()
+    {
         return $this->rol;
     }
 
-    public function setRol($rol) {
+    public function setRol($rol)
+    {
         $this->rol = $rol;
+    }
+    //metodos
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
     }
 }
 

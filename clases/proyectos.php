@@ -1,5 +1,5 @@
 <?php
-class Proyectos{
+class Proyectos implements JsonSerializable{
 
     //atributos
     private $codProyecto;
@@ -49,6 +49,13 @@ class Proyectos{
     public function setFechaFin($fecha_fin)
     {
         $this->fecha_fin = $fecha_fin;
+    }
+
+    //metodos
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
     }
 }
 

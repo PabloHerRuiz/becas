@@ -1,5 +1,5 @@
 <?php
-class Convocatoria_baremo_idioma {
+class Convocatoria_baremo_idioma implements JsonSerializable{
     //atributos
     private $idNivel;
     private $idConvocatorias;
@@ -34,6 +34,12 @@ class Convocatoria_baremo_idioma {
     public function setIdNivel($idNivel) {
         $this->idNivel = $idNivel;
     }
+     //metodos
+     public function jsonSerialize()
+     {
+         $vars = get_object_vars($this);
+         return $vars;
+     }
 }
 
 ?>

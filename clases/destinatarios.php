@@ -1,5 +1,5 @@
 <?php
-class Destinatarios {
+class Destinatarios implements JsonSerializable{
     //atributos
     private $idDestinatarios;
     private $codGrupo;
@@ -32,6 +32,12 @@ class Destinatarios {
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
+     //metodos
+     public function jsonSerialize()
+     {
+         $vars = get_object_vars($this);
+         return $vars;
+     }
 }
 
 ?>

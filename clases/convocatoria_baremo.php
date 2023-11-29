@@ -1,5 +1,6 @@
 <?php
-class Convocatoria_baremo {
+class Convocatoria_baremo implements JsonSerializable
+{
     //atributos
     private $idConvocatorias;
     private $idItem_baremables;
@@ -9,7 +10,8 @@ class Convocatoria_baremo {
     private $requerido;
 
     //constructor
-    public function __construct($idConvocatorias, $idItem_baremables, $maximo, $minimo=null, $presenta, $requerido) {
+    public function __construct($idConvocatorias, $idItem_baremables, $maximo, $minimo = null, $presenta, $requerido)
+    {
         $this->idConvocatorias = $idConvocatorias;
         $this->idItem_baremables = $idItem_baremables;
         $this->maximo = $maximo;
@@ -19,44 +21,60 @@ class Convocatoria_baremo {
     }
 
     //getter y setter
-    public function getIdConvocatorias() {
+    public function getIdConvocatorias()
+    {
         return $this->idConvocatorias;
     }
 
-    public function getIdItem_baremables() {
+    public function getIdItem_baremables()
+    {
         return $this->idItem_baremables;
     }
 
-    public function getMaximo() {
+    public function getMaximo()
+    {
         return $this->maximo;
     }
 
-    public function setMaximo($maximo) {
+    public function setMaximo($maximo)
+    {
         $this->maximo = $maximo;
     }
 
-    public function getMinimo() {
+    public function getMinimo()
+    {
         return $this->minimo;
     }
 
-    public function setMinimo($minimo) {
+    public function setMinimo($minimo)
+    {
         $this->minimo = $minimo;
     }
 
-    public function getPresenta() {
+    public function getPresenta()
+    {
         return $this->presenta;
     }
 
-    public function setPresenta($presenta) {
+    public function setPresenta($presenta)
+    {
         $this->presenta = $presenta;
     }
 
-    public function getRequerido() {
+    public function getRequerido()
+    {
         return $this->requerido;
     }
 
-    public function setRequerido($requerido) {
+    public function setRequerido($requerido)
+    {
         $this->requerido = $requerido;
+    }
+    //metodos
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
     }
 }
 

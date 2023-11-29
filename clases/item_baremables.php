@@ -1,5 +1,5 @@
 <?php
-class Item_baremables {
+class Item_baremables implements JsonSerializable{
     //atributos
     private $idItem_baremables;
     private $nombre;
@@ -22,6 +22,12 @@ class Item_baremables {
     public function setNombre($nombre) {
         $this->nombre = $nombre;
     }
+     //metodos
+     public function jsonSerialize()
+     {
+         $vars = get_object_vars($this);
+         return $vars;
+     }
 }
 
 ?>

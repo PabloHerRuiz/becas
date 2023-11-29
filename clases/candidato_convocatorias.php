@@ -1,5 +1,6 @@
 <?php
-class Candidato_convocatorias {
+class Candidato_convocatorias implements JsonSerializable
+{
     private $idCandidato;
     private $idConvocatorias;
     private $nombre;
@@ -11,7 +12,8 @@ class Candidato_convocatorias {
     private $telefono;
     private $tutor;
 
-    public function __construct($idCandidato, $idConvocatorias, $nombre, $apellidos, $correo, $curso, $domicilio, $dni, $telefono, $tutor=null) {
+    public function __construct($idCandidato, $idConvocatorias, $nombre, $apellidos, $correo, $curso, $domicilio, $dni, $telefono, $tutor = null)
+    {
         $this->idCandidato = $idCandidato;
         $this->idConvocatorias = $idConvocatorias;
         $this->nombre = $nombre;
@@ -24,84 +26,110 @@ class Candidato_convocatorias {
         $this->tutor = $tutor;
     }
 
-    public function getIdCandidato() {
+    public function getIdCandidato()
+    {
         return $this->idCandidato;
     }
 
-    public function setIdCandidato($idCandidato) {
+    public function setIdCandidato($idCandidato)
+    {
         $this->idCandidato = $idCandidato;
     }
 
-    public function getIdConvocatorias() {
+    public function getIdConvocatorias()
+    {
         return $this->idConvocatorias;
     }
 
-    public function setIdConvocatorias($idConvocatorias) {
+    public function setIdConvocatorias($idConvocatorias)
+    {
         $this->idConvocatorias = $idConvocatorias;
     }
 
-    public function getNombre() {
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre) {
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function getApellidos() {
+    public function getApellidos()
+    {
         return $this->apellidos;
     }
 
-    public function setApellidos($apellidos) {
+    public function setApellidos($apellidos)
+    {
         $this->apellidos = $apellidos;
     }
 
-    public function getCorreo() {
+    public function getCorreo()
+    {
         return $this->correo;
     }
 
-    public function setCorreo($correo) {
+    public function setCorreo($correo)
+    {
         $this->correo = $correo;
     }
 
-    public function getCurso() {
+    public function getCurso()
+    {
         return $this->curso;
     }
 
-    public function setCurso($curso) {
+    public function setCurso($curso)
+    {
         $this->curso = $curso;
     }
 
-    public function getDomicilio() {
+    public function getDomicilio()
+    {
         return $this->domicilio;
     }
 
-    public function setDomicilio($domicilio) {
+    public function setDomicilio($domicilio)
+    {
         $this->domicilio = $domicilio;
     }
 
-    public function getDni() {
+    public function getDni()
+    {
         return $this->dni;
     }
 
-    public function setDni($dni) {
+    public function setDni($dni)
+    {
         $this->dni = $dni;
     }
 
-    public function getTelefono() {
+    public function getTelefono()
+    {
         return $this->telefono;
     }
 
-    public function setTelefono($telefono) {
+    public function setTelefono($telefono)
+    {
         $this->telefono = $telefono;
     }
 
-    public function getTutor() {
+    public function getTutor()
+    {
         return $this->tutor;
     }
 
-    public function setTutor($tutor) {
+    public function setTutor($tutor)
+    {
         $this->tutor = $tutor;
+    }
+    //metodos
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
     }
 }
 ?>
