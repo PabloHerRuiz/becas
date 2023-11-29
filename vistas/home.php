@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Home</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/home.js"></script>
 </head>
+
 <body>
-    <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Becas Disponibles</a></li>
-        <li><a href="#">Becas Pasadas</a></li>
-    </ul>
-    <div>
+    <div class="tab">
+        <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'BecasDisponibles')">Becas Disponibles</button>
+        <button class="tablinks" onclick="openTab(event, 'BecasEnTramite')">Becas en Trámite</button>
+    </div>
+
+    <div id="BecasDisponibles" class="tabcontent">
+        <h3>Becas Disponibles</h3>
+        <p>Contenido de Becas Disponibles.</p>
+    </div>
+
+    <div id="BecasEnTramite" class="tabcontent">
+        <h3>Becas en Trámite</h3>
+        <p>Contenido de Becas en Trámite.</p>
     </div>
 </body>
+
 </html>

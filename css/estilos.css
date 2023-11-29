@@ -208,4 +208,42 @@ input {
     transform: translateX(20%);
 }
 
+/* Estilo para las pestañas */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 50%;
+  }
+  
+  /* Estilo para los botones de las pestañas */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    width: 50%;
+  }
+  
+  /* Cambia el color de fondo de los botones al pasar el mouse */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Estilo para el botón activo */
+  .tab button.active {
+    background-color: #ccc;
+  }
+  
+  /* Estilo para el contenido de las pestañas */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    width: 48.7%;
+  }
 
