@@ -5,11 +5,11 @@ class Baremacion implements JsonSerializable
     private $idBaremacion;
     private $idConvocatorias;
     private $idCandidato;
-    private $nota;
     private $url;
+    private $nota;
 
     //constructor
-    public function __construct($idBaremacion,$idConvocatorias, $idCandidato,$url,$nota)
+    public function __construct($idBaremacion=null,$idConvocatorias, $idCandidato,$url,$nota)
     {
         $this->idBaremacion = $idBaremacion;
         $this->idConvocatorias = $idConvocatorias;
