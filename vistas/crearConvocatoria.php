@@ -77,7 +77,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox" name="habilitador"></td>
+                            <td><input type="checkbox" name="habilitador" id="cb1"><label for="cb1"><img
+                                        src="css/imagenes/cerrar-con-llave.png" class="checkbox-image" alt=""></label>
+                            </td>
                             <td>Nota</td>
                             <td><input type="number"></td>
                             <td><input type="checkbox"></td>
@@ -85,7 +87,9 @@
                             <td><input type="checkbox"></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="habilitador"></td>
+                            <td><input type="checkbox" name="habilitador" id="cb2"><label for="cb2"><img
+                                        src="css/imagenes/cerrar-con-llave.png" class="checkbox-image" alt=""></label>
+                            </td>
                             <td>Idoneidad</td>
                             <td><input type="number"></td>
                             <td><input type="checkbox"></td>
@@ -93,7 +97,9 @@
                             <td><input type="checkbox"></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="habilitador"></td>
+                            <td><input type="checkbox" name="habilitador" id="cb3"><label for="cb3"><img
+                                        src="css/imagenes/cerrar-con-llave.png" class="checkbox-image" alt=""></label>
+                            </td>
                             <td>Entrevista</td>
                             <td><input type="number"></td>
                             <td><input type="checkbox"></td>
@@ -101,7 +107,9 @@
                             <td><input type="checkbox"></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="habilitador" id="idiomaCB"></td>
+                            <td><input type="checkbox" name="habilitador" id="idiomaCB"><label for="idiomaCB"><img
+                                        src="css/imagenes/cerrar-con-llave.png" class="checkbox-image" alt=""></label>
+                            </td>
                             <td>Idioma</td>
                             <td><input type="number"></td>
                             <td><input type="checkbox"></td>

@@ -6,7 +6,8 @@ form {
     border-radius: 5px;
     background-color: #f9f9f9;
 }
-.contenido{
+
+.contenido {
     display: flex;
 }
 
@@ -20,8 +21,12 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"], input[type="number"], input[type="date"], select {
-    width: 20%; /* Adjusted size */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 20%;
+    /* Adjusted size */
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -34,7 +39,8 @@ table {
     margin-bottom: 20px;
 }
 
-table th, table td {
+table th,
+table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
@@ -65,19 +71,24 @@ fieldset {
     width: 40%;
     display: inline-block;
 }
-fieldset input[type="text"]{
+
+fieldset input[type="text"] {
     width: 75%;
 
 }
-fieldset input[type="number"]{
+
+fieldset input[type="number"] {
     width: 20%;
 }
-fieldset select{
+
+fieldset select {
     width: 80%;
 }
-fieldset input[type="date"]{
+
+fieldset input[type="date"] {
     width: 75%;
 }
+
 .proyecto {
     border: 0px solid #ddd;
     border-radius: 5px;
@@ -89,26 +100,42 @@ fieldset input[type="date"]{
     border-radius: 5px;
     padding: 20px;
 }
-.inicio{
-    border: 0px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-}
-.fin{
+
+.inicio {
     border: 0px solid #ddd;
     border-radius: 5px;
     padding: 20px;
 }
 
-.tablas{
+.fin {
+    border: 0px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.tablas {
     width: 50%;
 }
+
 /* checkbox */
-.idioma{
-    display:none;
+.idioma {
+    display: none;
 }
 
 .disabled {
     opacity: 0.5;
     pointer-events: none;
 }
+
+input[type="checkbox"][name="habilitador"] {
+    display: none;
+}
+
+img {
+    width: 50px;
+    height: 50px;
+}
+
+/* para mañana
+    https://codepen.io/FlorinCornea/pen/poNBrzm
+*/

@@ -28,7 +28,7 @@ window.addEventListener('load', function () {
 
     //funcionalidad para los checkbox primeros
 
-    const filas = document.querySelectorAll('.baremable tr');
+    const filas = document.querySelectorAll('.baremable tbody tr');
 
     // Añade la clase disabled a todos los elementos de cada fila, excepto al checkbox 'habilitador'
     filas.forEach(fila => {
@@ -45,9 +45,15 @@ window.addEventListener('load', function () {
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function () {
+            var img = this.nextElementSibling.querySelector('.checkbox-image');
             const children = Array.from(this.parentNode.parentNode.children);
+
             // Si el checkbox está marcado, habilita la fila
             if (this.checked) {
+                
+                //cambiamos la imagen
+                img.src = 'css/imagenes/candado-abierto.png';
+
                 children.forEach(child => {
                     const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
                     if (!checkbox) {
@@ -56,6 +62,10 @@ window.addEventListener('load', function () {
                 });
             } else {
                 // Si el checkbox no está marcado, deshabilita la fila
+
+                //cambiamos la imagen
+                img.src = 'css/imagenes/cerrar-con-llave.png';
+
                 children.forEach(child => {
                     const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
                     if (!checkbox) {
