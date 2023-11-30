@@ -1,5 +1,5 @@
 form {
-    width: 30%;
+    width: 50%;
     margin: auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -18,7 +18,7 @@ label {
 }
 
 input[type="text"], input[type="number"], input[type="date"], select {
-    width: 92%; /* Adjusted size */
+    width: 20%; /* Adjusted size */
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -56,3 +56,44 @@ button {
 button:hover {
     background-color: #555;
 }
+
+/* fieldset */
+fieldset {
+    width: 40%;
+    display: inline-block;
+}
+fieldset input[type="text"]{
+    width: 75%;
+
+}
+fieldset input[type="number"]{
+    width: 20%;
+}
+fieldset select{
+    width: 80%;
+}
+fieldset input[type="date"]{
+    width: 75%;
+}
+.proyecto {
+    border: 0px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.duracion {
+    border: 0px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+.inicio{
+    border: 0px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+.fin{
+    border: 0px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+
