@@ -1,10 +1,13 @@
 form {
-    width: 50%;
+    width: 70%;
     margin: auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
+}
+.contenido{
+    display: flex;
 }
 
 h1 {
@@ -26,7 +29,7 @@ input[type="text"], input[type="number"], input[type="date"], select {
 }
 
 table {
-    width: 100%;
+    width: 60%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
@@ -97,3 +100,15 @@ fieldset input[type="date"]{
     padding: 20px;
 }
 
+.tablas{
+    width: 50%;
+}
+/* checkbox */
+.idioma{
+    display:none;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
