@@ -90,7 +90,7 @@ HTMLSelectElement.prototype.relleno = function () {
 };
 
 HTMLFormElement.prototype.valida = function () {
-    var elementos = this.querySelectorAll("input[data-valida],select[data-valida]");
+    var elementos = this.querySelectorAll("input[data-valida]:not(td.disabled > *),select[data-valida]");
     var respuesta = true;
     let n = elementos.length;
     for (let i = 0; i < n; i++) {

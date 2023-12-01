@@ -87,7 +87,8 @@ window.addEventListener('load', function () {
 
                         children.forEach(child => {
                             const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
-                            if (!checkbox) {
+                            const inputMinimo = child.querySelector('input[name="minimo"]');
+                            if (!checkbox && !inputMinimo) {
                                 child.classList.remove('disabled');
                             }
                         });
@@ -116,6 +117,20 @@ window.addEventListener('load', function () {
                 }
             });
 
+
+            const requisitos = document.querySelectorAll("input[type='checkbox'][name='requisito']");
+            requisitos.forEach(requisito => {
+                requisito.addEventListener('change', function () {
+                    const inputMinimo = this.parentNode.parentNode.querySelector("input[name='minimo']");
+                    if (this.checked) {
+                        inputMinimo.removeAttribute('disabled');
+                        inputMinimo.parentNode.classList.remove('disabled');
+                    } else {
+                        inputMinimo.setAttribute('disabled', '');
+                        inputMinimo.parentNode.classList.add('disabled');
+                    }
+                });
+            });
         });
 
     //controlamos el evento de envio del formulario
@@ -124,11 +139,11 @@ window.addEventListener('load', function () {
         event.preventDefault();
 
         //comprobamos los valores    
-         if(form.valida()){
+        if (form.valida()) {
             this.classList.add("valido");
             this.classList.remove("invalido");
             // form.submit();
-        }else{
+        } else {
             this.classList.remove("valido");
             this.classList.add("invalido");
         }
