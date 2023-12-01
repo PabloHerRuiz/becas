@@ -11,8 +11,7 @@ window.addEventListener('load', function () {
     const fecha_listado_provisional = document.getElementById('fecha_listado_provisional');
     const fecha_listado_definitivo = document.getElementById('fecha_listado_definitivo');
     const form = document.getElementById('formConvocatoria');
-
-
+    const tablaItem = document.querySelector('.baremable tbody');
     //cargar los proyectos
     fetch('http://virtual.administracion.com/API/apiProyecto.php')
         .then(x => x.json())
@@ -26,55 +25,89 @@ window.addEventListener('load', function () {
             }
         })
 
-    //funcionalidad para los checkbox primeros
+    // cargar tablaItem
 
-    const filas = document.querySelectorAll('.baremable tbody tr');
-
-    // Añade la clase disabled a todos los elementos de cada fila, excepto al checkbox 'habilitador'
-    filas.forEach(fila => {
-        const children = Array.from(fila.children);
-        children.forEach(child => {
-            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
-            if (!checkbox) {
-                child.classList.add('disabled');
-            }
+    // Cargar la plantilla de item una vez
+    fetch("/vistas/plantillas/tablaItem.html")
+        .then(x => x.text())
+        .then(y => {
+            plantillaItem = document.createElement("tr");
+            plantillaItem.innerHTML = y;
         });
-    });
 
-    const checkboxes = document.querySelectorAll('.baremable input[type="checkbox"][name="habilitador"]');
+    // Cargar los items
 
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            var img = this.nextElementSibling.querySelector('.checkbox-image');
-            const children = Array.from(this.parentNode.parentNode.children);
+    fetch('http://virtual.administracion.com/API/apiItem.php')
+        .then(x => x.json())
+        .then(y => {
+            for (let i = 0; i < y.length; i++) {
+                var itemBaremable = plantillaItem.cloneNode(true);
 
-            // Si el checkbox está marcado, habilita la fila
-            if (this.checked) {
-                
-                //cambiamos la imagen
-                img.src = 'css/imagenes/candado-abierto.png';
+                var item = itemBaremable.querySelector(".item");
 
-                children.forEach(child => {
-                    const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
-                    if (!checkbox) {
-                        child.classList.remove('disabled');
-                    }
-                });
-            } else {
-                // Si el checkbox no está marcado, deshabilita la fila
+                item.innerHTML = y[i].nombre;
+                item.value = y[i].idItem_baremables;
 
-                //cambiamos la imagen
-                img.src = 'css/imagenes/cerrar-con-llave.png';
+                tablaItem.appendChild(itemBaremable);
+            }
 
+            //funcionalidad para los checkbox primeros
+
+            const filas = document.querySelectorAll('.baremable tbody tr');
+
+            // Añade la clase disabled a todos los elementos de cada fila, excepto al checkbox 'habilitador'
+            filas.forEach(fila => {
+                const children = Array.from(fila.children);
                 children.forEach(child => {
                     const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
                     if (!checkbox) {
                         child.classList.add('disabled');
                     }
                 });
-            }
-        });
-    });
+            });
+
+            const checkboxes = document.querySelectorAll('.baremable input[type="checkbox"][name="habilitador"]');
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    var img = this.nextElementSibling.querySelector('.checkbox-image');
+                    const children = Array.from(this.parentNode.parentNode.children);
+
+                    // Si el checkbox está marcado, habilita la fila
+                    if (this.checked) {
+
+                        //cambiamos la imagen
+                        img.src = 'css/imagenes/candado-abierto.png';
+
+                        children.forEach(child => {
+                            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
+                            if (!checkbox) {
+                                child.classList.remove('disabled');
+                            }
+                        });
+                    } else {
+                        // Si el checkbox no está marcado, deshabilita la fila
+
+                        //cambiamos la imagen
+                        img.src = 'css/imagenes/cerrar-con-llave.png';
+
+                        children.forEach(child => {
+                            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
+                            if (!checkbox) {
+                                child.classList.add('disabled');
+                            }
+                        });
+                    }
+                });
+            });
+
+        })
+
+
+
+
+
+
 
     const idiomaCB = document.getElementById('idiomaCB');
     const tablaIdioma = document.getElementsByClassName('idioma')[0];
@@ -87,6 +120,7 @@ window.addEventListener('load', function () {
     });
 
 
+
     //controlamos el evento de envio del formulario
 
     form.addEventListener('submit', function (event) {
@@ -97,71 +131,10 @@ window.addEventListener('load', function () {
             alert('Faltan datos por rellenar en el formulario');
             console.error('Datos del formulario no válidos');
             return;
+        } else {
+            form.submit();
         }
 
-        //guardar la convocatoria
-        const convocatoria = {
-            proyecto: proyecto.value,
-            movilidades: movilidades.value,
-            tipo: tipo.value,
-            destino: destino.value,
-            fechaInicio: fechaInicio.value,
-            fechaFin: fechaFin.value,
-            fecha_inicio_prueba: fecha_inicio_prueba.value,
-            fecha_fin_prueba: fecha_fin_prueba.value,
-            fecha_listado_provisional: fecha_listado_provisional.value,
-            fecha_listado_definitivo: fecha_listado_definitivo.value
-        }
-
-        fetch('http://virtual.administracion.com/API/apiConvocatoria.php', {
-            method: 'POST',
-            body: JSON.stringify(convocatoria),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(x => x.json())
-            .then(y => {
-                // Obtener la ID de la convocatoria recién creada
-                const convocatoriaId = y.id;
-
-                // Crear los datos para apiConvocatoria_baremo y apiConvocatoria_baremo_idioma
-                const baremoData = {
-                    idConvocatoria: "",
-                    idItem_baremables: "",
-                    maximo: "",
-                    minimo: "",
-                    presenta: "",
-                    requerido: ""
-
-                };
-
-                const idiomaData = {
-                    idConvocatoria: "",
-                    idItem_baremables: "",
-                    idNivel: "",
-                    puntos: ""
-
-                };
-
-                // Enviar los datos a apiConvocatoria_baremo
-                fetch(`http://virtual.administracion.com/API/apiConvocatoria_baremo.php?id=${convocatoriaId}`, {
-                    method: 'POST',
-                    body: JSON.stringify(baremoData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                // Enviar los datos a apiConvocatoria_baremo_idioma
-                fetch(`http://virtual.administracion.com/API/apiConvocatoria_baremo_idioma.php?id=${convocatoriaId}`, {
-                    method: 'POST',
-                    body: JSON.stringify(idiomaData),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-            })
 
     });
 
