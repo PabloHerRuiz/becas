@@ -12,6 +12,7 @@ window.addEventListener('load', function () {
     const fecha_listado_definitivo = document.getElementById('fecha_listado_definitivo');
     const form = document.getElementById('formConvocatoria');
     const tablaItem = document.querySelector('.baremable tbody');
+
     //cargar los proyectos
     fetch('http://virtual.administracion.com/API/apiProyecto.php')
         .then(x => x.json())
@@ -48,6 +49,12 @@ window.addEventListener('load', function () {
                 item.innerHTML = y[i].nombre;
                 item.value = y[i].idItem_baremables;
 
+                var checkbox = itemBaremable.querySelector('input[type="checkbox"][name="habilitador"]');
+                checkbox.id = y[i].nombre + "CB";
+
+                var label = itemBaremable.querySelector('label');
+                label.htmlFor = y[i].nombre + "CB";
+
                 tablaItem.appendChild(itemBaremable);
             }
 
@@ -73,7 +80,6 @@ window.addEventListener('load', function () {
                     var img = this.nextElementSibling.querySelector('.checkbox-image');
                     const children = Array.from(this.parentNode.parentNode.children);
 
-                    // Si el checkbox está marcado, habilita la fila
                     if (this.checked) {
 
                         //cambiamos la imagen
@@ -86,7 +92,6 @@ window.addEventListener('load', function () {
                             }
                         });
                     } else {
-                        // Si el checkbox no está marcado, deshabilita la fila
 
                         //cambiamos la imagen
                         img.src = 'css/imagenes/cerrar-con-llave.png';
@@ -101,25 +106,17 @@ window.addEventListener('load', function () {
                 });
             });
 
-        })
+            const idiomaCB = document.getElementById('IdiomaCB');
+            const tablaIdioma = document.getElementsByClassName('idioma')[0];
+            idiomaCB.addEventListener('change', function () {
+                if (this.checked) {
+                    tablaIdioma.style.display = "table";
+                } else {
+                    tablaIdioma.style.display = "none";
+                }
+            });
 
-
-
-
-
-
-
-    const idiomaCB = document.getElementById('idiomaCB');
-    const tablaIdioma = document.getElementsByClassName('idioma')[0];
-    idiomaCB.addEventListener('change', function () {
-        if (this.checked) {
-            tablaIdioma.style.display = "table";
-        } else {
-            tablaIdioma.style.display = "none";
-        }
-    });
-
-
+        });
 
     //controlamos el evento de envio del formulario
 
@@ -127,15 +124,14 @@ window.addEventListener('load', function () {
         event.preventDefault();
 
         //comprobamos los valores    
-        if (!proyecto.value || !movilidades.value || !tipo.value || !destino.value || !fechaInicio.value || !fechaFin.value || !fecha_inicio_prueba.value || !fecha_fin_prueba.value || !fecha_listado_provisional.value || !fecha_listado_definitivo.value) {
-            alert('Faltan datos por rellenar en el formulario');
-            console.error('Datos del formulario no válidos');
-            return;
-        } else {
-            form.submit();
+         if(form.valida()){
+            this.classList.add("valido");
+            this.classList.remove("invalido");
+            // form.submit();
+        }else{
+            this.classList.remove("valido");
+            this.classList.add("invalido");
         }
-
-
     });
 
 
