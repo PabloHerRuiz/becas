@@ -16,6 +16,14 @@ window.addEventListener('load', function () {
     const theadIdioma = document.querySelector('.idioma thead tr');
     const fieldDestinatario = document.getElementById('destinatarios');
 
+
+    //desactivar los campos de fecha
+    fechaFin.disabled = true;
+    fecha_inicio_prueba.disabled = true;
+    fecha_fin_prueba.disabled = true;
+    fecha_listado_provisional.disabled = true;
+    fecha_listado_definitivo.disabled = true;
+
     //cargar los proyectos
     fetch('http://virtual.administracion.com/API/apiProyecto.php')
         .then(x => x.json())
@@ -27,9 +35,9 @@ window.addEventListener('load', function () {
 
                 proyecto.appendChild(opcion);
             }
-        })
+        });
 
-    // cargar tablaItem
+    //plantillas
 
     // Cargar la plantilla de item una vez
     fetch("/vistas/plantillas/tablaItem.html")
@@ -55,6 +63,8 @@ window.addEventListener('load', function () {
             plantillaIdioma.innerHTML = y;
         });
 
+
+    //cargar los datos con las plantillas
 
     //cargar idiomas
     fetch('http://virtual.administracion.com/API/apiNivel.php')
@@ -212,6 +222,137 @@ window.addEventListener('load', function () {
             });
         });
 
+    //controlar las fechas
+    fechaInicio.addEventListener('change', function () {
+        var fecha = new Date(this.value);
+
+        var fechaActual = new Date();
+        fechaActual.setHours(0, 0, 0, 0);
+
+        if (fecha.getTime() < fechaActual.getTime()) {
+            alert("La fecha seleccionada no puede ser anterior a la fecha actual");
+            fechaInicio.value = "";
+        } else {
+            console.log("La fecha ingresada no es anterior a la fecha actual");
+            fechaFin.disabled = false;
+        }
+
+        if (fechaFin.value) {
+            fechaFin.value = "";
+            fechaFin.disabled = false;
+            fecha_inicio_prueba.value = "";
+            fecha_inicio_prueba.disabled = true;
+            fecha_fin_prueba.value = "";
+            fecha_fin_prueba.disabled = true;
+            fecha_listado_provisional.value = "";
+            fecha_listado_provisional.disabled = true;
+            fecha_listado_definitivo.value = "";
+            fecha_listado_definitivo.disabled = true;           
+        }
+    });
+
+    fechaFin.addEventListener('change', function () {
+        var fecha = new Date(this.value);
+
+        var fechaIni = new Date(fechaInicio.value);
+
+        if (fecha.getTime() < fechaIni.getTime()) {
+            alert("La fecha seleccionada no puede ser anterior a la fecha de inicio");
+            fechaFin.value = "";
+        } else {
+            console.log("La fecha ingresada no es anterior a la fecha de inicio");
+            fecha_inicio_prueba.disabled = false;
+        }
+
+        if (fecha_inicio_prueba.value) {
+            fecha_inicio_prueba.value = "";
+            fecha_inicio_prueba.disabled = false;
+            fecha_fin_prueba.value = "";
+            fecha_fin_prueba.disabled = true;
+            fecha_listado_provisional.value = "";
+            fecha_listado_provisional.disabled = true;
+            fecha_listado_definitivo.value = "";
+            fecha_listado_definitivo.disabled = true;    
+        }
+
+    });
+
+    fecha_inicio_prueba.addEventListener('change', function () {
+        var fecha = new Date(this.value);
+
+        var fechaFinal = new Date(fechaFin.value);
+
+        if (fecha.getTime() < fechaFinal.getTime()) {
+            alert("La fecha seleccionada no puede ser anterior a la fecha final de la convocatoria");
+            fecha_inicio_prueba.value = "";
+        } else {
+            console.log("La fecha ingresada no es anterior a la fecha final de la convocatoria");
+            fecha_fin_prueba.disabled = false;
+        }
+
+        if (fecha_fin_prueba.value) {
+            fecha_fin_prueba.value = "";
+            fecha_fin_prueba.disabled = false;
+            fecha_listado_provisional.value = "";
+            fecha_listado_provisional.disabled = true;
+            fecha_listado_definitivo.value = "";
+            fecha_listado_definitivo.disabled = true; 
+        }
+    });
+
+    fecha_fin_prueba.addEventListener('change', function () {
+        var fecha = new Date(this.value);
+
+        var fechaIniPrueba = new Date(fecha_inicio_prueba.value);
+
+        if (fecha.getTime() < fechaIniPrueba.getTime()) {
+            alert("La fecha seleccionada no puede ser anterior a la fecha de inicio de la prueba");
+            fecha_fin_prueba.value = "";
+        } else {
+            console.log("La fecha ingresada no es anterior a la fecha de inicio de la prueba");
+            fecha_listado_provisional.disabled = false;
+        }
+        if (fecha_listado_provisional.value) {
+            fecha_listado_provisional.value = "";
+            fecha_listado_provisional.disabled = false;
+            fecha_listado_definitivo.value = "";
+            fecha_listado_definitivo.disabled = true; 
+        }
+
+    });
+
+    fecha_listado_provisional.addEventListener('change', function () {
+        var fecha = new Date(this.value);
+
+        var fechaFinPrueba = new Date(fecha_fin_prueba.value);
+
+        if (fecha.getTime() < fechaFinPrueba.getTime()) {
+            alert("La fecha seleccionada no puede ser anterior a la fecha final de la prueba");
+            fecha_listado_provisional.value = "";
+        } else {
+            console.log("La fecha ingresada no es anterior a la fecha final de la prueba");
+            fecha_listado_definitivo.disabled = false;
+        }
+
+        if (fecha_listado_definitivo.value) {
+            fecha_listado_definitivo.value = "";
+            fecha_listado_definitivo.disabled = false;
+        }
+    });
+
+    fecha_listado_definitivo.addEventListener('change', function () {
+        var fecha = new Date(this.value);
+
+        var fechaListadoProvisional = new Date(fecha_listado_provisional.value);
+
+        if (fecha.getTime() < fechaListadoProvisional.getTime()) {
+            alert("La fecha seleccionada no puede ser anterior a la fecha del listado provisional");
+            fecha_listado_definitivo.value = "";
+        } else {
+            console.log("La fecha ingresada no es anterior a la fecha del listado provisional");
+        }
+    });
+
     //controlamos el evento de envio del formulario
 
     form.addEventListener('submit', function (event) {
@@ -231,8 +372,8 @@ window.addEventListener('load', function () {
             this.classList.remove("valido");
             this.classList.add("invalido");
 
-             // Remover la clase 'valido' después de 5 segundos
-             setTimeout(function() {
+            // Remover la clase 'valido' después de 5 segundos
+            setTimeout(function () {
                 form.classList.remove("invalido");
             }, 2000);
         }
