@@ -91,12 +91,10 @@
 
                 <table class="idioma">
                     <thead>
-                        <tr>
-                        </tr>
+                        <tr></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        </tr>
+                        <tr></tr>
                     </tbody>
                 </table>
             </div>
@@ -105,6 +103,24 @@
             <button type="submit">Crear Convocatoria</button>
         </div>
     </form>
+
+    <?php
+
+    try {
+        $conn = db::abreconexion();
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Database connection failed']);
+        exit;
+    }
+
+    $convocatoriaRepository = new convocatoriaRepository($conn);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    }
+    ?>
+
 
 </body>
 
