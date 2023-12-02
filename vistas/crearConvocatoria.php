@@ -92,22 +92,10 @@
                 <table class="idioma">
                     <thead>
                         <tr>
-                            <th>A1</th>
-                            <th>A2</th>
-                            <th>B1</th>
-                            <th>B2</th>
-                            <th>C1</th>
-                            <th>C2</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
-                            <td><input type="text"></td>
                         </tr>
                     </tbody>
                 </table>

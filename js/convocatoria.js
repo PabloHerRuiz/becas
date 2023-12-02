@@ -12,6 +12,8 @@ window.addEventListener('load', function () {
     const fecha_listado_definitivo = document.getElementById('fecha_listado_definitivo');
     const form = document.getElementById('formConvocatoria');
     const tablaItem = document.querySelector('.baremable tbody');
+    const bodyIdioma = document.querySelector('.idioma tbody tr');
+    const theadIdioma = document.querySelector('.idioma thead tr');
     const fieldDestinatario = document.getElementById('destinatarios');
 
     //cargar los proyectos
@@ -45,25 +47,54 @@ window.addEventListener('load', function () {
             plantillaDest.innerHTML = y;
         });
 
+    // Cargar la plantilla de idiomas una vez
+    fetch("/vistas/plantillas/idioma.html")
+        .then(x => x.text())
+        .then(y => {
+            plantillaIdioma = document.createElement("tr");
+            plantillaIdioma.innerHTML = y;
+        });
+
+
+    //cargar idiomas
+    fetch('http://virtual.administracion.com/API/apiNivel.php')
+        .then(x => x.json())
+        .then(y => {
+            for (let i = 0; i < y.length; i++) {
+                var idiomas = plantillaIdioma.cloneNode(true);
+
+                var th=document.createElement('th');
+                var nivel = idiomas.querySelector(".nIdioma");
+                nivel.textContent = y[i].nombre;
+                th.appendChild(nivel);
+                theadIdioma.appendChild(th);
+
+                var nota = document.createElement('td');
+                nota = idiomas.querySelector("td");
+                nota.querySelector('input').id = y[i].idNivel;
+                nota.querySelector('input').setAttribute('data-valida', 'relleno');
+                bodyIdioma.appendChild(nota);
+            }
+        });
 
     //cargar los destinatarios
 
     fetch('http://virtual.administracion.com/API/apiDestinatario.php')
-    .then(x => x.json())
-    .then(y => {
-        for (let i = 0; i < y.length; i++) {
-            var destinatario = plantillaDest.cloneNode(true);
+        .then(x => x.json())
+        .then(y => {
+            for (let i = 0; i < y.length; i++) {
+                var destinatario = plantillaDest.cloneNode(true);
 
-            var checkbox = destinatario.querySelector('input[type="checkbox"][name="destinos"]');
-            checkbox.id = y[i].codGrupo;
-            checkbox.value = y[i].idDestinatarios;
+                var checkbox = destinatario.querySelector('input[type="checkbox"][name="destinos"]');
+                checkbox.id = y[i].codGrupo;
+                checkbox.value = y[i].idDestinatarios;
 
-            destinatario.querySelector(".codGrupo").innerHTML = y[i].codGrupo;
-            destinatario.title=y[i].nombre;
+                destinatario.querySelector(".codGrupo").innerHTML = y[i].codGrupo;
+                destinatario.title = y[i].nombre;
 
-            fieldDestinatario.appendChild(destinatario);
-        }
-    });
+                fieldDestinatario.appendChild(destinatario);
+            }
+        });
 
 
 
@@ -137,12 +168,12 @@ window.addEventListener('load', function () {
                                 child.classList.add('disabled');
                             }
 
-                            if(inputMaximo){
+                            if (inputMaximo) {
                                 inputMaximo.classList.remove('valido');
                                 inputMaximo.classList.remove('invalido');
                             }
 
-                            if(inputMinimo){
+                            if (inputMinimo) {
                                 inputMinimo.classList.remove('valido');
                                 inputMinimo.classList.remove('invalido');
                             }
@@ -158,6 +189,10 @@ window.addEventListener('load', function () {
                     tablaIdioma.style.display = "table";
                 } else {
                     tablaIdioma.style.display = "none";
+                    tablaIdioma.querySelectorAll('input[type="text"][data-valida="relleno"]').forEach(input => {
+                        input.classList.remove('valido');
+                        input.classList.remove('invalido');
+                    });
                 }
             });
 
