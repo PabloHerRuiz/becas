@@ -62,7 +62,9 @@ table th {
 .idioma input[type="text"] {
     width: 63%;
     margin-bottom: 0px;
+    text-align: center;
 }
+
 .idioma th {
     text-align: center;
 }
@@ -99,7 +101,7 @@ fieldset input[type="number"] {
 }
 
 fieldset select {
-    width: 80%;
+    width: 83%;
 }
 
 fieldset input[type="date"] {
@@ -154,9 +156,45 @@ img {
     cursor: pointer;
 }
 
-/* para mañana
-    https://codepen.io/FlorinCornea/pen/poNBrzm
-*/
+/* destinatarios */
+article {
+    position: relative;
+    width: 110px;
+    height: 40px;
+    margin: 5px;
+    float: left;
+    border: 2px solid #50bcf2;
+    box-sizing: border-box;
+}
+
+article div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 25px;
+    transition: .5s ease;
+}
+
+article input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 30px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+input[type=checkbox]:checked~div {
+    background-color: #50bcf2;
+}
+
+.destinatarios {
+    width: 76%;
+    margin: 20px;
+}
 
 /* validaciones */
 .valido {

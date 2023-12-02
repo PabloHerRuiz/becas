@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/estilosConvocatoria.css">
     <script src="js/validaciones.js"></script>
     <script src="js/convocatoria.js"></script>
-    
+
 </head>
 
 <body>
@@ -44,13 +44,14 @@
 
                 <fieldset class="inicio">
                     <label for="fecha_inicio">Fecha inicio:</label>
-                    <input type="date" id="fecha_inicio"name="fecha_inicio" data-valida="fecha">
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" data-valida="fecha">
 
                     <label for="fecha_inicio_prueba">Fecha inicio prueba:</label>
                     <input type="date" id="fecha_inicio_prueba" name="fecha_inicio_prueba" data-valida="fecha">
 
                     <label for="fecha_listado_provisional">Fecha listado provisional:</label>
-                    <input type="date" id="fecha_listado_provisional" name="fecha_listado_provisional" data-valida="fecha">
+                    <input type="date" id="fecha_listado_provisional" name="fecha_listado_provisional"
+                        data-valida="fecha">
                 </fieldset>
 
                 <fieldset class="fin">
@@ -61,10 +62,17 @@
                     <input type="date" id="fecha_fin_prueba" name="fecha_fin_prueba" data-valida="fecha">
 
                     <label for="fecha_listado_definitivo">Fecha listado definitivo:</label>
-                    <input type="date" id="fecha_listado_definitivo" name="fecha_listado_definitivo" data-valida="fecha">
+                    <input type="date" id="fecha_listado_definitivo" name="fecha_listado_definitivo"
+                        data-valida="fecha">
 
                 </fieldset>
+
+                <fieldset class="destinatarios" id="destinatarios">
+                    <legend>Destinatarios</legend>
+                </fieldset>
+
             </div>
+
             <div class="tablas">
                 <table class="baremable">
                     <thead>

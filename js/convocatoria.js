@@ -12,6 +12,7 @@ window.addEventListener('load', function () {
     const fecha_listado_definitivo = document.getElementById('fecha_listado_definitivo');
     const form = document.getElementById('formConvocatoria');
     const tablaItem = document.querySelector('.baremable tbody');
+    const fieldDestinatario = document.getElementById('destinatarios');
 
     //cargar los proyectos
     fetch('http://virtual.administracion.com/API/apiProyecto.php')
@@ -35,6 +36,36 @@ window.addEventListener('load', function () {
             plantillaItem = document.createElement("tr");
             plantillaItem.innerHTML = y;
         });
+
+    // Cargar la plantilla de destinatarios una vez
+    fetch("/vistas/plantillas/destinatario.html")
+        .then(x => x.text())
+        .then(y => {
+            plantillaDest = document.createElement("div");
+            plantillaDest.innerHTML = y;
+        });
+
+
+    //cargar los destinatarios
+
+    fetch('http://virtual.administracion.com/API/apiDestinatario.php')
+    .then(x => x.json())
+    .then(y => {
+        for (let i = 0; i < y.length; i++) {
+            var destinatario = plantillaDest.cloneNode(true);
+
+            var checkbox = destinatario.querySelector('input[type="checkbox"][name="destinos"]');
+            checkbox.id = y[i].codGrupo;
+            checkbox.value = y[i].idDestinatarios;
+
+            destinatario.querySelector(".codGrupo").innerHTML = y[i].codGrupo;
+            destinatario.title=y[i].nombre;
+
+            fieldDestinatario.appendChild(destinatario);
+        }
+    });
+
+
 
     // Cargar los items
 
@@ -99,8 +130,21 @@ window.addEventListener('load', function () {
 
                         children.forEach(child => {
                             const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
+                            const inputMinimo = child.querySelector('input[name="minimo"]');
+                            const inputMaximo = child.querySelector('input[name="maximo"]');
+
                             if (!checkbox) {
                                 child.classList.add('disabled');
+                            }
+
+                            if(inputMaximo){
+                                inputMaximo.classList.remove('valido');
+                                inputMaximo.classList.remove('invalido');
+                            }
+
+                            if(inputMinimo){
+                                inputMinimo.classList.remove('valido');
+                                inputMinimo.classList.remove('invalido');
                             }
                         });
                     }
