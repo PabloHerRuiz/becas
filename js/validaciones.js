@@ -119,7 +119,7 @@ HTMLFormElement.prototype.valida = function () {
             elementos[i].classList.add("valido");
             elementos[i].classList.remove("invalido");
 
-            // Remover la clase 'valido' después de 5 segundos
+            // Remover la clase 'valido' después de 2 segundos
             setTimeout(function() {
                 elementos[i].classList.remove("valido");
             }, 2000);
@@ -127,7 +127,7 @@ HTMLFormElement.prototype.valida = function () {
             elementos[i].classList.remove("valido");
             elementos[i].classList.add("invalido");
 
-             // Remover la clase 'invalido' después de 5 segundos
+             // Remover la clase 'invalido' después de 2 segundos
              setTimeout(function() {
                 elementos[i].classList.remove("invalido");
             }, 2000);

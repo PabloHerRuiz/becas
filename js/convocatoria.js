@@ -82,7 +82,8 @@ window.addEventListener('load', function () {
                 var nota = document.createElement('td');
                 nota = idiomas.querySelector("td");
                 nota.querySelector('input').id = y[i].idNivel;
-                nota.querySelector('input').setAttribute('data-valida', 'relleno');
+                nota.querySelector('input').setAttribute('data-valida', 'numero');
+                nota.querySelector('input').name = "nota" + y[i].nombre;
                 bodyIdioma.appendChild(nota);
             }
         });
@@ -199,7 +200,7 @@ window.addEventListener('load', function () {
                     tablaIdioma.style.display = "table";
                 } else {
                     tablaIdioma.style.display = "none";
-                    tablaIdioma.querySelectorAll('input[type="text"][data-valida="relleno"]').forEach(input => {
+                    tablaIdioma.querySelectorAll('input[type="text"][data-valida="numero"]').forEach(input => {
                         input.classList.remove('valido');
                         input.classList.remove('invalido');
                     });
@@ -363,7 +364,7 @@ window.addEventListener('load', function () {
             this.classList.add("valido");
             this.classList.remove("invalido");
 
-            // Remover la clase 'valido' después de 5 segundos
+            // Remover la clase 'valido' después de 2 segundos
             setTimeout(function () {
                 form.classList.remove("valido");
             }, 2000);
@@ -372,7 +373,7 @@ window.addEventListener('load', function () {
             this.classList.remove("valido");
             this.classList.add("invalido");
 
-            // Remover la clase 'valido' después de 5 segundos
+            // Remover la clase 'valido' después de 2 segundos
             setTimeout(function () {
                 form.classList.remove("invalido");
             }, 2000);
