@@ -67,7 +67,7 @@
 
                 </fieldset>
 
-                <fieldset class="destinatarios" id="destinatarios">
+                <fieldset class="destinatarios" id="destinatarios" data-valida="valida">
                     <legend>Destinatarios</legend>
                 </fieldset>
 

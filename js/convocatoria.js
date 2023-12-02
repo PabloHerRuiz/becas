@@ -63,7 +63,7 @@ window.addEventListener('load', function () {
             for (let i = 0; i < y.length; i++) {
                 var idiomas = plantillaIdioma.cloneNode(true);
 
-                var th=document.createElement('th');
+                var th = document.createElement('th');
                 var nivel = idiomas.querySelector(".nIdioma");
                 nivel.textContent = y[i].nombre;
                 th.appendChild(nivel);
@@ -221,10 +221,20 @@ window.addEventListener('load', function () {
         if (form.valida()) {
             this.classList.add("valido");
             this.classList.remove("invalido");
+
+            // Remover la clase 'valido' después de 5 segundos
+            setTimeout(function () {
+                form.classList.remove("valido");
+            }, 2000);
             // form.submit();
         } else {
             this.classList.remove("valido");
             this.classList.add("invalido");
+
+             // Remover la clase 'valido' después de 5 segundos
+             setTimeout(function() {
+                form.classList.remove("invalido");
+            }, 2000);
         }
     });
 

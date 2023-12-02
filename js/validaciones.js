@@ -73,11 +73,27 @@ HTMLInputElement.prototype.numero = function () {
     var respuesta = false;
     if (this.value != "") {
         var partes = (/^(\d+)$/).exec(this.value);
-        if (partes) {
+        if (partes && parseInt(partes[1]) > 0) {
             respuesta = true;
         }
     }
     return respuesta;
+}
+
+HTMLFieldSetElement.prototype.valida = function () {
+    // Buscar todos los checkboxes en el fieldset
+    var checkboxes = this.querySelectorAll('input[type="checkbox"]');
+
+    // Verificar si al menos uno está marcado
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            // Si al menos uno está marcado, la validación es exitosa
+            return true;
+        }
+    }
+
+    // Si ninguno está marcado, la validación falla
+    return false;
 }
 
 HTMLSelectElement.prototype.relleno = function () {
@@ -90,18 +106,31 @@ HTMLSelectElement.prototype.relleno = function () {
 };
 
 HTMLFormElement.prototype.valida = function () {
-    var elementos = this.querySelectorAll("input[data-valida]:not(td.disabled > *),select[data-valida]");
+    var elementos = this.querySelectorAll("input[data-valida]:not(td.disabled > *),select[data-valida],fieldset[data-valida]");
     var respuesta = true;
     let n = elementos.length;
     for (let i = 0; i < n; i++) {
+
+        if (elementos[i].offsetParent === null) continue;
+
         let tipo = elementos[i].getAttribute("data-valida");
         var aux=elementos[i][tipo]();
         if(aux){
             elementos[i].classList.add("valido");
             elementos[i].classList.remove("invalido");
+
+            // Remover la clase 'valido' después de 5 segundos
+            setTimeout(function() {
+                elementos[i].classList.remove("valido");
+            }, 2000);
         }else{
             elementos[i].classList.remove("valido");
             elementos[i].classList.add("invalido");
+
+             // Remover la clase 'invalido' después de 5 segundos
+             setTimeout(function() {
+                elementos[i].classList.remove("invalido");
+            }, 2000);
         }
         respuesta = respuesta && aux;
     }
