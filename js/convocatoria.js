@@ -83,7 +83,6 @@ window.addEventListener('load', function () {
                 nota = idiomas.querySelector("td");
                 nota.querySelector('input').id = y[i].idNivel;
                 nota.querySelector('input').setAttribute('data-valida', 'numero');
-                nota.querySelector('input').name = "nota" + y[i].nombre;
                 bodyIdioma.appendChild(nota);
             }
         });
@@ -96,7 +95,7 @@ window.addEventListener('load', function () {
             for (let i = 0; i < y.length; i++) {
                 var destinatario = plantillaDest.cloneNode(true);
 
-                var checkbox = destinatario.querySelector('input[type="checkbox"][name="destinos"]');
+                var checkbox = destinatario.querySelector('input[type="checkbox"][name="destinos[]"]');
                 checkbox.id = y[i].codGrupo;
                 checkbox.value = y[i].idDestinatarios;
 
@@ -122,7 +121,7 @@ window.addEventListener('load', function () {
                 item.innerHTML = y[i].nombre;
                 item.value = y[i].idItem_baremables;
 
-                var checkbox = itemBaremable.querySelector('input[type="checkbox"][name="habilitador"]');
+                var checkbox = itemBaremable.querySelector('input[type="checkbox"][name="habilitador[]"]');
                 checkbox.id = y[i].nombre + "CB";
 
                 var label = itemBaremable.querySelector('label');
@@ -135,18 +134,18 @@ window.addEventListener('load', function () {
 
             const filas = document.querySelectorAll('.baremable tbody tr');
 
-            // Añade la clase disabled a todos los elementos de cada fila, excepto al checkbox 'habilitador'
+            // Añade la clase disabled a todos los elementos de cada fila, excepto al checkbox 'habilitador[]'
             filas.forEach(fila => {
                 const children = Array.from(fila.children);
                 children.forEach(child => {
-                    const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
+                    const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
                     if (!checkbox) {
                         child.classList.add('disabled');
                     }
                 });
             });
 
-            const checkboxes = document.querySelectorAll('.baremable input[type="checkbox"][name="habilitador"]');
+            const checkboxes = document.querySelectorAll('.baremable input[type="checkbox"][name="habilitador[]"]');
 
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function () {
@@ -159,8 +158,8 @@ window.addEventListener('load', function () {
                         img.src = 'css/imagenes/candado-abierto.png';
 
                         children.forEach(child => {
-                            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
-                            const inputMinimo = child.querySelector('input[name="minimo"]');
+                            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
+                            const inputMinimo = child.querySelector('input[name="minimo[]"]');
                             if (!checkbox && !inputMinimo) {
                                 child.classList.remove('disabled');
                             }
@@ -171,9 +170,9 @@ window.addEventListener('load', function () {
                         img.src = 'css/imagenes/cerrar-con-llave.png';
 
                         children.forEach(child => {
-                            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador"]');
-                            const inputMinimo = child.querySelector('input[name="minimo"]');
-                            const inputMaximo = child.querySelector('input[name="maximo"]');
+                            const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
+                            const inputMinimo = child.querySelector('input[name="minimo[]"]');
+                            const inputMaximo = child.querySelector('input[name="maximo[]"]');
 
                             if (!checkbox) {
                                 child.classList.add('disabled');
@@ -208,10 +207,10 @@ window.addEventListener('load', function () {
             });
 
 
-            const requisitos = document.querySelectorAll("input[type='checkbox'][name='requisito']");
+            const requisitos = document.querySelectorAll("input[type='checkbox'][name='requisito[]']");
             requisitos.forEach(requisito => {
                 requisito.addEventListener('change', function () {
-                    const inputMinimo = this.parentNode.parentNode.querySelector("input[name='minimo']");
+                    const inputMinimo = this.parentNode.parentNode.querySelector("input[name='minimo[]']");
                     if (this.checked) {
                         inputMinimo.removeAttribute('disabled');
                         inputMinimo.parentNode.classList.remove('disabled');

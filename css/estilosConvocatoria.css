@@ -146,7 +146,7 @@ fieldset input[type="date"] {
     pointer-events: none;
 }
 
-input[type="checkbox"][name="habilitador"] {
+input[type="checkbox"][name="habilitador[]"] {
     display: none;
 }
 
