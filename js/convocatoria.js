@@ -117,9 +117,13 @@ window.addEventListener('load', function () {
                 var itemBaremable = plantillaItem.cloneNode(true);
 
                 var item = itemBaremable.querySelector(".item");
+                item.textContent = y[i].nombre;
 
-                item.innerHTML = y[i].nombre;
-                item.value = y[i].idItem_baremables;
+                var inputhidden = itemBaremable.querySelector('input[type="hidden"][name="item[]"]');
+                inputhidden.value = y[i].idItem_baremables;
+
+                var cbhidden = itemBaremable.querySelector('input[type="hidden"][name="habilitadorid[]"]');
+                cbhidden.value = i;
 
                 var checkbox = itemBaremable.querySelector('input[type="checkbox"][name="habilitador[]"]');
                 checkbox.id = y[i].nombre + "CB";
@@ -129,6 +133,7 @@ window.addEventListener('load', function () {
 
                 tablaItem.appendChild(itemBaremable);
             }
+
 
             //funcionalidad para los checkbox primeros
 
@@ -247,7 +252,7 @@ window.addEventListener('load', function () {
             fecha_listado_provisional.value = "";
             fecha_listado_provisional.disabled = true;
             fecha_listado_definitivo.value = "";
-            fecha_listado_definitivo.disabled = true;           
+            fecha_listado_definitivo.disabled = true;
         }
     });
 
@@ -272,7 +277,7 @@ window.addEventListener('load', function () {
             fecha_listado_provisional.value = "";
             fecha_listado_provisional.disabled = true;
             fecha_listado_definitivo.value = "";
-            fecha_listado_definitivo.disabled = true;    
+            fecha_listado_definitivo.disabled = true;
         }
 
     });
@@ -296,7 +301,7 @@ window.addEventListener('load', function () {
             fecha_listado_provisional.value = "";
             fecha_listado_provisional.disabled = true;
             fecha_listado_definitivo.value = "";
-            fecha_listado_definitivo.disabled = true; 
+            fecha_listado_definitivo.disabled = true;
         }
     });
 
@@ -316,7 +321,7 @@ window.addEventListener('load', function () {
             fecha_listado_provisional.value = "";
             fecha_listado_provisional.disabled = false;
             fecha_listado_definitivo.value = "";
-            fecha_listado_definitivo.disabled = true; 
+            fecha_listado_definitivo.disabled = true;
         }
 
     });
@@ -367,7 +372,7 @@ window.addEventListener('load', function () {
             setTimeout(function () {
                 form.classList.remove("valido");
             }, 2000);
-            // form.submit();
+            form.submit();
         } else {
             this.classList.remove("valido");
             this.classList.add("invalido");

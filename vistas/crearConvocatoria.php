@@ -117,6 +117,64 @@
     $convocatoriaRepository = new convocatoriaRepository($conn);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional']);
+        var_dump($convocatoria);
+        $destinatarios = $_POST['destinos'];
+        var_dump($destinatarios);
+
+        $habilitador = $_POST['habilitador'];
+        var_dump($habilitador);
+
+        $filas = array();
+        for ($i = 0; $i < count($_POST['item']); $i++) {
+            $filaIndex = $_POST['habilitadorid'][$i];
+            $fila = array();
+
+            //comprobamos que no esten vacios porque pueden no estar rellenos todos los campos
+    
+            if (!empty($_POST['item'][$filaIndex])) {
+                $fila['item'] = $_POST['item'][$filaIndex];
+            } else {
+                $fila['item'] = null;
+            }
+
+            if (!empty($_POST['maximo'][$filaIndex])) {
+                $fila['maximo'] = $_POST['maximo'][$filaIndex];
+            } else {
+                $fila['maximo'] = null;
+            }
+
+            if (!empty($_POST['requisito'][$filaIndex])) {
+                $fila['requisito'] = $_POST['requisito'][$filaIndex];
+            } else {
+                $fila['requisito'] = null;
+            }
+
+            if (!empty($_POST['minimo'][$filaIndex])) {
+                $fila['minimo'] = $_POST['minimo'][$filaIndex];
+            } else {
+                $fila['minimo'] = null;
+            }
+
+            if (!empty($_POST['aporta'][$filaIndex])) {
+                $fila['aporta'] = $_POST['aporta'][$filaIndex];
+            } else {
+                $fila['aporta'] = null;
+            }
+
+            array_push($filas, $fila);
+        }
+
+        var_dump("fila 1");
+        var_dump($filas[0]);
+        var_dump("fila 2");
+        var_dump($filas[1]);
+        var_dump("fila 3");
+        var_dump($filas[2]);
+        var_dump("fila 4");
+        var_dump($filas[3]);
+
+
 
     }
     ?>
