@@ -117,6 +117,7 @@
     $convocatoriaRepository = new convocatoriaRepository($conn);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        var_dump($_POST);
         $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional']);
         var_dump($convocatoria);
         $destinatarios = $_POST['destinos'];
@@ -127,37 +128,36 @@
 
         $filas = array();
         for ($i = 0; $i < count($_POST['item']); $i++) {
-            $filaIndex = $_POST['habilitadorid'][$i];
             $fila = array();
 
             //comprobamos que no esten vacios porque pueden no estar rellenos todos los campos
     
-            if (!empty($_POST['item'][$filaIndex])) {
-                $fila['item'] = $_POST['item'][$filaIndex];
+            if (!empty($_POST['item'][$i])) {
+                $fila['item'] = $_POST['item'][$i];
             } else {
                 $fila['item'] = null;
             }
 
-            if (!empty($_POST['maximo'][$filaIndex])) {
-                $fila['maximo'] = $_POST['maximo'][$filaIndex];
+            if (!empty($_POST['maximo'][$i])) {
+                $fila['maximo'] = $_POST['maximo'][$i];
             } else {
                 $fila['maximo'] = null;
             }
 
-            if (!empty($_POST['requisito'][$filaIndex])) {
-                $fila['requisito'] = $_POST['requisito'][$filaIndex];
+            if (!empty($_POST['requisito'])&&in_array($_POST['item'][$i],$_POST['requisito'])) {
+                $fila['requisito'] = true;
             } else {
                 $fila['requisito'] = null;
             }
 
-            if (!empty($_POST['minimo'][$filaIndex])) {
-                $fila['minimo'] = $_POST['minimo'][$filaIndex];
+            if (!empty($_POST['minimo'][$i])) {
+                $fila['minimo'] = $_POST['minimo'][$i];
             } else {
                 $fila['minimo'] = null;
             }
 
-            if (!empty($_POST['aporta'][$filaIndex])) {
-                $fila['aporta'] = $_POST['aporta'][$filaIndex];
+            if (!empty($_POST['aporta'])&&in_array($_POST['item'][$i],$_POST['aporta'])) {
+                $fila['aporta'] = true;
             } else {
                 $fila['aporta'] = null;
             }

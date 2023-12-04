@@ -122,11 +122,15 @@ window.addEventListener('load', function () {
                 var inputhidden = itemBaremable.querySelector('input[type="hidden"][name="item[]"]');
                 inputhidden.value = y[i].idItem_baremables;
 
-                var cbhidden = itemBaremable.querySelector('input[type="hidden"][name="habilitadorid[]"]');
-                cbhidden.value = i;
-
                 var checkbox = itemBaremable.querySelector('input[type="checkbox"][name="habilitador[]"]');
                 checkbox.id = y[i].nombre + "CB";
+                checkbox.value = y[i].idItem_baremables;
+
+                var requisitocb = itemBaremable.querySelector('input[type="checkbox"][name="requisito[]"]');
+                requisitocb.value = y[i].idItem_baremables;
+
+                var aportacb = itemBaremable.querySelector('input[type="checkbox"][name="aporta[]"]');
+                aportacb.value = y[i].idItem_baremables;
 
                 var label = itemBaremable.querySelector('label');
                 label.htmlFor = y[i].nombre + "CB";
