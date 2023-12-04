@@ -144,6 +144,7 @@ fieldset input[type="date"] {
 .disabled {
     opacity: 0.5;
     pointer-events: none;
+    background-color: rgb(215,215,215);
 }
 
 input[type="checkbox"][name="habilitador[]"] {

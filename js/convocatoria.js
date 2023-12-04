@@ -132,6 +132,12 @@ window.addEventListener('load', function () {
                 var aportacb = itemBaremable.querySelector('input[type="checkbox"][name="aporta[]"]');
                 aportacb.value = y[i].idItem_baremables;
 
+                var minInput = itemBaremable.querySelector('input[type="number"][name="minimo[]"]');
+                if (minInput) {
+                    minInput.setAttribute('disabled', '');
+                    minInput.parentNode.classList.add('disabled');
+                }
+
                 var label = itemBaremable.querySelector('label');
                 label.htmlFor = y[i].nombre + "CB";
 
@@ -157,12 +163,13 @@ window.addEventListener('load', function () {
             const checkboxes = document.querySelectorAll('.baremable input[type="checkbox"][name="habilitador[]"]');
 
             checkboxes.forEach(checkbox => {
+                checkbox.parentElement.style.backgroundColor = 'rgb(215 215 215)';
                 checkbox.addEventListener('change', function () {
                     var img = this.nextElementSibling.querySelector('.checkbox-image');
                     const children = Array.from(this.parentNode.parentNode.children);
 
                     if (this.checked) {
-
+                        checkbox.parentElement.style.backgroundColor = '';
                         //cambiamos la imagen
                         img.src = 'css/imagenes/candado-abierto.png';
 
@@ -174,7 +181,7 @@ window.addEventListener('load', function () {
                             }
                         });
                     } else {
-
+                        checkbox.parentElement.style.backgroundColor = 'rgb(215 215 215)';
                         //cambiamos la imagen
                         img.src = 'css/imagenes/cerrar-con-llave.png';
 
