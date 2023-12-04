@@ -32,6 +32,18 @@ class item_baremableRepository
         return $item_baremable;
     }
 
+    //get id idioma
+    public function getIdItemByNombre($nombre)
+    {
+        $sql = "SELECT idItem_baremables FROM item_baremables WHERE nombre = '$nombre'";
+        $result = $this->conexion->query($sql);
+        $idItem_baremable = null;
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $idItem_baremable = $row['idItem_baremables'];
+        }
+        return $idItem_baremable;
+    }
+
     //CRUD
 
     public function createItem_baremable($item_baremable)

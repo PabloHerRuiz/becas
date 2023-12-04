@@ -5,6 +5,7 @@ class Convocatorias implements JsonSerializable
     private $idConvocatorias;
     private $codProyecto;
     private $movilidades;
+    private $destinos;
     private $tipo;
     private $fecha_ini;
     private $fecha_fin;
@@ -14,10 +15,11 @@ class Convocatorias implements JsonSerializable
     private $fecha_lis_provisional;
 
     //constructor
-    public function __construct($codProyecto, $movilidades, $tipo, $fecha_ini, $fecha_fin, $fecha_ini_pruebas, $fecha_fin_pruebas, $fecha_lis_definitiva, $fecha_lis_provisional, $idConvocatorias = null)
+    public function __construct($codProyecto, $movilidades,$destinos, $tipo, $fecha_ini, $fecha_fin, $fecha_ini_pruebas, $fecha_fin_pruebas, $fecha_lis_definitiva, $fecha_lis_provisional, $idConvocatorias = null)
     {
         $this->codProyecto = $codProyecto;
         $this->movilidades = $movilidades;
+        $this->destinos = $destinos;
         $this->tipo = $tipo;
         $this->fecha_ini = $fecha_ini;
         $this->fecha_fin = $fecha_fin;
@@ -47,6 +49,16 @@ class Convocatorias implements JsonSerializable
     public function setMovilidades($movilidades)
     {
         $this->movilidades = $movilidades;
+    }
+
+    public function getDestinos()
+    {
+        return $this->destinos;
+    }
+
+    public function setDestinos($destinos)
+    {
+        $this->destinos = $destinos;
     }
 
     public function getTipo()

@@ -10,7 +10,7 @@ class Convocatoria_baremo implements JsonSerializable
     private $requerido;
 
     //constructor
-    public function __construct($idConvocatorias, $idItem_baremables, $maximo, $minimo = null, $presenta, $requerido)
+    public function __construct($idConvocatorias, $idItem_baremables, $maximo, $minimo = null, $presenta=null, $requerido=null)
     {
         $this->idConvocatorias = $idConvocatorias;
         $this->idItem_baremables = $idItem_baremables;

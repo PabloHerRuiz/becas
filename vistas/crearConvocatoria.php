@@ -118,14 +118,12 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         var_dump($_POST);
-        $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional']);
-        var_dump($convocatoria);
+        //recogemos los datos de la convocatoria
+        $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['destino'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional']);
+        //recogemos los datos de los destinatarios
         $destinatarios = $_POST['destinos'];
-        var_dump($destinatarios);
 
-        $habilitador = $_POST['habilitador'];
-        var_dump($habilitador);
-
+        //recogemos los datos de la tabla de items baremables
         $filas = array();
         for ($i = 0; $i < count($_POST['item']); $i++) {
             $fila = array();
@@ -144,7 +142,7 @@
                 $fila['maximo'] = null;
             }
 
-            if (!empty($_POST['requisito'])&&in_array($_POST['item'][$i],$_POST['requisito'])) {
+            if (!empty($_POST['requisito']) && in_array($_POST['item'][$i], $_POST['requisito'])) {
                 $fila['requisito'] = true;
             } else {
                 $fila['requisito'] = null;
@@ -156,7 +154,7 @@
                 $fila['minimo'] = null;
             }
 
-            if (!empty($_POST['aporta'])&&in_array($_POST['item'][$i],$_POST['aporta'])) {
+            if (!empty($_POST['aporta']) && in_array($_POST['item'][$i], $_POST['aporta'])) {
                 $fila['aporta'] = true;
             } else {
                 $fila['aporta'] = null;
@@ -165,15 +163,24 @@
             array_push($filas, $fila);
         }
 
-        var_dump("fila 1");
-        var_dump($filas[0]);
-        var_dump("fila 2");
-        var_dump($filas[1]);
-        var_dump("fila 3");
-        var_dump($filas[2]);
-        var_dump("fila 4");
-        var_dump($filas[3]);
+        //eliminamos las filas que no tienen maximo
+        foreach ($filas as $i => $fila) {
+            if (is_null($fila["maximo"])) {
+                unset($filas[$i]);
+            }
+        }
+        $filas = array_values($filas);
 
+        //recogemos los datos de la tabla de idiomas
+        $idiomas = $_POST['nota'];
+        $nivel = $_POST['nivel'];
+        var_dump($idiomas);
+        var_dump($nivel);
+        $idiomas_nivel = array_combine($nivel, $idiomas);
+        var_dump($idiomas_nivel);
+
+        //creamos la convocatoria
+        $convocatoriaRepository->crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas_nivel);
 
 
     }

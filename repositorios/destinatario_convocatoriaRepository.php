@@ -24,7 +24,7 @@ class destinatario_convocatoriaRepository
 
     public function getDestinatarios_convocatoriaById($idConvocatorias, $idDestinatarios)
     {
-        $sql = "SELECT * FROM destinatarios_convocatoria WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
+        $sql = "SELECT * FROM destinatarios_convocatorias WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
         $result = $this->conexion->query($sql);
         $destinatarios_convocatoria = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -41,7 +41,7 @@ class destinatario_convocatoriaRepository
         $idConvocatorias = $destinatarios_convocatoria->getIdConvocatorias();
         $idDestinatarios = $destinatarios_convocatoria->getIdDestinatarios();
 
-        $sql = "INSERT INTO destinatarios_convocatoria (idConvocatorias, idDestinatarios) 
+        $sql = "INSERT INTO destinatarios_convocatorias (idConvocatorias, idDestinatarios) 
         VALUES ( '$idConvocatorias', '$idDestinatarios')";
 
         if ($this->conexion->exec($sql)) {
@@ -56,7 +56,7 @@ class destinatario_convocatoriaRepository
         $idConvocatorias = $destinatarios_convocatoria->getIdConvocatorias();
         $idDestinatarios = $destinatarios_convocatoria->getIdDestinatarios();
 
-        $sql = "UPDATE destinatarios_convocatoria SET idConvocatorias = '$idConvocatorias', idDestinatarios = '$idDestinatarios' WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
+        $sql = "UPDATE destinatarios_convocatorias SET idConvocatorias = '$idConvocatorias', idDestinatarios = '$idDestinatarios' WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
 
         if ($this->conexion->exec($sql)) {
             return true;
@@ -69,7 +69,7 @@ class destinatario_convocatoriaRepository
 
     public function deleteDestinatarios_convocatoria($idConvocatorias, $idDestinatarios)
     {
-        $sql = "DELETE FROM destinatarios_convocatoria WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
+        $sql = "DELETE FROM destinatarios_convocatorias WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
         if ($this->conexion->exec($sql)) {
             return true;
         } else {
