@@ -110,17 +110,56 @@
         $conn = db::abreconexion();
     } catch (Exception $e) {
         http_response_code(500);
-        echo json_encode(['error' => 'Database connection failed']);
+        echo json_encode(['error' => 'La aplicacion no se ha podido conectar con la base de datos']);
         exit;
     }
 
     $convocatoriaRepository = new convocatoriaRepository($conn);
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        //recogemos los datos de la convocatoria
-        $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['destino'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional'], null);
-        //recogemos los datos de los destinatarios
-        $destinatarios = $_POST['destinos'];
+        //validamos los datos de convocatoria
+        try {
+            $proyecto = Validator::validateInput(INPUT_POST, 'proyecto');
+            $movilidades = Validator::validateInput(INPUT_POST, 'movilidades');
+            $destino = Validator::validateInput(INPUT_POST, 'destino');
+            $tipo = Validator::validateInput(INPUT_POST, 'tipo');
+            $fecha_inicio = Validator::validateInput(INPUT_POST, 'fecha_inicio');
+            $fecha_fin = Validator::validateInput(INPUT_POST, 'fecha_fin');
+            $fecha_inicio_prueba = Validator::validateInput(INPUT_POST, 'fecha_inicio_prueba');
+            $fecha_fin_prueba = Validator::validateInput(INPUT_POST, 'fecha_fin_prueba');
+            $fecha_listado_definitivo = Validator::validateInput(INPUT_POST, 'fecha_listado_definitivo');
+            $fecha_listado_provisional = Validator::validateInput(INPUT_POST, 'fecha_listado_provisional');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
+
+        //creamos la convocatoria
+        $convocatoria = new Convocatorias($proyecto, $movilidades, $destino, $tipo, $fecha_inicio, $fecha_fin, $fecha_inicio_prueba, $fecha_fin_prueba, $fecha_listado_definitivo, $fecha_listado_provisional, null);
+
+        // validamos y recogemos los datos de los destinatarios
+        try {
+            Validator::validatePostArray($_POST['destinos']);
+            $destinatarios = $_POST['destinos'];
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
+
+        //validamos los datos de las filas
+
+        try {
+            Validator::validatePostArray($_POST['item']);
+            Validator::validatePostArray($_POST['requisito']);
+            Validator::validatePostArray($_POST['maximo']);
+            Validator::validatePostArray($_POST['minimo']);
+            Validator::validatePostArray($_POST['aporta']);
+            Validator::validatePostArray($_POST['nota']);
+            Validator::validatePostArray($_POST['nivel']);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
 
         //recogemos los datos de la tabla de items baremables
         $filas = array();

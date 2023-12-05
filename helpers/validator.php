@@ -4,7 +4,20 @@ class Validator
     //valida input
     public static function validateInput($type, $variable_name) {
         $input = filter_input($type, $variable_name);
+        if (empty($input)) {
+            //muestra error si esta vacio
+            throw new Exception("El campo '$variable_name' es obligatorio.");
+
+        }
         return htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    }
+
+    public static function validatePostArray($postArray) {
+        foreach ($postArray as $key => $value) {
+            if (!Validator::validateInput(INPUT_POST, $key)) {
+                throw new Exception("Fallo en la validación de del array $postArray.");
+            }
+        }
     }
 
     //funcion valida dni
