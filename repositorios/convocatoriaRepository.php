@@ -119,7 +119,8 @@ class convocatoriaRepository
             $this->createConvocatoria($convocatoria);
 
             //obtenemos el ultimo index de la convocatoria
-            $ultimoIndex = $this->conexion->query("SELECT MAX(idConvocatorias)+1 as ultimoIndex FROM convocatorias")->fetch(PDO::FETCH_ASSOC)['ultimoIndex'];
+            $ultimoIndex = $this->conexion->query("SELECT MAX(idConvocatorias) as ultimoIndex FROM convocatorias")->fetch(PDO::FETCH_ASSOC)['ultimoIndex'];
+            
             //creamos los destinatarios
             foreach ($destinatarios as $destino) {
                 $destinatariosRepo->createDestinatarios_convocatoria(new Destinatarios_convocatorias($ultimoIndex, $destino));

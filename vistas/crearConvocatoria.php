@@ -119,7 +119,7 @@
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         var_dump($_POST);
         //recogemos los datos de la convocatoria
-        $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['destino'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional']);
+        $convocatoria = new Convocatorias($_POST['proyecto'], $_POST['movilidades'], $_POST['destino'], $_POST['tipo'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['fecha_inicio_prueba'], $_POST['fecha_fin_prueba'], $_POST['fecha_listado_definitivo'], $_POST['fecha_listado_provisional'], null);
         //recogemos los datos de los destinatarios
         $destinatarios = $_POST['destinos'];
 

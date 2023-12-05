@@ -76,7 +76,7 @@ window.addEventListener('load', function () {
                 var th = document.createElement('th');
                 var nivel = idiomas.querySelector(".nIdioma");
 
-                var inputhidden = plantillaIdioma.querySelector('input[type="hidden"][name="nivel[]"]');
+                var inputhidden = idiomas.querySelector('input[type="hidden"][name="nivel[]"]');
                 inputhidden.value = y[i].idNivel;
 
                 nivel.textContent = y[i].nombre;
