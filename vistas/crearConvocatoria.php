@@ -116,7 +116,7 @@
 
     $convocatoriaRepository = new convocatoriaRepository($conn);
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
         //validamos los datos de convocatoria
         try {
             $proyecto = Validator::validateInput(INPUT_POST, 'proyecto');
@@ -149,36 +149,36 @@
 
         //recogemos los datos de la tabla de items baremables
         $filas = array();
-        for ($i = 0; $i < count($_POST['item']); $i++) {
+        for($i = 0; $i < count($_POST['item']); $i++) {
             $fila = array();
 
             //comprobamos que no esten vacios porque pueden no estar rellenos todos los campos
     
-            if (!empty($_POST['item'][$i])) {
+            if(!empty($_POST['item'][$i])) {
                 $fila['item'] = $_POST['item'][$i];
             } else {
                 $fila['item'] = null;
             }
 
-            if (!empty($_POST['maximo'][$i])) {
+            if(!empty($_POST['maximo'][$i])) {
                 $fila['maximo'] = $_POST['maximo'][$i];
             } else {
                 $fila['maximo'] = null;
             }
 
-            if (!empty($_POST['requisito']) && in_array($_POST['item'][$i], $_POST['requisito'])) {
+            if(!empty($_POST['requisito']) && in_array($_POST['item'][$i], $_POST['requisito'])) {
                 $fila['requisito'] = true;
             } else {
                 $fila['requisito'] = null;
             }
 
-            if (!empty($_POST['minimo'][$i])) {
+            if(!empty($_POST['minimo'][$i])) {
                 $fila['minimo'] = $_POST['minimo'][$i];
             } else {
                 $fila['minimo'] = null;
             }
 
-            if (!empty($_POST['aporta']) && in_array($_POST['item'][$i], $_POST['aporta'])) {
+            if(!empty($_POST['aporta']) && in_array($_POST['item'][$i], $_POST['aporta'])) {
                 $fila['aporta'] = true;
             } else {
                 $fila['aporta'] = null;
@@ -188,8 +188,8 @@
         }
 
         //eliminamos las filas que no tienen maximo
-        foreach ($filas as $i => $fila) {
-            if (is_null($fila["maximo"])) {
+        foreach($filas as $i => $fila) {
+            if(is_null($fila["maximo"])) {
                 unset($filas[$i]);
             }
         }
@@ -209,13 +209,15 @@
         $idiomas_nivel = array_combine($nivel, $idiomas);
 
         //validamos los datos de los idiomas
-
-        try {
-            Validator::validatePostArray($idiomas_nivel);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit;
+        foreach ($idiomas_nivel as &$value) {
+            if ($value === "") {
+                $value = null;
+            }
         }
+        unset($value);
+
+        
+
 
         //creamos la convocatoria
         $convocatoriaRepository->crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas_nivel);

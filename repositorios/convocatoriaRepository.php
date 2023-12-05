@@ -90,7 +90,7 @@ class convocatoriaRepository
 
     //crear la transaccion
 
-    public function crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas)
+    public function crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas=null)
     {
         // Crear los repositorios una vez y reutilizarlos
         $destinatariosRepo = new destinatario_convocatoriaRepository($this->conexion);
