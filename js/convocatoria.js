@@ -246,6 +246,7 @@ window.addEventListener('load', function () {
                     tablaIdioma.querySelectorAll('input[type="text"][data-valida="numero"]').forEach(input => {
                         input.classList.remove('valido');
                         input.classList.remove('invalido');
+                        input.value = "";
                     });
                 }
             });
