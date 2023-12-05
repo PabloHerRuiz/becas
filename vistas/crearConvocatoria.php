@@ -140,26 +140,12 @@
         // validamos y recogemos los datos de los destinatarios
         try {
             Validator::validatePostArray($_POST['destinos']);
-            $destinatarios = $_POST['destinos'];
         } catch (Exception $e) {
             echo $e->getMessage();
-            exit;
         }
 
-        //validamos los datos de las filas
-
-        try {
-            Validator::validatePostArray($_POST['item']);
-            Validator::validatePostArray($_POST['requisito']);
-            Validator::validatePostArray($_POST['maximo']);
-            Validator::validatePostArray($_POST['minimo']);
-            Validator::validatePostArray($_POST['aporta']);
-            Validator::validatePostArray($_POST['nota']);
-            Validator::validatePostArray($_POST['nivel']);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit;
-        }
+        //recogemos los datos de los destinatarios
+        $destinatarios = $_POST['destinos'];
 
         //recogemos los datos de la tabla de items baremables
         $filas = array();
@@ -209,10 +195,28 @@
         }
         $filas = array_values($filas);
 
+        //validamos los datos de las filas
+        try {
+            Validator::validatePostArray($filas);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
+
         //recogemos los datos de la tabla de idiomas
         $idiomas = $_POST['nota'];
         $nivel = $_POST['nivel'];
         $idiomas_nivel = array_combine($nivel, $idiomas);
+
+        //validamos los datos de los idiomas
+
+        try {
+            Validator::validatePostArray($idiomas_nivel);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
+
         //creamos la convocatoria
         $convocatoriaRepository->crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas_nivel);
 

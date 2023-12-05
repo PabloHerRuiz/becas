@@ -14,8 +14,8 @@ class Validator
 
     public static function validatePostArray($postArray) {
         foreach ($postArray as $key => $value) {
-            if (!Validator::validateInput(INPUT_POST, $key)) {
-                throw new Exception("Fallo en la validación de del array $postArray.");
+            if (empty($value)) {
+                throw new Exception("El campo '$key' es obligatorio.");
             }
         }
     }
