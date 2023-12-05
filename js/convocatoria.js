@@ -136,6 +136,12 @@ window.addEventListener('load', function () {
                 var aportacb = itemBaremable.querySelector('input[type="checkbox"][name="aporta[]"]');
                 aportacb.value = y[i].idItem_baremables;
 
+                var maxInput = itemBaremable.querySelector('input[type="number"][name="maximo[]"]');
+                if (maxInput) {
+                    maxInput.setAttribute('disabled', '');
+                }
+
+
                 var minInput = itemBaremable.querySelector('input[type="number"][name="minimo[]"]');
                 if (minInput) {
                     minInput.setAttribute('disabled', '');
@@ -179,7 +185,11 @@ window.addEventListener('load', function () {
 
                         children.forEach(child => {
                             const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
+                            const inputMaximo = child.querySelector('input[name="maximo[]"]');
                             const inputMinimo = child.querySelector('input[name="minimo[]"]');
+                            if (inputMaximo) {
+                                inputMaximo.removeAttribute('disabled');
+                            }
                             if (!checkbox && !inputMinimo) {
                                 child.classList.remove('disabled');
                             }
@@ -193,17 +203,31 @@ window.addEventListener('load', function () {
                             const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
                             const inputMinimo = child.querySelector('input[name="minimo[]"]');
                             const inputMaximo = child.querySelector('input[name="maximo[]"]');
+                            const inputRequisito = child.querySelector('input[name="requisito[]"]');
+                            const inputAporta = child.querySelector('input[name="aporta[]"]');
+
+                            if (inputRequisito) {
+                                inputRequisito.checked = false;
+                            }
+                            if (inputAporta) {
+                                inputAporta.checked = false;
+                            }
 
                             if (!checkbox) {
                                 child.classList.add('disabled');
                             }
 
+
                             if (inputMaximo) {
+                                inputMaximo.value = "";
+                                inputMaximo.setAttribute('disabled', '');
                                 inputMaximo.classList.remove('valido');
                                 inputMaximo.classList.remove('invalido');
                             }
 
                             if (inputMinimo) {
+                                inputMinimo.value = "";
+                                inputMinimo.setAttribute('disabled', '');
                                 inputMinimo.classList.remove('valido');
                                 inputMinimo.classList.remove('invalido');
                             }
@@ -235,6 +259,7 @@ window.addEventListener('load', function () {
                         inputMinimo.removeAttribute('disabled');
                         inputMinimo.parentNode.classList.remove('disabled');
                     } else {
+                        inputMinimo.value = "";
                         inputMinimo.setAttribute('disabled', '');
                         inputMinimo.parentNode.classList.add('disabled');
                     }
