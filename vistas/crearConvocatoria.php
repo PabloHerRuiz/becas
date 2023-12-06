@@ -148,6 +148,9 @@
         $destinatarios = $_POST['destinos'];
 
         //recogemos los datos de la tabla de items baremables
+        $j=0;
+        $k=0;
+
         $filas = array();
         for($i = 0; $i < count($_POST['item']); $i++) {
             $fila = array();
@@ -160,8 +163,9 @@
                 $fila['item'] = null;
             }
 
-            if(!empty($_POST['maximo'][$i])) {
-                $fila['maximo'] = $_POST['maximo'][$i];
+            if(!empty($_POST['maximo'][$j]) && in_array($_POST['item'][$i], $_POST['habilitador'])) {
+                $fila['maximo'] = $_POST['maximo'][$j];
+                $j++;
             } else {
                 $fila['maximo'] = null;
             }
@@ -172,8 +176,9 @@
                 $fila['requisito'] = null;
             }
 
-            if(!empty($_POST['minimo'][$i])) {
-                $fila['minimo'] = $_POST['minimo'][$i];
+            if(!empty($_POST['minimo'][$k] && in_array($_POST['item'][$i], $_POST['habilitador']))) {
+                $fila['minimo'] = $_POST['minimo'][$k];
+                $k++;
             } else {
                 $fila['minimo'] = null;
             }
@@ -209,14 +214,14 @@
         $idiomas_nivel = array_combine($nivel, $idiomas);
 
         //validamos los datos de los idiomas
-        foreach ($idiomas_nivel as &$value) {
-            if ($value === "") {
+        foreach($idiomas_nivel as &$value) {
+            if($value === "") {
                 $value = null;
             }
         }
         unset($value);
 
-        
+
 
 
         //creamos la convocatoria
