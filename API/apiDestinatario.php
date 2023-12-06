@@ -5,7 +5,7 @@ try {
     $conn = db::abreconexion();
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Database connection failed']);
+    echo json_encode(['error' => 'Fallo la conexion a la base de datos']);
     exit;
 }
 
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $destinatarios=$destinatarioRepository->getAllDestinatarios();
     }catch(Exception $e){
         http_response_code(500);
-        echo json_encode(['error' => 'Failed to fetch destinatarios']);
+        echo json_encode(['error' => 'Fallo al cargar destinatarios']);
         exit;
     }
     if($destinatarios){

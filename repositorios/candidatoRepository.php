@@ -61,19 +61,15 @@ class candidatoRepository
     public function updateCandidato($candidato)
     {
         $id = $candidato->getIdCandidato();
-        $dni = $candidato->getDni();
         $nombre = $candidato->getNombre();
         $apellidos = $candidato->getApellidos();
-        $password = $candidato->getPassword();
         $correo = $candidato->getCorreo();
         $curso = $candidato->getCurso();
         $domicilio = $candidato->getDomicilio();
         $fecha_nacimiento = $candidato->getFechaNacimiento();
         $telefono = $candidato->getTelefono();
-        $rol = $candidato->getRol();
-        $tutor = $candidato->getTutor();
 
-        $sql = "UPDATE candidato SET dni= '$dni', nombre = '$nombre', apellidos = '$apellidos', password = '$password', correo = '$correo', curso = '$curso', domicilio = '$domicilio', fecha_nacimiento = '$fecha_nacimiento', telefono = '$telefono', rol = '$rol', tutor = '$tutor' WHERE idCandidato = $id";
+        $sql = "UPDATE candidato SET nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', fecha_nacimiento = '$fecha_nacimiento', telefono = '$telefono' WHERE idCandidato = $id";
 
         if ($this->conexion->exec($sql)) {
             return true;

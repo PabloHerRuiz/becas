@@ -406,23 +406,8 @@ window.addEventListener('load', function () {
 
         //comprobamos los valores    
         if (form.valida()) {
-            this.classList.add("valido");
-            this.classList.remove("invalido");
-
-            // Remover la clase 'valido' después de 2 segundos
-            setTimeout(function () {
-                form.classList.remove("valido");
-            }, 2000);
             form.submit();
-        } else {
-            this.classList.remove("valido");
-            this.classList.add("invalido");
-
-            // Remover la clase 'valido' después de 2 segundos
-            setTimeout(function () {
-                form.classList.remove("invalido");
-            }, 2000);
-        }
+        } 
     });
 
 
