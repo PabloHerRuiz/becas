@@ -31,6 +31,17 @@ class candidatoRepository
         return $candidato;
     }
 
+    public function getCursobyId($id)
+    {
+        $sql = "SELECT curso FROM candidato WHERE idCandidato = $id";
+        $result = $this->conexion->query($sql);
+        $curso = null;
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $curso = $row['curso'];
+        }
+        return $curso;
+    }
+
     //CRUD
 
     public function createCandidato($candidato)
