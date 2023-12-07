@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($candidato) {
             if ($login->user_login($candidato)) {
-                header('Location:../?menu=home');
+                header('Location:../?menu=home&id='.$candidato->getIdCandidato());
                 exit;
             } else {
                 echo "Error al iniciar sesión. Por favor, inténtalo de nuevo.";
