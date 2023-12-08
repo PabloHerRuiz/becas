@@ -1,6 +1,9 @@
-<html>
+<?php
+if (isset($_GET['menu'])) {
+    if ($_GET['menu'] !== "login") {
 
-<head>
+        echo '<html>
+        <head>
     <link rel="stylesheet" href="css/estilosMenu.css">
     <script src="js/menu.js"></script>
 </head>
@@ -65,6 +68,8 @@
             </li>
         </ul>
     </nav>
-</body>
+</body>';
+    }
+}
 
-</html>
+?>

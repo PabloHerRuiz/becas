@@ -10,11 +10,11 @@ try {
 }
 
 $convocatoriaRepository = new convocatoriaRepository($conn);
-
+$id = Validator::validateInput(INPUT_GET, 'id');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try{
-    $convocatorias=$convocatoriaRepository->getAllConvocatorias();
+    $convocatorias=$convocatoriaRepository->getAllConvoDest($id);
     }catch(Exception $e){
         http_response_code(500);
         echo json_encode(['error' => 'Fallo al cargar becas']);

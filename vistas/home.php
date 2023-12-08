@@ -3,7 +3,7 @@
 
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilosHome.css">
     <script src="js/home.js"></script>
 </head>
 
@@ -16,7 +16,9 @@
         </div>
 
         <div id="BecasDisponibles" class="tabcontent">
-            <div id="contenedor-dispo"></div>
+            <div id="contenedor-dispo">
+                <ul id="lista-becas"></ul>
+            </div>
         </div>
 
         <div id="MisSolicitudes" class="tabcontent">

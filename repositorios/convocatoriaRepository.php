@@ -30,6 +30,17 @@ class convocatoriaRepository
         return $convocatoria;
     }
 
+    public function getAllConvoDest($id)
+    {
+        $sql = "SELECT * from convocatorias where idConvocatorias in (select idConvocatorias from destinatarios_convocatorias where idDestinatarios in (select idDestinatarios from destinatarios where codGrupo in (select curso from candidato where idCandidato=$id)))";
+        $result = $this->conexion->query($sql);
+        $convocatoria = [];
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $convocatoria[] = new Convocatorias($row['codProyecto'], $row['movilidades'], $row['destinos'], $row['tipo'], $row['fecha_ini'], $row['fecha_fin'], $row['fecha_ini_pruebas'], $row['fecha_fin_pruebas'], $row['fecha_lis_definitiva'], $row['fecha_lis_provisional'], $row['idConvocatorias']);
+        }
+        return $convocatoria;
+    }
+
     //CRUD
 
     public function createConvocatoria($convocatoria)
@@ -90,7 +101,7 @@ class convocatoriaRepository
 
     //crear la transaccion
 
-    public function crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas=null)
+    public function crearConvocatoriaCompleta($convocatoria, $destinatarios, $filas, $idiomas = null)
     {
         // Crear los repositorios una vez y reutilizarlos
         $destinatariosRepo = new destinatario_convocatoriaRepository($this->conexion);
@@ -120,7 +131,7 @@ class convocatoriaRepository
 
             //obtenemos el ultimo index de la convocatoria
             $ultimoIndex = $this->conexion->query("SELECT MAX(idConvocatorias) as ultimoIndex FROM convocatorias")->fetch(PDO::FETCH_ASSOC)['ultimoIndex'];
-            
+
             //creamos los destinatarios
             foreach ($destinatarios as $destino) {
                 $destinatariosRepo->createDestinatarios_convocatoria(new Destinatarios_convocatorias($ultimoIndex, $destino));

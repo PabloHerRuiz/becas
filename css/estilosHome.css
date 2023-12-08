@@ -1,0 +1,89 @@
+body {
+    background: #f6f5f7;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    height: 90vh;
+    margin: 30px;
+}
+
+/* listado becas/convocatorias */
+
+button {
+    border-radius: 20px;
+    /* border: 1px solid #FF4B2B;
+    background-color: #FF4B2B; */
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+
+
+#cuerpo {
+    width: 96%;
+    height: 0vh;
+    margin-left: 26px;
+}
+
+/* Estilo para las pestañas */
+.tab {
+    overflow: hidden;
+    /* border: 1px solid #ccc; */
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    width: 103%;
+}
+
+/* Estilo para los botones de las pestañas */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 14px 16px;
+    transition: 0.3s;
+    width: 50%;
+}
+
+/* Cambia el color de fondo de los botones al pasar el mouse */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Estilo para el botón activo */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Estilo para el contenido de las pestañas */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    /* border: 1px solid #ccc; */
+    border-top: none;
+    width: 48.7%;
+}
+
+
+/* Estilo para el contenido de las pestañas */
+#lista-becas{
+    overflow-y: auto;
+}
+#lista-becas li {
+    color: rgb(103, 169, 255);
+    text-decoration: underline;
+    cursor: pointer;
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+#lista-becas li:hover {
+    color: #006eff;
+}
