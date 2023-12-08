@@ -32,7 +32,11 @@ class convocatoriaRepository
 
     public function getAllConvoDest($id)
     {
-        $sql = "SELECT * from convocatorias where idConvocatorias in (select idConvocatorias from destinatarios_convocatorias where idDestinatarios in (select idDestinatarios from destinatarios where codGrupo in (select curso from candidato where idCandidato=$id)))";
+        $sql = "SELECT *
+        FROM convocatorias 
+        INNER JOIN destinatarios_convocatorias ON convocatorias.idConvocatorias = destinatarios_convocatorias.idConvocatorias 
+        INNER JOIN destinatarios ON destinatarios_convocatorias.idDestinatarios = destinatarios.idDestinatarios 
+        WHERE destinatarios.codGrupo IN (SELECT curso FROM candidato WHERE idCandidato = $id);";
         $result = $this->conexion->query($sql);
         $convocatoria = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {

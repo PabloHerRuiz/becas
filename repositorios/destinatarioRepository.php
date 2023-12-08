@@ -31,6 +31,22 @@ class destinatarioRepository
         return $destinatario;
     }
 
+    public function getCodGrupoPorId($id){
+        $sql = "SELECT destinatarios.codGrupo 
+        FROM convocatorias 
+        INNER JOIN destinatarios_convocatorias ON convocatorias.idConvocatorias = destinatarios_convocatorias.idConvocatorias 
+        INNER JOIN destinatarios ON destinatarios_convocatorias.idDestinatarios = destinatarios.idDestinatarios 
+        WHERE destinatarios.codGrupo IN (SELECT curso FROM candidato WHERE idCandidato = $id)
+        ORDER BY destinatarios.codGrupo DESC
+        LIMIT 1;";
+        $result = $this->conexion->query($sql);
+        $codGrupo = null;
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $codGrupo = $row['codGrupo'];
+        }
+        return $codGrupo;
+    }
+
     //CRUD
 
     public function createDestinatario($destinatario)
