@@ -56,7 +56,6 @@ window.addEventListener('load', function () {
 					tipo.innerHTML = "Corta Duración";
 				}
 
-
 				//le ponemos el evento click para que aparezca la modal
 				(function (elemento) {
 					elemento.addEventListener("click", function () {
@@ -202,7 +201,7 @@ window.addEventListener('load', function () {
 						var dniInput = document.createElement('input');
 						dniInput.type = 'hidden';
 						dniInput.name = 'dni';
-						
+
 						var cursoInput = document.createElement('input');
 						cursoInput.type = 'hidden';
 						cursoInput.name = 'curso';
@@ -227,7 +226,7 @@ window.addEventListener('load', function () {
 							.then(y => {
 								if (y.dni !== undefined) {
 									dniSpan.innerHTML = y.dni;
-									dniInput.value = y.dni; 
+									dniInput.value = y.dni;
 								}
 								if (y.nombre !== undefined) {
 									nombre.value = y.nombre;
@@ -254,7 +253,7 @@ window.addEventListener('load', function () {
 									cursoInput.value = y;
 								}
 							});
-						
+
 						formulario.appendChild(dni);
 						formulario.appendChild(dniInput);
 						formulario.appendChild(nombre);
@@ -314,6 +313,20 @@ window.addEventListener('load', function () {
 
 
 				listaBecas.appendChild(becas);
+			}
+			// Después de que todos los elementos <a> hayan sido creados, hacer la comprobación
+			var becasElements = document.querySelectorAll('#lista-becas li');
+
+			for (let i = 0; i < becasElements.length; i++) {
+
+				fetch('http://virtual.administracion.com/API/apiSolicitud.php?id=' + id + '&idConvocatorias=' + becasElements[i].getAttribute('data-id') + '&comprobacion=1')
+					.then(x => x.json())
+					.then(y => {
+						if (y === true) {
+							// Si el usuario ha enviado una solicitud, añadimos la clase "solicitud-enviada" al elemento
+							becasElements[i].querySelector("a").classList.add('solicitud-enviada');
+						}
+					});
 			}
 		})
 });

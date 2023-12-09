@@ -32,6 +32,17 @@ class Candidato_convocatoriaRepository
         return $candidato_convocatorias;
     }
 
+    //Comprobamos que el candidato no se haya inscrito ya en la convocatoria
+    public function checkConvo($idCandidato,$idConvocatorias){
+        $sql = "SELECT * FROM candidato_convocatorias WHERE idCandidato = $idCandidato and idConvocatorias = $idConvocatorias";
+        $result = $this->conexion->query($sql);
+        $respuesta = false;
+        if ($result->fetch(PDO::FETCH_ASSOC)) {
+            $respuesta = true;
+        }
+        return $respuesta;
+    }
+
     //CRUD
 
     public function createCandidato_convocatorias($candidato_convocatorias)

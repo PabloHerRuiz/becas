@@ -73,9 +73,10 @@ button {
 
 
 /* Estilo para el contenido de las pestañas */
-#lista-becas{
+#lista-becas {
     overflow-y: auto;
 }
+
 #lista-becas li {
     color: rgb(103, 169, 255);
     text-decoration: underline;
@@ -95,4 +96,8 @@ button {
 
 .invalido {
     border: 3px solid red;
+}
+
+.solicitud-enviada {
+    color: #ff5e5e;
 }

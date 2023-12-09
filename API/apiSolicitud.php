@@ -10,10 +10,11 @@ try {
 }
 
 $candidato_convocatoriaRepository = new candidato_convocatoriaRepository($conn);
-if(!empty($_GET['idConvocatorias'])){
+
+if (!empty($_GET['idConvocatorias'])) {
     $idConvocatorias = Validator::validateInput(INPUT_GET, 'idConvocatorias');
 }
-if(!empty($_GET['id'])){
+if (!empty($_GET['id'])) {
     $id = Validator::validateInput(INPUT_GET, 'id');
 }
 
@@ -55,13 +56,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pdf_files_str = implode(',', $pdf_files);
 
     $candidato_convocatoria = new Candidato_convocatorias($id, $idConvocatorias, $nombre, $apellidos, $email, $curso, $domicilio, $dni, $telefono, null, $pdf_files_str);
-    if ($candidato_convocatoriaRepository->createCandidato_convocatorias($candidato_convocatoria)) {
+    if ($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias)) {
+        echo json_encode(["error" => "Ya has enviado una solicitud a esta convocatoria."]);
+        exit;
+    } else if ($candidato_convocatoriaRepository->createCandidato_convocatorias($candidato_convocatoria)) {
         header('Location:../?menu=home&id=' . $id);
         exit;
     } else {
         echo "Error al  crear la solicitud. Por favor, inténtalo de nuevo.";
         exit;
     }
+} else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    echo json_encode($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias));
 }
 
 ?>
