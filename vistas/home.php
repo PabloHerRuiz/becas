@@ -23,7 +23,9 @@
         </div>
 
         <div id="MisSolicitudes" class="tabcontent">
-            <div id="contenedor-solicitudes"></div>
+            <div id="contenedor-solicitudes">
+                <ul id="lista-soli"></ul>
+            </div>
         </div>
     </div>
 </body>

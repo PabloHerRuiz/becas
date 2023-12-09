@@ -88,6 +88,21 @@ button {
 #lista-becas li:hover {
     color: #006eff;
 }
+#lista-soli {
+    overflow-y: auto;
+}
+
+#lista-soli li {
+    color: rgb(103, 169, 255);
+    text-decoration: underline;
+    cursor: pointer;
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+#lista-soli li:hover {
+    color: #006eff;
+}
 
 /* validaciones */
 .valido {

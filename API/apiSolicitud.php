@@ -67,7 +67,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    echo json_encode($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias));
+    if (!empty($_GET['comprobacion'])) {
+        echo json_encode($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias));
+    } else  {
+        try{
+            $convocatorias=$candidato_convocatoriaRepository->getAllSoliById($id);
+            }catch(Exception $e){
+                http_response_code(500);
+                echo json_encode(['error' => 'Fallo al cargar becas']);
+                exit;
+            }
+            if($convocatorias){
+                header('Content-Type: application/json');
+                echo json_encode($convocatorias);
+            }else{
+                http_response_code(404);
+                echo json_encode(["mensaje" => "No hay becas cargadas"]);
+            }
+    }
 }
 
 ?>

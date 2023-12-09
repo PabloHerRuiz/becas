@@ -20,6 +20,15 @@ class Candidato_convocatoriaRepository
         }
         return $candidato_convocatorias;
     }
+    public function getAllSoliById($id){
+        $sql="SELECT convocatorias.* FROM convocatorias INNER JOIN candidato_convocatorias ON convocatorias.idConvocatorias = candidato_convocatorias.idConvocatorias where idCandidato=$id";
+        $result = $this->conexion->query($sql);
+        $convocatoria = [];
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $convocatoria[] = new Convocatorias($row['codProyecto'], $row['movilidades'], $row['destinos'], $row['tipo'], $row['fecha_ini'], $row['fecha_fin'], $row['fecha_ini_pruebas'], $row['fecha_fin_pruebas'], $row['fecha_lis_definitiva'], $row['fecha_lis_provisional'], $row['idConvocatorias']);
+        }
+        return $convocatoria;
+    }
 
     public function getCandidato_convocatoriasById($id, $idConvocatorias)
     {

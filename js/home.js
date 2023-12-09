@@ -22,6 +22,8 @@ window.addEventListener('load', function () {
 
 	let becasDispo = document.getElementById('contenedor-dispo');
 	let listaBecas = document.querySelector('#lista-becas');
+	let listaSolicitudes = document.querySelector('#lista-soli');
+
 
 	//cargo la plantilla de una
 
@@ -329,4 +331,31 @@ window.addEventListener('load', function () {
 					});
 			}
 		})
+
+	//cargamos los datos de las solicitudes
+	//cargamos los datos de las becas
+	fetch('http://virtual.administracion.com/API/apiSolicitud.php?id=' + id)
+		.then(x => x.json())
+		.then(y => {
+			for (let i = 0; i < y.length; i++) {
+				var becas = plantillaBecas.cloneNode(true);
+
+				becas.setAttribute("data-id", y[i].idConvocatorias);
+
+				var destinos = becas.querySelector(".des");
+				var movilidades = becas.querySelector(".mov");
+				var tipo = becas.querySelector(".tip");
+
+				destinos.innerHTML = y[i].destinos;
+
+				movilidades.innerHTML = y[i].movilidades;
+
+				if (y[i].tipo == 1) {
+					tipo.innerHTML = "Larga Duración";
+				} else if (y[i].tipo == 2) {
+					tipo.innerHTML = "Corta Duración";
+				}
+				listaSolicitudes.appendChild(becas);
+			}
+		});
 });
