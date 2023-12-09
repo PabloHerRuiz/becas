@@ -16,7 +16,7 @@ class Candidato_convocatoriaRepository
         $result = $this->conexion->query($sql);
         $candidato_convocatorias = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $candidato_convocatorias[] = new Candidato_convocatorias($row['idCandidato'], $row['idConvocatorias'], $row['nombre'], $row['apellidos'], $row['correo'], $row['curso'], $row['domicilio'], $row['dni'], $row['telefono'], $row['tutor']);
+            $candidato_convocatorias[] = new Candidato_convocatorias($row['idCandidato'], $row['idConvocatorias'], $row['nombre'], $row['apellidos'], $row['correo'], $row['curso'], $row['domicilio'], $row['dni'], $row['telefono'], $row['tutor'], $row['url']);
         }
         return $candidato_convocatorias;
     }
@@ -27,7 +27,7 @@ class Candidato_convocatoriaRepository
         $result = $this->conexion->query($sql);
         $candidato_convocatorias = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $candidato_convocatorias = new Candidato_convocatorias($row['idCandidato'], $row['idConvocatorias'], $row['nombre'], $row['apellidos'], $row['correo'], $row['curso'], $row['domicilio'], $row['dni'], $row['telefono'], $row['tutor']);
+            $candidato_convocatorias = new Candidato_convocatorias($row['idCandidato'], $row['idConvocatorias'], $row['nombre'], $row['apellidos'], $row['correo'], $row['curso'], $row['domicilio'], $row['dni'], $row['telefono'], $row['tutor'], $row['url']);
         }
         return $candidato_convocatorias;
     }
@@ -46,9 +46,10 @@ class Candidato_convocatoriaRepository
         $dni = $candidato_convocatorias->getDni();
         $telefono = $candidato_convocatorias->getTelefono();
         $tutor = $candidato_convocatorias->getTutor();
+        $url = $candidato_convocatorias->getUrl();
 
-        $sql = "INSERT INTO candidato_convocatorias (idCandidato, idConvocatorias, nombre, apellidos, correo, curso, domicilio, dni, telefono, tutor) 
-        VALUES ( '$idCandidato', '$idConvocatorias', '$nombre', '$apellidos', '$correo', '$curso', '$domicilio', '$dni', '$telefono', '$tutor')";
+        $sql = "INSERT INTO candidato_convocatorias (idCandidato, idConvocatorias, nombre, apellidos, correo, curso, domicilio, dni, telefono, tutor, url) 
+        VALUES ( '$idCandidato', '$idConvocatorias', '$nombre', '$apellidos', '$correo', '$curso', '$domicilio', '$dni', '$telefono', '$tutor','$url')";
 
         if ($this->conexion->exec($sql)) {
             return true;
@@ -69,8 +70,9 @@ class Candidato_convocatoriaRepository
         $dni = $candidato_convocatorias->getDni();
         $telefono = $candidato_convocatorias->getTelefono();
         $tutor = $candidato_convocatorias->getTutor();
+        $url = $candidato_convocatorias->getUrl();
 
-        $sql = "UPDATE candidato_convocatorias SET idConvocatorias = '$idConvocatorias', nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', dni = '$dni', telefono = '$telefono', tutor = '$tutor' WHERE idCandidato = $id";
+        $sql = "UPDATE candidato_convocatorias SET idConvocatorias = '$idConvocatorias', nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', dni = '$dni', telefono = '$telefono', tutor = '$tutor',url='$url' WHERE idCandidato = $id";
 
         if ($this->conexion->exec($sql)) {
             return true;

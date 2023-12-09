@@ -11,8 +11,9 @@ class Candidato_convocatorias implements JsonSerializable
     private $dni;
     private $telefono;
     private $tutor;
+    private $url;
 
-    public function __construct($idCandidato, $idConvocatorias, $nombre, $apellidos, $correo, $curso, $domicilio, $dni, $telefono, $tutor = null)
+    public function __construct($idCandidato, $idConvocatorias, $nombre, $apellidos, $correo, $curso, $domicilio, $dni, $telefono, $tutor = null, $url = null)
     {
         $this->idCandidato = $idCandidato;
         $this->idConvocatorias = $idConvocatorias;
@@ -24,6 +25,7 @@ class Candidato_convocatorias implements JsonSerializable
         $this->dni = $dni;
         $this->telefono = $telefono;
         $this->tutor = $tutor;
+        $this->url = $url;
     }
 
     public function getIdCandidato()
@@ -124,6 +126,16 @@ class Candidato_convocatorias implements JsonSerializable
     public function setTutor($tutor)
     {
         $this->tutor = $tutor;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
     //metodos
     public function jsonSerialize()
