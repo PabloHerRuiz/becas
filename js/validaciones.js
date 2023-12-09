@@ -80,6 +80,19 @@ HTMLInputElement.prototype.numero = function () {
     return respuesta;
 }
 
+HTMLInputElement.prototype.pdfSeleccionado = function () {
+    var respuesta = false;
+    if (this.files.length > 0) {
+        var fileName = this.files[0].name;
+        var idxDot = fileName.lastIndexOf(".") + 1;
+        var extFile = fileName.substring(idxDot).toLowerCase();
+        if (extFile=="pdf"){
+            respuesta = true;
+        }
+    }
+    return respuesta;
+}
+
 HTMLFieldSetElement.prototype.valida = function () {
     // Buscar todos los checkboxes en el fieldset
     var checkboxes = this.querySelectorAll('input[type="checkbox"]');

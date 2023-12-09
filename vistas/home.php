@@ -5,6 +5,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="css/estilosHome.css">
     <script src="js/home.js"></script>
+    <script src="js/validaciones.js"></script>
 </head>
 
 <body>

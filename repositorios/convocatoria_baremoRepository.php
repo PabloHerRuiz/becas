@@ -33,6 +33,32 @@ class convocatoria_baremoRepository
         return $convocatoria_baremo;
     }
 
+    public function getAllItemPresenta($idConvocatorias)
+    {
+        $sql = "SELECT count(idItem_Baremables) as total from convocatoria_baremo where idConvocatorias=$idConvocatorias and presenta=1;";
+        $result = $this->conexion->query($sql);
+        $total = null;
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $total = $row['total'];
+        }
+        return $total;
+    }
+
+    public function getAllNomPresenta($idConvocatorias)
+    {
+        $sql = "SELECT item_baremables.nombre 
+        FROM item_baremables 
+        INNER JOIN convocatoria_baremo 
+        ON item_baremables.idItem_baremables = convocatoria_baremo.idItem_baremables where idConvocatorias=$idConvocatorias and presenta=1;";
+        $result = $this->conexion->query($sql);
+        $nombres = [];        
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $nombres[] = $row['nombre'];
+        }
+        return $nombres;
+    }
+
+
     //CRUD
 
     public function createConvocatoria_baremo($convocatoria_baremo)

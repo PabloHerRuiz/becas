@@ -40,12 +40,14 @@ window.addEventListener('load', function () {
 			for (let i = 0; i < y.length; i++) {
 				var becas = plantillaBecas.cloneNode(true);
 
+				becas.setAttribute("data-id", y[i].idConvocatorias);
+
 				var destinos = becas.querySelector(".des");
 				var movilidades = becas.querySelector(".mov");
 				var tipo = becas.querySelector(".tip");
 
 				destinos.innerHTML = y[i].destinos;
-				
+
 				movilidades.innerHTML = y[i].movilidades;
 
 				if (y[i].tipo == 1) {
@@ -58,6 +60,7 @@ window.addEventListener('load', function () {
 				//le ponemos el evento click para que aparezca la modal
 				(function (elemento) {
 					elemento.addEventListener("click", function () {
+						var idConvocatorias =  elemento.dataset.id;
 						//fondo modal
 						var modal = document.createElement('div');
 						modal.style.position = "fixed";
@@ -84,7 +87,7 @@ window.addEventListener('load', function () {
 
 						var formulario = document.createElement('form');
 						formulario.method = "POST";
-						formulario.action = "http://virtual.administracion.com/API/apiCandidato.php";
+						formulario.action = "http://virtual.administracion.com/API/apiSolicitud.php?idConvocatorias=" + idConvocatorias + "&id=" + id;
 						formulario.enctype = "multipart/form-data";
 						formulario.style.margin = "auto";
 						formulario.style.width = "80%";
@@ -109,6 +112,7 @@ window.addEventListener('load', function () {
 						nombre.name = "nombre";
 						nombre.id = "nombre";
 						nombre.placeholder = "Nombre";
+						nombre.setAttribute("data-valida", "relleno");
 						nombre.style.width = "50%";
 						nombre.style.height = "30px";
 						nombre.style.borderRadius = "5px";
@@ -118,6 +122,7 @@ window.addEventListener('load', function () {
 						apellidos.name = "apellidos";
 						apellidos.id = "apellidos";
 						apellidos.placeholder = "Apellidos";
+						apellidos.setAttribute("data-valida", "relleno");
 						apellidos.style.width = "50%";
 						apellidos.style.height = "30px";
 						apellidos.style.borderRadius = "5px";
@@ -127,12 +132,14 @@ window.addEventListener('load', function () {
 
 						var dniSpan = document.createElement('span');
 						dniSpan.className = "dniUser";
+						dniSpan.name = "dni";
 						dni.appendChild(dniSpan);
 
 						dni.appendChild(document.createTextNode(" perteneces al curso de "));
 
 						var cursoSpan = document.createElement('span');
 						cursoSpan.className = "cursoUser";
+						cursoSpan.name = "curso";
 						dni.appendChild(cursoSpan);
 
 
@@ -141,6 +148,7 @@ window.addEventListener('load', function () {
 						email.name = "email";
 						email.id = "email";
 						email.placeholder = "Email";
+						email.setAttribute("data-valida", "email");
 						email.style.width = "50%";
 						email.style.height = "30px";
 						email.style.borderRadius = "5px";
@@ -150,6 +158,7 @@ window.addEventListener('load', function () {
 						telefono.name = "telefono";
 						telefono.id = "telefono";
 						telefono.placeholder = "Telefono";
+						telefono.setAttribute("data-valida", "relleno");
 						telefono.style.width = "50%";
 						telefono.style.height = "30px";
 						telefono.style.borderRadius = "5px";
@@ -159,17 +168,50 @@ window.addEventListener('load', function () {
 						domicilio.name = "domicilio";
 						domicilio.id = "domicilio";
 						domicilio.placeholder = "Domicilio";
+						domicilio.setAttribute("data-valida", "relleno");
 						domicilio.style.width = "50%";
 						domicilio.style.height = "30px";
 						domicilio.style.borderRadius = "5px";
 
+						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&nombre=1")
+							.then(x => x.json())
+							.then(y => {
+								var label = document.createElement('label');
+								label.for = "cv";
+								label.textContent = "Por favor, sube los siguientes archivos: ";
+
+								for (let i = 0; i < y.length; i++) {
+									if (i !== 0) {
+										label.appendChild(document.createTextNode(', '));
+									}
+									label.appendChild(document.createTextNode(y[i]));
+								}
+
+								formulario.appendChild(label);
+							})
+							.catch(error => console.error(error));
+
 						var cv = document.createElement('input');
 						cv.type = "file";
+						cv.id = "cv";
 						cv.name = "cv";
-						cv.required = true;
+						cv.multiple = true;
+						cv.setAttribute("data-valida", "pdfSeleccionado");
 						cv.style.width = "50%";
 						cv.style.height = "30px";
 						cv.style.borderRadius = "5px";
+
+						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&presenta=1")
+							.then(x => x.json())
+							.then(y => {
+								cv.onchange = function () {
+									if (this.files.length > y) {
+										alert('No puedes seleccionar más de ' + y + ' archivos');
+										this.value = '';
+									}
+								};
+							})
+
 
 						//rellenamos datos del usuario en los inputs
 
@@ -195,14 +237,14 @@ window.addEventListener('load', function () {
 									domicilio.value = y.domicilio;
 								}
 							});
-						
+
 						fetch(`http://virtual.administracion.com/API/apiDestinatario.php?id=${id}`)
-						.then(x => x.json())
-						.then(y => {
-							if (y !== undefined) {
-								cursoSpan.innerHTML = y;
-							}
-						});
+							.then(x => x.json())
+							.then(y => {
+								if (y !== undefined) {
+									cursoSpan.innerHTML = y;
+								}
+							});
 
 						formulario.appendChild(dni);
 						formulario.appendChild(nombre);
@@ -223,6 +265,9 @@ window.addEventListener('load', function () {
 
 						formulario.addEventListener("submit", function (ev) {
 							ev.preventDefault();
+							if (formulario.valida()) {
+								alert("Formulario enviado");
+							}
 						});
 
 						visualizador.appendChild(formulario);

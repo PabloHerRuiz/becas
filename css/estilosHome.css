@@ -87,3 +87,12 @@ button {
 #lista-becas li:hover {
     color: #006eff;
 }
+
+/* validaciones */
+.valido {
+    border: 3px solid #66ff66;
+}
+
+.invalido {
+    border: 3px solid red;
+}
