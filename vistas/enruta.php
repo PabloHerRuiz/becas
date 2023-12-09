@@ -23,5 +23,9 @@ if (isset($_GET['menu'])) {
         require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/crearConvocatoria.php';
 
     }
+    if ($_GET['menu'] == "bare") {
+        require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/baremacion.php';
+
+    }
 }
 ?>
