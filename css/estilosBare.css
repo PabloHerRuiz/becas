@@ -1,8 +1,51 @@
 body {
     background: #f6f5f7;
     display: flex;
-    align-items: center;
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
     height: 40vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+.toggle:not(:checked)~h2::before {
+    transform: rotate(0deg) scale(0.75);
+}
+
+.toggle:checked~.list {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.toggle:not(:checked)~.list {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    height: auto;
+}
+
+
+.list {
+    margin-top: 0;
+    list-style: none;
+    overflow: hidden;
+    text-align: left;
+    transition: all 0.4s ease-out;
+    width: 100%;
+    position: relative;
+}
+
+.list a {
+    display: flex;
+    color: inherit;
+    text-transform: lowercase;
+    font-weight: 200;
+    text-decoration: none;
+}
+
+#bare-container {
+    margin-left: 70px;
 }

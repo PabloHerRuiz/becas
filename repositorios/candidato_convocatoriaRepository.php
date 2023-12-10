@@ -30,6 +30,16 @@ class Candidato_convocatoriaRepository
         return $convocatoria;
     }
 
+    public function getAllCandiByIdCon($idConvocatorias){
+        $sql="SELECT * FROM candidato_convocatorias WHERE idconvocatorias=$idConvocatorias";
+        $result = $this->conexion->query($sql);
+        $candidato_convocatorias = [];
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $candidato_convocatorias[] = new Candidato_convocatorias($row['idCandidato'], $row['idConvocatorias'], $row['nombre'], $row['apellidos'], $row['correo'], $row['curso'], $row['domicilio'], $row['dni'], $row['telefono'], $row['tutor'], $row['url']);
+        }
+        return $candidato_convocatorias;
+    }
+
     public function getCandidato_convocatoriasById($id, $idConvocatorias)
     {
         $sql = "SELECT * FROM candidato_convocatorias WHERE idCandidato = $id and idConvocatorias = $idConvocatorias";

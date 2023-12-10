@@ -333,7 +333,6 @@ window.addEventListener('load', function () {
 		})
 
 	//cargamos los datos de las solicitudes
-	//cargamos los datos de las becas
 	fetch('http://virtual.administracion.com/API/apiSolicitud.php?id=' + id)
 		.then(x => x.json())
 		.then(y => {
