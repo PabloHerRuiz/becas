@@ -103,6 +103,9 @@ button {
 #lista-soli li:hover {
     color: #006eff;
 }
+#MisSolicitudes{
+    float: right;
+}
 
 /* validaciones */
 .valido {
