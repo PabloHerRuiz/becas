@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"].'/helpers/autocargador.php';
+require_once $_SERVER["DOCUMENT_ROOT"] . '/helpers/autocargador.php';
 
 try {
     $conn = db::abreconexion();
@@ -10,10 +10,12 @@ try {
 }
 
 $candidatoRepository = new candidatoRepository($conn);
-$id = Validator::validateInput(INPUT_GET, 'id');
+if (!empty($_GET['id'])) {
+    $id = Validator::validateInput(INPUT_GET, 'id');
+}
 
-if($_SERVER["REQUEST_METHOD"] == "GET") {
-    if(!empty($id)) {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if (!empty($id)) {
         try {
             $candidato = $candidatoRepository->getCandidatoById($id);
         } catch (Exception $e) {
@@ -22,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             exit;
         }
 
-        if($candidato) {
+        if ($candidato) {
             header('Content-Type: application/json');
             echo json_encode($candidato);
         } else {
@@ -30,10 +32,10 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             echo json_encode(["mensaje" => "No hay perfil"]);
         }
     }
-} else if($_SERVER["REQUEST_METHOD"] == "PUT") {
-    if(!empty($id)) {
+} else if ($_SERVER["REQUEST_METHOD"] == "PUT") {
+    if (!empty($id)) {
         $datos = json_decode(file_get_contents("php://input"), true);
-        if($datos) {
+        if ($datos) {
             try {
                 $candidato = new Candidato($datos['nombre'], $datos['apellidos'], null, null, $datos['curso'], $datos['correo'], $datos['telefono'], $datos['domicilio'], $datos['fecha_nacimiento'], null, null, $id);
                 $candidatoRepository->updateCandidato($candidato);

@@ -10,8 +10,13 @@ try {
 }
 
 $baremacionRepository = new baremacionRepository($conn);
-$idConvocatorias = Validator::validateInput(INPUT_GET, 'idConvocatorias');
-$id = Validator::validateInput(INPUT_GET, 'id');
+if (!empty($_GET['id'])) {
+    $id = Validator::validateInput(INPUT_GET, 'id');
+}
+if (!empty($_GET['idConvocatorias'])) {
+    $idConvocatorias = Validator::validateInput(INPUT_GET, 'idConvocatorias');
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
