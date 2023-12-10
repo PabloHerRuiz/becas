@@ -21,7 +21,9 @@
             <!-- <label for="password">Contraseña:</label><br>
         <input type="password" id="password" name="password"><br> -->
             <label for="curso">Curso:</label><br>
-            <input type="text" id="curso" name="curso" data-valida="relleno"><br>
+            <select id="curso" name="curso" data-valida="relleno">
+                <option selected disabled>Selecciona un curso</option>
+            </select><br>
             <label for="correo">Correo:</label><br>
             <input type="email" id="correo" name="correo" data-valida="email"><br>
             <label for="telefono">Teléfono:</label><br>

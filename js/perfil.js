@@ -15,6 +15,20 @@ window.addEventListener("load", function () {
 
     var id = url.searchParams.get("id");
 
+    //cargar los cursos
+    fetch('http://virtual.administracion.com/API/apiDestinatario.php')
+        .then(x => x.json())
+        .then(y => {
+            console.log(y);
+            for (let i = 0; i < y.length; i++) {
+                let option = document.createElement("option");
+                option.value = y[i].idDestinatarios;
+                option.innerHTML = y[i].codGrupo;
+                curso.appendChild(option);
+            }
+        });
+    
+    //cargar los datos de ese usuario
     fetch(`http://virtual.administracion.com/API/apiPerfil.php?id=${id}`)
         .then(x => x.json())
         .then(y => {
