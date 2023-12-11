@@ -36,13 +36,9 @@ window.addEventListener('load', function () {
                 input.id = "despliega" + i;
                 movilidades.innerHTML = convocatoriasInfo.movilidades;
 
-                h2.addEventListener("click", function (posicion) {
-                    var objeto=this;
-                    return function () {
-                        //let checkbox = document.getElementById('despliega' + posicion);
-                        const checkbox=objeto.previousElementSibling;
-                        checkbox.checked = !checkbox.checked;
-                    }(i)
+                h2.addEventListener("click", function () {
+                    const checkbox = this.previousElementSibling;
+                    checkbox.checked = !checkbox.checked;
                 });
 
                 if (convocatoriasInfo.tipo == 1) {
