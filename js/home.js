@@ -108,22 +108,35 @@ window.addEventListener('load', function () {
 						titulo.style.height = "30px";
 
 						formulario.appendChild(titulo);
+
 						//nombre, apellidos, dni, email, telefono, domicilio, curso, archivos varios
-						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&nombre=1")
+						var fileContainer = document.createElement('div');
+						fileContainer.id = "fileContainer";
+						fileContainer.style.marginTop = "12px";
+						fileContainer.style.display = "flex";
+						fileContainer.style.flexDirection = "column";
+						fileContainer.style.marginRight = "110px";
+
+						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&archivos=1")
 							.then(x => x.json())
 							.then(y => {
-								var label = document.createElement('label');
-								label.for = "cv";
-								label.textContent = "Por favor, sube los siguientes archivos: ";
+								y.forEach(element => {
+									var file = document.createElement('input');
+									file.type = "file";
+									file.id = element;
+									file.name = element;
+									file.style.width = "50%";
+									file.style.height = "30px";
+									file.style.borderRadius = "5px";
+									file.style.marginBottom = "10px";
 
-								for (let i = 0; i < y.length; i++) {
-									if (i !== 0) {
-										label.appendChild(document.createTextNode(', '));
-									}
-									label.appendChild(document.createTextNode(y[i]));
-								}
+									var label = document.createElement('label');
+									label.htmlFor = element;
+									label.textContent = element;
 
-								formulario.appendChild(label);
+									fileContainer.appendChild(label);
+									fileContainer.appendChild(file);
+								});
 							})
 							.catch(error => console.error(error));
 
@@ -191,16 +204,6 @@ window.addEventListener('load', function () {
 						domicilio.style.height = "30px";
 						domicilio.style.borderRadius = "5px";
 
-						var cv = document.createElement('input');
-						cv.type = "file";
-						cv.id = "cv";
-						cv.name = "cv[]";
-						cv.multiple = true;
-						cv.setAttribute("data-valida", "pdfSeleccionado");
-						cv.style.width = "50%";
-						cv.style.height = "30px";
-						cv.style.borderRadius = "5px";
-
 						var dniInput = document.createElement('input');
 						dniInput.type = 'hidden';
 						dniInput.name = 'dni';
@@ -208,19 +211,6 @@ window.addEventListener('load', function () {
 						var cursoInput = document.createElement('input');
 						cursoInput.type = 'hidden';
 						cursoInput.name = 'curso';
-
-						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&presenta=1")
-							.then(x => x.json())
-							.then(y => {
-								maxFiles = y;
-								cv.onchange = function () {
-									if (this.files.length > y) {
-										alert('No puedes seleccionar más de ' + y + ' archivos');
-										this.value = '';
-									}
-								};
-							})
-
 
 						//rellenamos datos del usuario en los inputs
 
@@ -264,8 +254,8 @@ window.addEventListener('load', function () {
 						formulario.appendChild(email);
 						formulario.appendChild(telefono);
 						formulario.appendChild(domicilio);
-						formulario.appendChild(cv);
 						formulario.appendChild(cursoInput);
+						formulario.appendChild(fileContainer);
 
 						var boton = document.createElement('input');
 						boton.type = "submit";
@@ -280,13 +270,8 @@ window.addEventListener('load', function () {
 						formulario.addEventListener("submit", function (ev) {
 							ev.preventDefault();
 							if (formulario.valida()) {
-								if (cv.files.length < maxFiles) {
-									alert('Debes seleccionar ' + maxFiles + ' archivos');
-									cv.value = '';
-								} else {
-									formulario.submit();
-									alert("Formulario enviado");
-								}
+								formulario.submit();
+								alert("Formulario enviado");
 							}
 						});
 

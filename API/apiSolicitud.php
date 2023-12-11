@@ -29,31 +29,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     //guardar PDF
     $dir_pdfs = '../pdf/';
+    $pdf_files = array();
 
-    // Inicializa un array para almacenar los nombres de los archivos PDF
-    $pdf_files = [];
+    // Verifica si se han cargado archivos
+    if (!empty($_FILES)) {
 
-    // Itera sobre cada archivo en $_FILES
-    foreach ($_FILES['cv']['name'] as $key => $name) {
-        $fichero_nombre_pdf = $name;
-        $fichero_tipo_pdf = $_FILES['cv']['type'][$key];
+        foreach ($_FILES as $key => $file) {
+            $fichero_nombre_pdf = $file['name'];
+            $fichero_tipo_pdf = $file['type'];
 
-        // Verificar si es un PDF
-        if (strpos($fichero_tipo_pdf, 'pdf') !== false) {
-            $fichero_subido = $dir_pdfs . basename($fichero_nombre_pdf);
-            $fichero_temporal = $_FILES['cv']['tmp_name'][$key];
+            // Verificar si es un PDF
+            if (strpos($fichero_tipo_pdf, 'pdf') !== false) {
+                $fichero_subido = $dir_pdfs . basename($fichero_nombre_pdf);
+                $fichero_temporal = $file['tmp_name'];
 
-            // Mover archivo a la carpeta correspondiente
-            if (move_uploaded_file($fichero_temporal, $fichero_subido)) {
-                $pdf_files[] = $fichero_nombre_pdf;
-            } else {
-                echo "Hubo un error al cargar el archivo $fichero_nombre_pdf.\n";
+               
+                if (move_uploaded_file($fichero_temporal, $fichero_subido)) {
+                    
+                    $pdf_files[$key] = $fichero_nombre_pdf;
+                } else {
+                    echo "Hubo un error al cargar el archivo $fichero_nombre_pdf.\n";
+                }
             }
         }
     }
 
-    // Une los nombres de los archivos PDF en una sola cadena, separada por comas
-    $pdf_files_str = implode(',', $pdf_files);
+    // Convierte el array a una cadena JSON
+    $pdf_files_str = json_encode($pdf_files);
 
     $candidato_convocatoria = new Candidato_convocatorias($id, $idConvocatorias, $nombre, $apellidos, $email, $curso, $domicilio, $dni, $telefono, null, $pdf_files_str);
     if ($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias)) {
@@ -68,24 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!empty($_GET['comprobacion'])) {
-        echo json_encode($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias));
-        
-    // }else if(!empty($_GET['baremacion'])){
-    //     try{
-    //         $candidato_convocatoria=$candidato_convocatoriaRepository->getAllCandiByIdCon($idConvocatorias);
-    //         }catch(Exception $e){
-    //             http_response_code(500);
-    //             echo json_encode(['error' => 'Fallo al cargar solicitantes']);
-    //             exit;
-    //         }
-    //         if($candidato_convocatoria){
-    //             header('Content-Type: application/json');
-    //             echo json_encode($candidato_convocatoria);
-    //         }else{
-    //             header('Content-Type: application/json');
-    //             echo json_encode([]);
-    //         }
-    
+        echo json_encode($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias));   
     } else  {
         try{
             $convocatorias=$candidato_convocatoriaRepository->getAllSoliById($id);
