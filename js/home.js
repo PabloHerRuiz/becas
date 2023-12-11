@@ -47,9 +47,10 @@ window.addEventListener('load', function () {
 				var destinos = becas.querySelector(".des");
 				var movilidades = becas.querySelector(".mov");
 				var tipo = becas.querySelector(".tip");
+				var fin = becas.querySelector(".fin");
 
 				destinos.innerHTML = y[i].destinos;
-
+				fin.innerHTML = y[i].fecha_fin;
 				movilidades.innerHTML = y[i].movilidades;
 
 				if (y[i].tipo == 1) {
