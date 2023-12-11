@@ -48,10 +48,14 @@ window.addEventListener('load', function () {
 				var movilidades = becas.querySelector(".mov");
 				var tipo = becas.querySelector(".tip");
 				var fin = becas.querySelector(".fin");
+				var button = becas.querySelector("button");
+				var enlace = becas.querySelector("a");
 
 				destinos.innerHTML = y[i].destinos;
 				fin.innerHTML = y[i].fecha_fin;
 				movilidades.innerHTML = y[i].movilidades;
+				button.setAttribute("data-id", y[i].idConvocatorias);
+				enlace.setAttribute("data-id", y[i].idConvocatorias);
 
 				if (y[i].tipo == 1) {
 					tipo.innerHTML = "Larga Duración";
@@ -59,10 +63,62 @@ window.addEventListener('load', function () {
 					tipo.innerHTML = "Corta Duración";
 				}
 
+				//mostrar html solicitud
+				(function (enlace) {
+					enlace.addEventListener("click", function () {
+						var iframe = document.createElement('iframe');
+						iframe.src = "/vistas/plantillas/Solicitud ErasmusCFGM23-24.html";
+						iframe.width = "100%";
+						iframe.height = "100%";
+						// contenedor.appendChild(iframe);
+
+						//fondo modal
+						var modal = document.createElement('div');
+						modal.style.position = "fixed";
+						modal.style.top = 0;
+						modal.style.left = 0;
+						modal.style.width = "100%";
+						modal.style.height = "100%";
+						modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+						modal.style.zIndex = 99;
+						document.body.appendChild(modal);
+
+						//contenido modal
+						var visualizador = document.createElement('div');
+						visualizador.style.position = "fixed";
+						visualizador.style.top = "5%";
+						visualizador.style.left = "25%";
+						visualizador.style.width = "50%";
+						visualizador.style.height = "90%";
+						visualizador.style.backgroundColor = "White";
+						visualizador.style.zIndex = 100;
+						visualizador.appendChild(iframe);
+						document.body.appendChild(visualizador);
+
+						//cerrar modal
+						var closer = document.createElement('img');
+						closer.style.position = "fixed";
+						closer.style.top = "0";
+						closer.style.right = "0";
+						closer.style.padding = "5px";
+						closer.style.zIndex = 101;
+						closer.style.cursor = "pointer";
+						closer.innerHTML = "X";
+
+						closer.addEventListener("click", function () {
+							document.body.removeChild(visualizador);
+							document.body.removeChild(modal);
+							document.body.removeChild(this);
+						});
+
+						document.body.appendChild(closer);
+					});
+				})(enlace);
+
 				//le ponemos el evento click para que aparezca la modal
-				(function (elemento) {
-					elemento.addEventListener("click", function () {
-						var idConvocatorias = elemento.dataset.id;
+				(function (button) {
+					button.addEventListener("click", function () {
+						var idConvocatorias = button.dataset.id;
 						//fondo modal
 						var modal = document.createElement('div');
 						modal.style.position = "fixed";
@@ -295,7 +351,7 @@ window.addEventListener('load', function () {
 
 						document.body.appendChild(closer);
 					});
-				})(becas);
+				})(button);
 
 
 
@@ -313,6 +369,7 @@ window.addEventListener('load', function () {
 						if (y === true) {
 							// Si el usuario ha enviado una solicitud, añadimos la clase "solicitud-enviada" al elemento
 							becasElements[i].querySelector("a").classList.add('solicitud-enviada');
+							becasElements[i].querySelector("button").style.display = "none";
 						}
 					});
 			}
@@ -331,10 +388,13 @@ window.addEventListener('load', function () {
 				var movilidades = becas.querySelector(".mov");
 				var tipo = becas.querySelector(".tip");
 				var fin = becas.querySelector(".fin");
+				var button = becas.querySelector("button");
 
 				destinos.innerHTML = y[i].destinos;
 				fin.innerHTML = y[i].fecha_fin;
 				movilidades.innerHTML = y[i].movilidades;
+				button.innerHTML = "Actualizar";
+				button.setAttribute("data-id", y[i].idConvocatorias);
 
 				if (y[i].tipo == 1) {
 					tipo.innerHTML = "Larga Duración";
@@ -344,9 +404,9 @@ window.addEventListener('load', function () {
 
 				//mostramos la modal de solicitud
 				//le ponemos el evento click para que aparezca la modal
-				(function (elemento) {
-					elemento.addEventListener("click", function () {
-						var idConvocatorias = elemento.dataset.id;
+				(function (button) {
+					button.addEventListener("click", function () {
+						var idConvocatorias = button.dataset.id;
 						//fondo modal
 						var modal = document.createElement('div');
 						modal.style.position = "fixed";
@@ -373,7 +433,7 @@ window.addEventListener('load', function () {
 
 						var formulario = document.createElement('form');
 						formulario.method = "POST";
-						formulario.action = "http://virtual.administracion.com/API/apiSolicitud.php?idConvocatorias=" + idConvocatorias + "&id=" + id+"&actualizar=1";
+						formulario.action = "http://virtual.administracion.com/API/apiSolicitud.php?idConvocatorias=" + idConvocatorias + "&id=" + id + "&actualizar=1";
 						formulario.enctype = "multipart/form-data";
 						formulario.style.margin = "auto";
 						formulario.style.width = "80%";
@@ -498,7 +558,7 @@ window.addEventListener('load', function () {
 
 						//rellenamos datos del usuario en los inputs
 
-						fetch(`http://virtual.administracion.com/API/apiSolicitud.php?id=${id}`+ '&idConvocatorias=' + idConvocatorias + '&proceso=1')
+						fetch(`http://virtual.administracion.com/API/apiSolicitud.php?id=${id}` + '&idConvocatorias=' + idConvocatorias + '&proceso=1')
 							.then(x => x.json())
 							.then(y => {
 								if (y.dni !== undefined) {
@@ -579,7 +639,7 @@ window.addEventListener('load', function () {
 
 						document.body.appendChild(closer);
 					});
-				})(becas);
+				})(button);
 
 
 

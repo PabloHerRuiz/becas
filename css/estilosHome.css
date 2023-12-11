@@ -23,7 +23,12 @@ button {
     transition: transform 80ms ease-in;
 }
 
-
+.soli {
+    color: #000;
+    padding: 10px 30px;
+    margin-left: 13px;
+    cursor: pointer;
+}
 
 #cuerpo {
     width: 96%;
@@ -89,6 +94,7 @@ button {
 #lista-becas li:hover {
     color: #006eff;
 }
+
 #lista-soli {
     overflow-y: auto;
 }
@@ -104,7 +110,8 @@ button {
 #lista-soli li:hover {
     color: #006eff;
 }
-#MisSolicitudes{
+
+#MisSolicitudes {
     float: right;
 }
 
