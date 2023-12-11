@@ -69,21 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!empty($_GET['comprobacion'])) {
         echo json_encode($candidato_convocatoriaRepository->checkConvo($id, $idConvocatorias));
-    }else if(!empty($_GET['baremacion'])){
-        try{
-            $candidato_convocatoria=$candidato_convocatoriaRepository->getAllCandiByIdCon($idConvocatorias);
-            }catch(Exception $e){
-                http_response_code(500);
-                echo json_encode(['error' => 'Fallo al cargar solicitantes']);
-                exit;
-            }
-            if($candidato_convocatoria){
-                header('Content-Type: application/json');
-                echo json_encode($candidato_convocatoria);
-            }else{
-                header('Content-Type: application/json');
-                echo json_encode([]);
-            }
+        
+    // }else if(!empty($_GET['baremacion'])){
+    //     try{
+    //         $candidato_convocatoria=$candidato_convocatoriaRepository->getAllCandiByIdCon($idConvocatorias);
+    //         }catch(Exception $e){
+    //             http_response_code(500);
+    //             echo json_encode(['error' => 'Fallo al cargar solicitantes']);
+    //             exit;
+    //         }
+    //         if($candidato_convocatoria){
+    //             header('Content-Type: application/json');
+    //             echo json_encode($candidato_convocatoria);
+    //         }else{
+    //             header('Content-Type: application/json');
+    //             echo json_encode([]);
+    //         }
     
     } else  {
         try{

@@ -38,6 +38,10 @@ h1 {
     position: relative;
 }
 
+.list li{
+    margin-bottom: 13px;
+}
+
 .list a {
     display: flex;
     color: inherit;

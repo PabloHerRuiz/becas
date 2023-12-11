@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
     });
 
     logout.addEventListener("click", function () {
-        fetch("http://virtual.administracion/API/apiSesion.php")
+        fetch("http://virtual.administracion.com/API/apiSesion.php")
             .then(x => {
                 if (x.status == 200) {
                     document.location = "?menu=login";

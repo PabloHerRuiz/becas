@@ -13,61 +13,68 @@ window.addEventListener('load', function () {
             plantillaBare.innerHTML = y;
         });
 
-
-
-
-    //cargamos los datos de las bare
+    //cogemos los datos de las convocatorias
     fetch('http://virtual.administracion.com/API/apiConvocatoria.php?baremacion=1')
         .then(x => x.json())
         .then(y => {
-            for (let i = 0; i < y.length; i++) {
-                (function (i) { 
-                    var bare = plantillaBare.cloneNode(true);
+            console.log(y);
+            i = 1;
+            y.convocatorias.forEach(convocatoriasInfo => {
 
-                    bare.setAttribute("data-id", y[i].idConvocatorias);
+                //cargamos todo
+                var bare = plantillaBare.cloneNode(true);
 
-                    var destinos = bare.querySelector(".des");
-                    var movilidades = bare.querySelector(".mov");
-                    var tipo = bare.querySelector(".tip");
-                    var input = bare.querySelector("input");
-                    var h2 = bare.querySelector("h2");
+                bare.setAttribute("data-id", convocatoriasInfo.idConvocatorias);
 
-                    h2.addEventListener("click", function () {
-                        let checkbox = document.getElementById('despliega' + i);
+                var destinos = bare.querySelector(".des");
+                var movilidades = bare.querySelector(".mov");
+                var tipo = bare.querySelector(".tip");
+                var input = bare.querySelector("input");
+                var h2 = bare.querySelector("h2");
+
+                destinos.innerHTML = convocatoriasInfo.destinos;
+                input.id = "despliega" + i;
+                movilidades.innerHTML = convocatoriasInfo.movilidades;
+
+                h2.addEventListener("click", function (posicion) {
+                    var objeto=this;
+                    return function () {
+                        //let checkbox = document.getElementById('despliega' + posicion);
+                        const checkbox=objeto.previousElementSibling;
                         checkbox.checked = !checkbox.checked;
-                    });
+                    }(i)
+                });
 
+                if (convocatoriasInfo.tipo == 1) {
+                    tipo.innerHTML = "Larga Duración";
+                } else if (convocatoriasInfo.tipo == 2) {
+                    tipo.innerHTML = "Corta Duración";
+                }
 
-                    destinos.innerHTML = y[i].destinos;
-                    input.id = "despliega" + i;
-                    movilidades.innerHTML = y[i].movilidades;
+                var ul = bare.querySelector("ul");
+                ul.id = "ul" + i;
 
-                    if (y[i].tipo == 1) {
-                        tipo.innerHTML = "Larga Duración";
-                    } else if (y[i].tipo == 2) {
-                        tipo.innerHTML = "Corta Duración";
+                var solicitudesCount = 0;
+
+                y.solicitudes.forEach(function (solicitud) {
+                    if (solicitud.idConvocatorias === convocatoriasInfo.idConvocatorias) {
+                        var li = document.createElement("li");
+                        li.innerHTML = solicitud.nombre + " " + solicitud.apellidos;
+                        li.id = solicitud.idCandidato;
+                        ul.appendChild(li);
+                        solicitudesCount++;
                     }
-                    fetch('http://virtual.administracion.com/API/apiSolicitud.php?idConvocatorias=' + y[i].idConvocatorias + '&baremacion=1')
-                        .then(w => w.json())
-                        .then(z => {
-                            var ul = bare.querySelector("ul");
-                            ul.id = "ul" + i;
-                            if (z.length === 0) {
-                                var li = document.createElement("li");
-                                li.innerHTML = "No hay solicitudes para esta beca";
-                                ul.appendChild(li);
-                            } else {
-                                for (let j = 0; j < z.length; j++) {
-                                    var li = document.createElement("li");
-                                    li.innerHTML = z[j].nombre + " " + z[j].apellidos;
-                                    li.id = z[j].idCandidato;
-                                    ul.appendChild(li);
-                                }
-                            }
-                            barecontainer.appendChild(bare);
-                        });
-                })(i); 
-            }
+                });
+
+                if (solicitudesCount === 0) {
+                    var li = document.createElement("li");
+                    li.innerHTML = "No hay solicitudes para esta beca";
+                    ul.appendChild(li);
+                }
+
+                barecontainer.appendChild(bare);
+                i++;
+            });
 
         });
 
