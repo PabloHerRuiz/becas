@@ -17,7 +17,6 @@ window.addEventListener('load', function () {
     fetch('http://virtual.administracion.com/API/apiConvocatoria.php?baremacion=1')
         .then(x => x.json())
         .then(y => {
-            console.log(y);
             i = 1;
             y.convocatorias.forEach(convocatoriasInfo => {
 
@@ -59,14 +58,75 @@ window.addEventListener('load', function () {
                         li.id = solicitud.idCandidato;
                         ul.appendChild(li);
                         solicitudesCount++;
+
+                        (function (li) {
+                            li.addEventListener('click', function () {
+                                var iframe = document.createElement('iframe');
+                                iframe.src = "/vistas/plantillas/Solicitud ErasmusCFGM23-24.html";
+                                iframe.width = "100%";
+                                iframe.height = "100%";
+                                // contenedor.appendChild(iframe);
+
+                                //fondo modal
+                                var modal = document.createElement('div');
+                                modal.style.position = "fixed";
+                                modal.style.top = 0;
+                                modal.style.left = 0;
+                                modal.style.width = "100%";
+                                modal.style.height = "100%";
+                                modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+                                modal.style.zIndex = 99;
+                                document.body.appendChild(modal);
+
+                                //contenido modal
+                                var visualizador = document.createElement('div');
+                                visualizador.style.position = "fixed";
+                                visualizador.style.top = "5%";
+                                visualizador.style.left = "25%";
+                                visualizador.style.width = "50%";
+                                visualizador.style.height = "90%";
+                                visualizador.style.backgroundColor = "White";
+                                visualizador.style.zIndex = 100;
+                                visualizador.appendChild(iframe);
+                                document.body.appendChild(visualizador);
+
+                                //cerrar modal
+                                var closer = document.createElement('img');
+                                closer.style.position = "fixed";
+                                closer.style.top = "0";
+                                closer.style.right = "0";
+                                closer.style.padding = "5px";
+                                closer.style.zIndex = 101;
+                                closer.style.cursor = "pointer";
+                                closer.innerHTML = "X";
+
+                                closer.addEventListener("click", function () {
+                                    document.body.removeChild(visualizador);
+                                    document.body.removeChild(modal);
+                                    document.body.removeChild(this);
+                                });
+
+                                document.body.appendChild(closer);
+
+                                // para evitar que si no tiene solicitudes que haga el evento
+                                li.addEventListener('click', function () {
+                                    if (this.dataset.noEvent) {
+                                        return;
+                                    }
+                                });
+                            });
+                        })(li);
                     }
                 });
 
                 if (solicitudesCount === 0) {
                     var li = document.createElement("li");
                     li.innerHTML = "No hay solicitudes para esta beca";
+                    li.dataset.noEvent = 'true';
                     ul.appendChild(li);
                 }
+
+
 
                 barecontainer.appendChild(bare);
                 i++;

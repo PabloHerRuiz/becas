@@ -20,8 +20,9 @@ class Candidato_convocatoriaRepository
         }
         return $candidato_convocatorias;
     }
-    public function getAllSoliById($id){
-        $sql="SELECT convocatorias.* FROM convocatorias INNER JOIN candidato_convocatorias ON convocatorias.idConvocatorias = candidato_convocatorias.idConvocatorias where idCandidato=$id";
+    public function getAllSoliById($id)
+    {
+        $sql = "SELECT convocatorias.* FROM convocatorias INNER JOIN candidato_convocatorias ON convocatorias.idConvocatorias = candidato_convocatorias.idConvocatorias where idCandidato=$id";
         $result = $this->conexion->query($sql);
         $convocatoria = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -30,8 +31,9 @@ class Candidato_convocatoriaRepository
         return $convocatoria;
     }
 
-    public function getAllCandiByIdCon($idConvocatorias){
-        $sql="SELECT * FROM candidato_convocatorias WHERE idconvocatorias=$idConvocatorias";
+    public function getAllCandiByIdCon($idConvocatorias)
+    {
+        $sql = "SELECT * FROM candidato_convocatorias WHERE idconvocatorias=$idConvocatorias";
         $result = $this->conexion->query($sql);
         $candidato_convocatorias = [];
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -52,7 +54,8 @@ class Candidato_convocatoriaRepository
     }
 
     //Comprobamos que el candidato no se haya inscrito ya en la convocatoria
-    public function checkConvo($idCandidato,$idConvocatorias){
+    public function checkConvo($idCandidato, $idConvocatorias)
+    {
         $sql = "SELECT * FROM candidato_convocatorias WHERE idCandidato = $idCandidato and idConvocatorias = $idConvocatorias";
         $result = $this->conexion->query($sql);
         $respuesta = false;
@@ -102,14 +105,25 @@ class Candidato_convocatoriaRepository
         $tutor = $candidato_convocatorias->getTutor();
         $url = $candidato_convocatorias->getUrl();
 
-        $sql = "UPDATE candidato_convocatorias SET nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', dni = '$dni', telefono = '$telefono', tutor = '$tutor',url='$url' WHERE idCandidato = $id and idConvocatorias = $idConvocatorias";
+        // Obtener el registro existente
+        $sql = "SELECT * FROM candidato_convocatorias WHERE idCandidato = $id and idConvocatorias = $idConvocatorias";
+        $result = $this->conexion->query($sql)->fetch();
 
-        if ($this->conexion->exec($sql)) {
-            return true;
-        } else {
-            return false;
+        // Verificar si los datos son diferentes antes de actualizar
+        if ($nombre != $result['nombre'] || $apellidos != $result['apellidos'] || $correo != $result['correo'] || $curso != $result['curso'] || $domicilio != $result['domicilio'] || $dni != $result['dni'] || $telefono != $result['telefono'] || $tutor != $result['tutor'] || $url != $result['url']) {
+            $sql = "UPDATE candidato_convocatorias SET nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', dni = '$dni', telefono = '$telefono', tutor = '$tutor',url='$url' WHERE idCandidato = $id and idConvocatorias = $idConvocatorias";
+
+            if ($this->conexion->exec($sql)) {
+                return true;
+            } else {
+                return false;
+            }
         }
+
+        // Si los datos son los mismos, no hacer nada y devolver true
+        return true;
     }
+
 
     public function deleteCandidato_convocatorias($id, $idConvocatorias)
     {

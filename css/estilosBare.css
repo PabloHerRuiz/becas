@@ -40,6 +40,7 @@ h1 {
 
 .list li{
     margin-bottom: 13px;
+    cursor: pointer;
 }
 
 .list a {

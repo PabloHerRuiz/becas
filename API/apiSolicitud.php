@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header('Location:../?menu=home&id=' . $id);
             exit;
         } else {
-            echo "Error al  crear la solicitud. Por favor, inténtalo de nuevo.";
+            echo "Error al  actualizar la solicitud. Por favor, inténtalo de nuevo.";
             exit;
         }
 
