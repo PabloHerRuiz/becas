@@ -14,8 +14,9 @@ $convocatoria_baremoRepository = new convocatoria_baremoRepository($conn);
 if (!empty($_GET['presenta'])) {
     $presenta = Validator::validateInput(INPUT_GET, 'presenta');
 }
-
-$idConvocatorias = Validator::validateInput(INPUT_GET, 'idConvocatorias');
+if (!empty($_GET['idConvocatorias'])) {
+    $idConvocatorias = Validator::validateInput(INPUT_GET, 'idConvocatorias');
+}
 
 if (!empty($_GET['nombre'])) {
     $nombre = Validator::validateInput(INPUT_GET, 'nombre');

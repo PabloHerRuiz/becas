@@ -19,7 +19,6 @@ window.addEventListener("load", function () {
     fetch('http://virtual.administracion.com/API/apiDestinatario.php')
         .then(x => x.json())
         .then(y => {
-            console.log(y);
             for (let i = 0; i < y.length; i++) {
                 let option = document.createElement("option");
                 option.value = y[i].idDestinatarios;
