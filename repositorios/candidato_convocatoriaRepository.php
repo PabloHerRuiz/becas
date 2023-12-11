@@ -102,7 +102,7 @@ class Candidato_convocatoriaRepository
         $tutor = $candidato_convocatorias->getTutor();
         $url = $candidato_convocatorias->getUrl();
 
-        $sql = "UPDATE candidato_convocatorias SET idConvocatorias = '$idConvocatorias', nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', dni = '$dni', telefono = '$telefono', tutor = '$tutor',url='$url' WHERE idCandidato = $id";
+        $sql = "UPDATE candidato_convocatorias SET nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', dni = '$dni', telefono = '$telefono', tutor = '$tutor',url='$url' WHERE idCandidato = $id and idConvocatorias = $idConvocatorias";
 
         if ($this->conexion->exec($sql)) {
             return true;
