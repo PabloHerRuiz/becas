@@ -31,6 +31,7 @@ window.addEventListener('load', function () {
                 var input = bare.querySelector("input");
                 var h2 = bare.querySelector("h2");
 
+                h2.style.cursor = "pointer";
                 destinos.innerHTML = convocatoriasInfo.destinos;
                 input.id = "despliega" + i;
                 movilidades.innerHTML = convocatoriasInfo.movilidades;
