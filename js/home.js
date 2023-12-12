@@ -519,12 +519,18 @@ window.addEventListener('load', function () {
 						formulario.appendChild(titulo);
 
 						//nombre, apellidos, dni, email, telefono, domicilio, curso, archivos varios
-						var fileContainer = document.createElement('div');
+						var fileContainer = document.createElement('fieldSet');
 						fileContainer.id = "fileContainer";
 						fileContainer.style.marginTop = "12px";
 						fileContainer.style.display = "flex";
 						fileContainer.style.flexDirection = "column";
-						fileContainer.style.marginRight = "110px";
+						fileContainer.style.width = "50%";
+						fileContainer.style.border = "none";
+
+						var legend = document.createElement('legend');
+						legend.textContent = "Archivos";
+						legend.style.fontWeight = "bold";
+						fileContainer.appendChild(legend);
 
 						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&archivos=1")
 							.then(x => x.json())
@@ -534,7 +540,7 @@ window.addEventListener('load', function () {
 									file.type = "file";
 									file.id = element;
 									file.name = element;
-									file.style.width = "50%";
+									file.style.width = "100%";
 									file.style.height = "30px";
 									file.style.borderRadius = "5px";
 									file.style.marginBottom = "10px";
@@ -542,6 +548,7 @@ window.addEventListener('load', function () {
 									var label = document.createElement('label');
 									label.htmlFor = element;
 									label.textContent = element;
+									label.style.marginTop = "10px";
 
 									fileContainer.appendChild(label);
 									fileContainer.appendChild(file);
