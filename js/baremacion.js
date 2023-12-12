@@ -62,10 +62,21 @@ window.addEventListener('load', function () {
                         (function (li) {
                             li.addEventListener('click', function () {
                                 var iframe = document.createElement('iframe');
-                                iframe.src = "/vistas/plantillas/Solicitud ErasmusCFGM23-24.html";
+
+                                pdf = JSON.parse(solicitud.url);
+                                var claves = [];
+                                var valores = [];
+
+                                for (var clave in pdf) {
+                                    claves.push(clave);
+                                    valores.push(pdf[clave]);
+                                }
+
+                                var posicionActual = 0;
+
+                                iframe.src = "/pdf/" + encodeURIComponent(valores[posicionActual]);
                                 iframe.width = "100%";
                                 iframe.height = "100%";
-                                // contenedor.appendChild(iframe);
 
                                 //fondo modal
                                 var modal = document.createElement('div');
@@ -77,6 +88,65 @@ window.addEventListener('load', function () {
                                 modal.style.backgroundColor = "rgba(0,0,0,0.5)";
                                 modal.style.zIndex = 99;
                                 document.body.appendChild(modal);
+
+
+                                //flechas
+                                var siguiente = document.createElement('img');
+                                siguiente.id = "siguiente";
+                                siguiente.style.top = "25%";
+                                siguiente.style.float = "right";
+                                siguiente.style.marginRight = "20px";
+                                siguiente.style.marginTop = "23%";
+                                siguiente.style.cursor = "pointer";
+                                siguiente.style.zIndex = 102;
+                                siguiente.src = "/css/imagenes/flechas-a-la-derecha.png";
+
+
+                                var atras = document.createElement('img');
+                                atras.id = "atras";
+                                atras.style.top = "25%";
+                                atras.style.float = "left";
+                                atras.style.marginLeft = "80px";
+                                atras.style.marginTop = "23%";
+                                atras.style.cursor = "pointer";
+                                atras.style.zIndex = 102;
+                                atras.src = "/css/imagenes/flecha-izquierda.png";
+
+
+                                // Solo muestra las flechas si hay más de un PDF
+                                if (valores.length >= 1) {
+                                    atras.style.display = (posicionActual === 0) ? 'none' : 'block';
+                                    siguiente.style.display = (posicionActual === valores.length - 1) ? 'none' : 'block';
+                                }
+
+                                //eventos flechas 
+                                siguiente.addEventListener("click", function () {
+                                    posicionActual++;
+                                    if (posicionActual >= valores.length) {
+                                        posicionActual = 0;
+                                    }
+                                    iframe.src = "/pdf/" + encodeURIComponent(valores[posicionActual]);
+
+                                    // Actualiza la visibilidad de las flechas
+                                    atras.style.display = (posicionActual === 0) ? 'none' : 'block';
+                                    siguiente.style.display = (posicionActual === valores.length - 1) ? 'none' : 'block';
+                                });
+
+                                atras.addEventListener("click", function () {
+                                    posicionActual--;
+                                    if (posicionActual < 0) {
+                                        posicionActual = valores.length - 1;
+                                    }
+                                    iframe.src = "/pdf/" + encodeURIComponent(valores[posicionActual]);
+
+                                    // Actualiza la visibilidad de las flechas
+                                    atras.style.display = (posicionActual === 0) ? 'none' : 'block';
+                                    siguiente.style.display = (posicionActual === valores.length - 1) ? 'none' : 'block';
+                                });
+
+                                //agregar al modal
+                                modal.appendChild(siguiente);
+                                modal.appendChild(atras);
 
                                 //contenido modal
                                 var visualizador = document.createElement('div');
@@ -98,7 +168,7 @@ window.addEventListener('load', function () {
                                 closer.style.padding = "5px";
                                 closer.style.zIndex = 101;
                                 closer.style.cursor = "pointer";
-                                closer.innerHTML = "X";
+                                closer.src = "/css/imagenes/cerrar.png";
 
                                 closer.addEventListener("click", function () {
                                     document.body.removeChild(visualizador);

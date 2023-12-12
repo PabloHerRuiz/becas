@@ -78,12 +78,11 @@ window.addEventListener('load', function () {
 						var soli = plantillaSolicitud.cloneNode(true);
 
 						var spans = soli.getElementsByClassName("s2");
-
-						//rellenamos datos del usuario en los span
+						
 						//creamos el iframe
 						var iframe = document.createElement('iframe');
 
-
+						//rellenamos datos del usuario en los span
 						iframe.addEventListener("load", function () {
 							fetch(`http://virtual.administracion.com/API/apiDestinatario.php?id=${id}`)
 								.then(x => x.json())
