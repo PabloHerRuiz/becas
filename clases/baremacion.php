@@ -5,15 +5,17 @@ class Baremacion implements JsonSerializable
     private $idBaremacion;
     private $idConvocatorias;
     private $idCandidato;
+    private $idItem_baremables;
     private $url;
     private $nota;
 
     //constructor
-    public function __construct($idBaremacion=null,$idConvocatorias, $idCandidato,$url,$nota)
+    public function __construct($idBaremacion=null,$idConvocatorias, $idCandidato,$idItem_baremables,$url=null,$nota)
     {
         $this->idBaremacion = $idBaremacion;
         $this->idConvocatorias = $idConvocatorias;
         $this->idCandidato = $idCandidato;
+        $this->idItem_baremables = $idItem_baremables;
         $this->url = $url;
         $this->nota = $nota;
     }
@@ -52,6 +54,16 @@ class Baremacion implements JsonSerializable
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    public function getIdItem_baremables()
+    {
+        return $this->idItem_baremables;
+    }
+
+    public function setIdItem_baremables($idItem_baremables)
+    {
+        $this->idItem_baremables = $idItem_baremables;
     }
 
     //metodos

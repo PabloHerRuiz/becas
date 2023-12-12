@@ -21,6 +21,16 @@ class convocatoria_baremoRepository
         }
         return $convocatoria_baremo;
     }
+    public function getAllBaremables($idConvocatorias)
+    {
+        $sql = "SELECT * FROM convocatoria_baremo where idConvocatorias=$idConvocatorias";
+        $result = $this->conexion->query($sql);
+        $convocatoria_baremo = [];
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $convocatoria_baremo[] = new Convocatoria_baremo($row['idConvocatorias'], $row['idItem_baremables'], $row['maximo'], $row['minimo'], $row['presenta'], $row['requerido']);
+        }
+        return $convocatoria_baremo;
+    }
 
     public function getConvocatoria_baremoById($idConvocatorias, $idItem_baremables)
     {
@@ -50,6 +60,20 @@ class convocatoria_baremoRepository
         FROM item_baremables 
         INNER JOIN convocatoria_baremo 
         ON item_baremables.idItem_baremables = convocatoria_baremo.idItem_baremables where idConvocatorias=$idConvocatorias and presenta=1;";
+        $result = $this->conexion->query($sql);
+        $nombres = [];        
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $nombres[] = $row['nombre'];
+        }
+        return $nombres;
+    
+    }
+    public function getAllNomConvo($idConvocatorias)
+    {
+        $sql = "SELECT item_baremables.nombre 
+        FROM item_baremables 
+        INNER JOIN convocatoria_baremo 
+        ON item_baremables.idItem_baremables = convocatoria_baremo.idItem_baremables where idConvocatorias=$idConvocatorias";
         $result = $this->conexion->query($sql);
         $nombres = [];        
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {

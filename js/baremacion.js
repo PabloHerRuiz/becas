@@ -63,7 +63,6 @@ window.addEventListener('load', function () {
                         (function (li) {
                             li.addEventListener('click', function () {
                                 var iframe = document.createElement('iframe');
-
                                 pdf = JSON.parse(solicitud.url);
                                 var claves = [];
                                 var valores = [];
@@ -74,10 +73,11 @@ window.addEventListener('load', function () {
                                 }
 
                                 var posicionActual = 0;
-
+                                var iframe = document.createElement('iframe');
                                 iframe.src = "/pdf/" + encodeURIComponent(valores[posicionActual]);
                                 iframe.width = "100%";
                                 iframe.height = "100%";
+
 
                                 //fondo modal
                                 var modal = document.createElement('div');
@@ -120,6 +120,23 @@ window.addEventListener('load', function () {
                                     siguiente.style.display = (posicionActual === valores.length - 1) ? 'none' : 'block';
                                 }
 
+
+                                //evento pdf visualizado
+                                function cambiarColor() {
+                                    // quitamos el color de fondo de todos los tr
+                                    var trs = document.querySelectorAll('tr');
+                                    trs.forEach(tr => {
+                                        tr.style.backgroundColor = '';
+                                    });
+
+                                    //buscamos el td que contiene la clave actual
+                                    var tds = document.querySelectorAll('td');
+                                    var td = Array.from(tds).find(td => td.textContent.includes(claves[posicionActual]));
+                                    if (td) {
+                                        td.parentNode.style.backgroundColor = '#b9b9b9';
+                                    }
+                                }
+
                                 //eventos flechas 
                                 siguiente.addEventListener("click", function () {
                                     posicionActual++;
@@ -131,6 +148,7 @@ window.addEventListener('load', function () {
                                     // Actualiza la visibilidad de las flechas
                                     atras.style.display = (posicionActual === 0) ? 'none' : 'block';
                                     siguiente.style.display = (posicionActual === valores.length - 1) ? 'none' : 'block';
+                                    cambiarColor();
                                 });
 
                                 atras.addEventListener("click", function () {
@@ -143,6 +161,7 @@ window.addEventListener('load', function () {
                                     // Actualiza la visibilidad de las flechas
                                     atras.style.display = (posicionActual === 0) ? 'none' : 'block';
                                     siguiente.style.display = (posicionActual === valores.length - 1) ? 'none' : 'block';
+                                    cambiarColor();
                                 });
 
                                 //agregar al modal
@@ -153,13 +172,115 @@ window.addEventListener('load', function () {
                                 var visualizador = document.createElement('div');
                                 visualizador.style.position = "fixed";
                                 visualizador.style.top = "5%";
-                                visualizador.style.left = "25%";
+                                visualizador.style.left = "20%";
                                 visualizador.style.width = "50%";
                                 visualizador.style.height = "90%";
                                 visualizador.style.backgroundColor = "White";
                                 visualizador.style.zIndex = 100;
                                 visualizador.appendChild(iframe);
                                 document.body.appendChild(visualizador);
+
+                                //cosas baremacion
+                                var baremos = document.createElement('div');
+                                baremos.id = "baremos";
+                                baremos.style.width = "100%";
+                                baremos.style.height = "100%";
+
+                                var formulario = document.createElement('form');
+                                formulario.method = "POST";
+                                formulario.action = "http://virtual.administracion.com/API/apiBaremacion.php?id=" + solicitud.idCandidato + "&idConvocatorias=" + solicitud.idConvocatorias;
+                                formulario.style.width = "100%";
+                                formulario.style.height = "84%";
+
+                                fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + convocatoriasInfo.idConvocatorias + "&baremacion=1")
+                                    .then(x => x.json())
+                                    .then(y => {
+                                        var bare = document.createElement('table');
+                                        bare.style.borderCollapse = 'collapse';
+                                        bare.style.width = '100%';
+                                        bare.style.height = '100%';
+                                        bare.style.textAlign = 'center';
+
+                                        y.baremables.forEach((element, index) => {
+                                            var fila = document.createElement('tr');
+                                            var uno = document.createElement('td');
+                                            var dos = document.createElement('td');
+                                            var input = document.createElement('input');
+                                            var hidden = document.createElement('input');
+
+                                            input.type = 'number';
+                                            input.style.width = '78%';
+                                            input.style.height = '78%';
+                                            input.style.textAlign = 'center';
+                                            input.max = element.maximo;
+                                            input.name = 'valor[]';
+
+                                            hidden.type = 'hidden';
+                                            hidden.name = 'idItem[]';
+                                            hidden.value = element.idItem_baremables;
+
+                                            uno.textContent = y.nombres[index];
+                                            uno.appendChild(hidden);
+                                            dos.appendChild(input);
+
+                                            // Añade esto para poner un borde a las celdas
+                                            uno.style.border = '1px solid black';
+                                            uno.style.width = '50%';
+                                            dos.style.border = '1px solid black';
+
+                                            fila.appendChild(uno);
+                                            fila.appendChild(dos);
+                                            bare.appendChild(fila);
+                                            formulario.appendChild(bare);
+                                            baremos.appendChild(formulario);
+                                        });
+
+                                        //boton enviar
+                                        var boton = document.createElement('input');
+                                        boton.type = 'submit';
+                                        boton.value = 'Enviar';
+                                        boton.style.width = '100%';
+                                        boton.style.height = '10%';
+                                        boton.style.marginTop = '5%';
+                                        boton.style.textAlign = 'center';
+
+                                        formulario.appendChild(boton);
+                                        cambiarColor();
+
+                                        fetch('http://virtual.administracion.com/API/apiBaremacion.php?id=' + solicitud.idCandidato + '&idConvocatorias=' + solicitud.idConvocatorias)
+                                            .then(x => x.json())
+                                            .then(y => {
+                                                if (y.length) {
+                                                    y.forEach((element, index) => {
+                                                        var input = document.querySelectorAll(`input[name='valor[]']`)[index];
+                                                        if (input) {
+                                                            var hiddenInput = input.parentNode;
+                                                            if (hiddenInput && hiddenInput.value == element.idItembaremables) {
+                                                                input.value = element.nota;
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    console.log('No hay datos');
+                                                }
+                                            });
+
+                                    })
+                                    .catch(error => console.error(error));
+
+
+
+                                //contenido modal baremo
+                                var visubaremo = document.createElement('div');
+                                visubaremo.style.position = "fixed";
+                                visubaremo.style.top = "5%";
+                                visubaremo.style.left = "71%";
+                                visubaremo.style.width = "10%";
+                                visubaremo.style.height = "50%";
+                                visubaremo.style.backgroundColor = "White";
+                                visubaremo.style.zIndex = 100;
+                                visubaremo.appendChild(baremos);
+                                document.body.appendChild(visubaremo);
 
                                 //cerrar modal
                                 var closer = document.createElement('img');
@@ -173,6 +294,7 @@ window.addEventListener('load', function () {
 
                                 closer.addEventListener("click", function () {
                                     document.body.removeChild(visualizador);
+                                    document.body.removeChild(visubaremo);
                                     document.body.removeChild(modal);
                                     document.body.removeChild(this);
                                 });
@@ -186,6 +308,7 @@ window.addEventListener('load', function () {
                                     }
                                 });
                             });
+
                         })(li);
                     }
                 });

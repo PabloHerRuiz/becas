@@ -32,6 +32,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             http_response_code(404);
             echo json_encode(["mensaje" => "No hay archivos cargados"]);
         }
+    } else if (!empty($_GET['baremacion'])) {
+        try {
+            $baremables = $convocatoria_baremoRepository->getAllBaremables($idConvocatorias);
+            $nombres = $convocatoria_baremoRepository->getAllNomConvo($idConvocatorias);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Fallo al cargar baremables']);
+            exit;
+        }
+        $baremacion=[
+            "baremables"=>$baremables,
+            "nombres"=>$nombres
+        ];
+        
+        if ($baremacion) {
+            header('Content-Type: application/json');
+            echo json_encode($baremacion);
+        } else {
+            http_response_code(404);
+            echo json_encode(["mensaje" => "No hay baremables cargados"]);
+        }
     } else {
         try {
             $items = $item_baremableRepository->getAllItem_baremables();
