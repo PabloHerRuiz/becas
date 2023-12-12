@@ -35,6 +35,14 @@ window.addEventListener('load', function () {
 
 		})
 
+	//cargamos los datos de la plantilla de solicitud
+	fetch("/vistas/plantillas/Solicitud ErasmusCFGM23-24.html")
+		.then(x => x.text())
+		.then(y => {
+			plantillaSolicitud = document.createElement('div');
+			plantillaSolicitud.innerHTML = y;
+		});
+
 	//cargamos los datos de las becas
 	fetch('http://virtual.administracion.com/API/apiConvocatoria.php?id=' + id)
 		.then(x => x.json())
@@ -66,11 +74,68 @@ window.addEventListener('load', function () {
 				//mostrar html solicitud
 				(function (enlace) {
 					enlace.addEventListener("click", function () {
+						var idConvocatorias = enlace.dataset.id;
+						var soli = plantillaSolicitud.cloneNode(true);
+
+						var spans = soli.getElementsByClassName("s2");
+
+						//rellenamos datos del usuario en los span
+						//creamos el iframe
 						var iframe = document.createElement('iframe');
-						iframe.src = "/vistas/plantillas/Solicitud ErasmusCFGM23-24.html";
+
+
+						iframe.addEventListener("load", function () {
+							fetch(`http://virtual.administracion.com/API/apiDestinatario.php?id=${id}`)
+								.then(x => x.json())
+								.then(y => {
+									if (y !== undefined) {
+										soli.getElementsByClassName('s3')[1].innerHTML = y;
+									}
+								});
+							fetch(`http://virtual.administracion.com/API/apiProyecto.php?documento=1&idConvocatorias=${idConvocatorias}`)
+								.then(x => x.json())
+								.then(y => {
+
+									if (y !== undefined) {
+										soli.getElementsByClassName('s4')[0].innerHTML = y + " ";
+									}
+								});
+
+							fetch(`http://virtual.administracion.com/API/apiPerfil.php?id=${id}`)
+								.then(x => x.json())
+								.then(y => {
+									if (y.dni !== undefined) {
+										spans[1].innerHTML = y.dni;
+									}
+									if (y.nombre !== undefined || y.apellidos !== undefined) {
+										spans[0].innerHTML = y.nombre + " " + y.apellidos;
+									}
+
+									if (y.correo !== undefined) {
+										spans[4].innerHTML = y.correo;
+									}
+									if (y.telefono !== undefined) {
+										spans[3].innerHTML = y.telefono;
+									}
+									if (y.domicilio !== undefined) {
+										spans[2].innerHTML = y.domicilio;
+									}
+
+									fechaActual = new Date();
+									spans[5].innerHTML = fechaActual.getDate() + " ";
+									spans[6].innerHTML = (fechaActual.getMonth() + 1) + " ";
+									spans[7].innerHTML = fechaActual.getFullYear();
+
+									iframe.contentWindow.document.body.innerHTML = soli.innerHTML;
+								});
+
+						});
+						iframe.src = "about:blank";
+
+
+						// iframe.src = soli.innerHTML;
 						iframe.width = "100%";
 						iframe.height = "100%";
-						// contenedor.appendChild(iframe);
 
 						//fondo modal
 						var modal = document.createElement('div');
@@ -103,13 +168,14 @@ window.addEventListener('load', function () {
 						closer.style.padding = "5px";
 						closer.style.zIndex = 101;
 						closer.style.cursor = "pointer";
-						closer.innerHTML = "X";
+						closer.src = "/css/imagenes/cerrar.png";
 
 						closer.addEventListener("click", function () {
 							document.body.removeChild(visualizador);
 							document.body.removeChild(modal);
 							document.body.removeChild(this);
 						});
+
 
 						document.body.appendChild(closer);
 					});

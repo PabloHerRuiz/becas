@@ -31,6 +31,16 @@ class proyectoRepository
         return $proyecto;
     }
 
+    public function getNomProById($idConvocatorias){
+        $sql = "SELECT nombre FROM proyectos inner join convocatorias  on proyectos.codProyecto= convocatorias.codProyecto where idConvocatorias=$idConvocatorias";
+        $result = $this->conexion->query($sql);
+        $nombre = null;
+        if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $nombre = $row['nombre'];
+        }
+        return $nombre;
+    }
+
     //CRUD
 
     public function createProyecto($proyecto)
