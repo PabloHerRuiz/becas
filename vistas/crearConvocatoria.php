@@ -176,7 +176,7 @@
                 $fila['requisito'] = null;
             }
 
-            if(!empty($_POST['minimo'][$k] && in_array($_POST['item'][$i], $_POST['habilitador']))) {
+            if(!empty($_POST['minimo'][$k]) && isset($_POST['minimo'][$k]) && in_array($_POST['item'][$i], $_POST['requisito'])) {
                 $fila['minimo'] = $_POST['minimo'][$k];
                 $k++;
             } else {
