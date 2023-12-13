@@ -44,6 +44,19 @@ class convocatoriaRepository
         }
         return $convocatoria;
     }
+    public function getAllConvoDestBueno($id)
+    {
+        $sql = "SELECT * FROM convocatorias 
+        INNER JOIN destinatarios_convocatorias ON convocatorias.idConvocatorias = destinatarios_convocatorias.idConvocatorias 
+        INNER JOIN destinatarios ON destinatarios_convocatorias.idDestinatarios = destinatarios.idDestinatarios 
+        WHERE fecha_fin>CURRENT_DATE and destinatarios.codGrupo IN (SELECT curso FROM candidato WHERE idCandidato = $id);";
+        $result = $this->conexion->query($sql);
+        $convocatoria = [];
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $convocatoria[] = new Convocatorias($row['codProyecto'], $row['movilidades'], $row['destinos'], $row['tipo'], $row['fecha_ini'], $row['fecha_fin'], $row['fecha_ini_pruebas'], $row['fecha_fin_pruebas'], $row['fecha_lis_definitiva'], $row['fecha_lis_provisional'], $row['idConvocatorias']);
+        }
+        return $convocatoria;
+    }
 
     //CRUD
 
@@ -90,16 +103,16 @@ class convocatoriaRepository
 
         // Verificar si los datos son diferentes antes de actualizar
         if (
-            $convocatoria->getCodProyecto() != $result['codProyecto'] ||
-            $convocatoria->getMovilidades() != $result['movilidades'] ||
-            $convocatoria->getDestinos() != $result['destinos'] ||
-            $convocatoria->getTipo() != $result['tipo'] ||
-            $convocatoria->getFechaIni() != $result['fecha_ini'] ||
-            $convocatoria->getFechaFin() != $result['fecha_fin'] ||
-            $convocatoria->getFechaIniPruebas() != $result['fecha_ini_pruebas'] ||
-            $convocatoria->getFechaFinPruebas() != $result['fecha_fin_pruebas'] ||
-            $convocatoria->getFechaLisDefinitiva() != $result['fecha_lis_definitiva'] ||
-            $convocatoria->getFechaLisProvisional() != $result['fecha_lis_provisional']
+            $$codProyecto != $result['codProyecto'] ||
+            $movilidades != $result['movilidades'] ||
+            $destinos != $result['destinos'] ||
+            $tipo != $result['tipo'] ||
+            $fecha_ini != $result['fecha_ini'] ||
+            $fecha_fin != $result['fecha_fin'] ||
+            $fecha_ini_pruebas != $result['fecha_ini_pruebas'] ||
+            $fecha_fin_pruebas != $result['fecha_fin_pruebas'] ||
+            $fecha_lis_definitiva != $result['fecha_lis_definitiva'] ||
+            $fecha_lis_provisional != $result['fecha_lis_provisional']
         ) {
 
             $sql = "UPDATE convocatorias SET codProyecto = '" . $convocatoria->getCodProyecto() . "', movilidades = '" . $convocatoria->getMovilidades() . "', destinos='" . $convocatoria->getDestinos() . "' , tipo = '" . $convocatoria->getTipo() . "', fecha_ini = '" . $convocatoria->getFechaIni() . "', fecha_fin = '" . $convocatoria->getFechaFin() . "', fecha_ini_pruebas = '" . $convocatoria->getFechaIniPruebas() . "', fecha_fin_pruebas = '" . $convocatoria->getFechaFinPruebas() . "', fecha_lis_definitiva = '" . $convocatoria->getFechaLisDefinitiva() . "', fecha_lis_provisional = '" . $convocatoria->getFechaLisProvisional() . "' WHERE idConvocatorias = $id";

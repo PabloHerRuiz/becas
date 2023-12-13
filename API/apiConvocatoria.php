@@ -66,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 if ($user->getRol() == 'admin') {
                     $convocatorias = $convocatoriaRepository->getAllConvocatorias();
                 } else {
-                    $convocatorias = $convocatoriaRepository->getAllConvoDest($id);
+                    $convocatorias = $convocatoriaRepository->getAllConvoDestBueno($id);
+                    // $convocatorias = $convocatoriaRepository->getAllConvoDest($id);
                 }
             } catch (Exception $e) {
                 http_response_code(500);
