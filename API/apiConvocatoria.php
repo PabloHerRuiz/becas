@@ -9,6 +9,9 @@ try {
     exit;
 }
 
+Sesion::iniciar_sesion();
+$user = Sesion::leer_sesion("usuario");
+
 $convocatoriaRepository = new convocatoriaRepository($conn);
 $candidato_convocatoriaRepository = new candidato_convocatoriaRepository($conn);
 $convocatoria_baremoRepository = new convocatoria_baremoRepository($conn);
@@ -60,7 +63,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             }
         } else {
             try {
-                $convocatorias = $convocatoriaRepository->getAllConvoDest($id);
+                if ($user->getRol() == 'admin') {
+                    $convocatorias = $convocatoriaRepository->getAllConvocatorias();
+                } else {
+                    $convocatorias = $convocatoriaRepository->getAllConvoDest($id);
+                }
             } catch (Exception $e) {
                 http_response_code(500);
                 echo json_encode(['error' => 'Fallo al cargar becas']);

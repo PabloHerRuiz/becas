@@ -8,27 +8,53 @@ window.addEventListener("load", function () {
     const logout = document.getElementById("cerrar");
 
     var url = new URL(window.location.href);
-
+    var rol = url.searchParams.get("rol");
     var id = url.searchParams.get("id");
 
+    if (rol !== "admin") {
+        convocatoria.style.display = "none";
+        baremacion.style.display = "none";
+        crud.style.display = "none";
+    }
+
     home.addEventListener("click", function () {
-        document.location = "?menu=home&id=" + id;
+        if (rol == "admin") {
+            document.location = "?menu=home&id=" + id + "&rol=" + rol;
+        } else {
+            document.location = "?menu=home&id=" + id;
+        }
     });
 
     perfil.addEventListener("click", function () {
-        document.location = "?menu=perfil&id=" + id;
+        if (rol == "admin") {
+            document.location = "?menu=perfil&id=" + id + "&rol=" + rol;
+        } else {
+            document.location = "?menu=perfil&id=" + id;
+        }
     });
 
     convocatoria.addEventListener("click", function () {
-        document.location = "?menu=crea&id=" + id;
+        if (rol == "admin") {
+            document.location = "?menu=conv&id=" + id + "&rol=" + rol;
+        } else {
+            document.location = "?menu=crea&id=" + id;
+        }
     });
 
     baremacion.addEventListener("click", function () {
+        if (rol == "admin") {
+            document.location = "?menu=bare&id=" + id + "&rol=" + rol;
+        } else {
         document.location = "?menu=bare&id=" + id;
+        }
     });
 
     crud.addEventListener("click", function () {
+        if (rol == "admin") {
+            document.location = "?menu=crud&id=" + id + "&rol=" + rol;
+        } else {
         document.location = "?menu=crud&id=" + id;
+        }
     });
 
     logout.addEventListener("click", function () {

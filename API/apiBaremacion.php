@@ -9,6 +9,9 @@ try {
     exit;
 }
 
+Sesion::iniciar_sesion();
+$user = Sesion::leer_sesion("usuario");
+
 $baremacionRepository = new baremacionRepository($conn);
 if (!empty($_GET['id'])) {
     $id = Validator::validateInput(INPUT_GET, 'id');
@@ -65,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    header('Location:../?menu=bare');
+    header('Location:../?menu=bare&rol=' . $user->getRol() . '&id=' . $user->getIdCandidato());
 
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
