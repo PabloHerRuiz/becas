@@ -84,12 +84,31 @@ class convocatoriaRepository
         $fecha_lis_definitiva = $convocatoria->getFechaLisDefinitiva();
         $fecha_lis_provisional = $convocatoria->getFechaLisProvisional();
 
-        $sql = "UPDATE convocatorias SET codProyecto = '$codProyecto', movilidades = '$movilidades', destinos='$destinos' , tipo = '$tipo', fecha_ini = '$fecha_ini', fecha_fin = '$fecha_fin', fecha_ini_pruebas = '$fecha_ini_pruebas', fecha_fin_pruebas = '$fecha_fin_pruebas', fecha_lis_definitiva = '$fecha_lis_definitiva', fecha_lis_provisional = '$fecha_lis_provisional' WHERE idConvocatorias = $id";
+        // Obtener el registro existente
+        $sql = "SELECT * FROM convocatorias WHERE idConvocatorias = $id";
+        $result = $this->conexion->query($sql)->fetch();
 
-        if ($this->conexion->exec($sql)) {
-            return true;
-        } else {
-            return false;
+        // Verificar si los datos son diferentes antes de actualizar
+        if (
+            $convocatoria->getCodProyecto() != $result['codProyecto'] ||
+            $convocatoria->getMovilidades() != $result['movilidades'] ||
+            $convocatoria->getDestinos() != $result['destinos'] ||
+            $convocatoria->getTipo() != $result['tipo'] ||
+            $convocatoria->getFechaIni() != $result['fecha_ini'] ||
+            $convocatoria->getFechaFin() != $result['fecha_fin'] ||
+            $convocatoria->getFechaIniPruebas() != $result['fecha_ini_pruebas'] ||
+            $convocatoria->getFechaFinPruebas() != $result['fecha_fin_pruebas'] ||
+            $convocatoria->getFechaLisDefinitiva() != $result['fecha_lis_definitiva'] ||
+            $convocatoria->getFechaLisProvisional() != $result['fecha_lis_provisional']
+        ) {
+
+            $sql = "UPDATE convocatorias SET codProyecto = '" . $convocatoria->getCodProyecto() . "', movilidades = '" . $convocatoria->getMovilidades() . "', destinos='" . $convocatoria->getDestinos() . "' , tipo = '" . $convocatoria->getTipo() . "', fecha_ini = '" . $convocatoria->getFechaIni() . "', fecha_fin = '" . $convocatoria->getFechaFin() . "', fecha_ini_pruebas = '" . $convocatoria->getFechaIniPruebas() . "', fecha_fin_pruebas = '" . $convocatoria->getFechaFinPruebas() . "', fecha_lis_definitiva = '" . $convocatoria->getFechaLisDefinitiva() . "', fecha_lis_provisional = '" . $convocatoria->getFechaLisProvisional() . "' WHERE idConvocatorias = $id";
+
+            if ($this->conexion->exec($sql)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

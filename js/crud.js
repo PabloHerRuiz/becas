@@ -17,22 +17,20 @@ window.addEventListener('load', function () {
 
 
                 fila.innerHTML = `<td class="id">${elemento.idConvocatorias}</td>
-                <td data-nombre="codProyecto">${elemento.codProyecto}</td>
-                <td data-nombre="movilidades">${elemento.movilidades}</td>
-                <td data-nombre="destinos">${elemento.destinos}</td>
-                <td data-nombre="tipo">${elemento.tipo}</td>
-                <td data-nombre="fecha_ini">${elemento.fecha_ini}</td>
-                <td data-nombre="fecha_fin">${elemento.fecha_fin}</td>
-                <td data-nombre="fecha_ini_pruebas">${elemento.fecha_ini_pruebas}</td>
-                <td data-nombre="fecha_fin_pruebas">${elemento.fecha_fin_pruebas}</td>
-                <td data-nombre="fecha_lis_provisional">${elemento.fecha_lis_provisional}</td>
-                <td data-nombre="fecha_lis_definitiva">${elemento.fecha_lis_definitiva}</td>` + acciones;
+                <td class="codProyecto" data-nombre="codProyecto">${elemento.codProyecto}</td>
+                <td class="movilidades" data-nombre="movilidades">${elemento.movilidades}</td>
+                <td class="destinos" data-nombre="destinos">${elemento.destinos}</td>
+                <td class="tipo" data-nombre="tipo">${elemento.tipo}</td>
+                <td class="fecha_ini" data-nombre="fecha_ini">${elemento.fecha_ini}</td>
+                <td class="fecha_fin" data-nombre="fecha_fin">${elemento.fecha_fin}</td>
+                <td class="fecha_ini_pruebas" data-nombre="fecha_ini_pruebas">${elemento.fecha_ini_pruebas}</td>
+                <td class="fecha_fin_pruebas" data-nombre="fecha_fin_pruebas">${elemento.fecha_fin_pruebas}</td>
+                <td class="fecha_lis_provisional" data-nombre="fecha_lis_provisional">${elemento.fecha_lis_provisional}</td>
+                <td class="fecha_lis_definitiva" data-nombre="fecha_lis_definitiva">${elemento.fecha_lis_definitiva}</td>` + acciones;
 
                 tbody.appendChild(fila);
             });
 
-
-            // Agregar el evento de clic a los iconos después de que se cargue la tabla
             agregarEventos();
         });
 
@@ -44,30 +42,27 @@ window.addEventListener('load', function () {
             elemento.addEventListener("click", function () {
                 var fila = this.closest("tr");
 
-                // Obtén todas las celdas de la fila, excluyendo la celda de Acciones
                 var celdas = fila.querySelectorAll("td:not(.acciones,.id)");
 
-                // Itera sobre las celdas y almacena el contenido original en una propiedad de datos
                 celdas.forEach(function (celda) {
                     var contenidoActual = celda.textContent.trim();
                     celda.dataset.contenidoOriginal = contenidoActual;
                 });
 
-                // Itera sobre las celdas y ajusta su contenido durante la edición
                 celdas.forEach(function (celda) {
                     var contenidoOriginal = celda.dataset.contenidoOriginal;
                     var nombreCampo = celda.getAttribute("data-nombre");
 
                     if (nombreCampo.includes("fecha")) {
-                        // Ajusta el contenido de la celda con un input de tipo fecha
-                        celda.innerHTML = `<input type="date" value="${contenidoOriginal}" style="width: ${celda.clientWidth}px; box-sizing: border-box;">`;
+                        var fecha = new Date(contenidoOriginal);
+                        if (fecha > new Date()) {
+                            celda.innerHTML = `<input type="date" value="${contenidoOriginal}" style="width: 100%; box-sizing: border-box;">`;
+                        }
                     } else {
-                        // Ajusta el contenido de la celda con un input de tipo texto
-                        celda.innerHTML = `<input type="text" value="${contenidoOriginal.replace(/"/g, '&quot;')}" style="width: ${celda.clientWidth}px; box-sizing: border-box;">`;
+                        celda.innerHTML = `<input type="text" value="${contenidoOriginal.replace(/"/g, '&quot;')}" style="width: 100%; box-sizing: border-box;">`;
                     }
                 });
 
-                // Muestra el icono de guardar y oculta el icono de editar
                 fila.querySelector(".iconE").style.display = "none";
                 fila.querySelector(".iconG").style.display = "inline";
                 if (fila.querySelector(".iconB")) {
@@ -76,10 +71,29 @@ window.addEventListener('load', function () {
             });
         });
 
+
+
         guardar.forEach(function (elemento) {
             elemento.addEventListener("click", function () {
                 var fila = elemento.closest("tr");
                 var celdas = fila.querySelectorAll("td:not(.acciones)");
+
+
+                // Obtén las fechas de los inputs en lugar de las celdas
+                var fecha_ini = new Date(fila.querySelector(".fecha_ini input").value);
+                var fecha_fin = new Date(fila.querySelector(".fecha_fin input").value);
+                var fecha_ini_pruebas = new Date(fila.querySelector(".fecha_ini_pruebas input").value);
+                var fecha_fin_pruebas = new Date(fila.querySelector(".fecha_fin_pruebas input").value);
+                var fecha_lis_provisional = new Date(fila.querySelector(".fecha_lis_provisional input").value);
+                var fecha_lis_definitiva = new Date(fila.querySelector(".fecha_lis_definitiva input").value);
+
+                // Verificar que las fechas están en el orden correcto
+                if (fecha_ini > fecha_fin || fecha_fin > fecha_ini_pruebas || fecha_ini_pruebas > fecha_fin_pruebas || fecha_fin_pruebas > fecha_lis_provisional || fecha_lis_provisional > fecha_lis_definitiva) {
+                    alert("Comprueba que las fechas no sean inferiores a las anteriores");
+                    console.error("Comprueba que las fechas no sean inferiores a las anteriores");
+                    return;
+                }
+
 
                 // Objeto para almacenar los datos actualizados de la fila
                 var actualiza = {};
@@ -87,22 +101,18 @@ window.addEventListener('load', function () {
                 // Lista para almacenar referencias a los inputs
                 var inputs = [];
 
-                // Utilizamos un bucle normal
                 for (var i = 0; i < celdas.length; i++) {
                     var celda = celdas[i];
-                    var nombreCampo = celda.getAttribute("data-nombre"); // Nombre del campo asociado a la celda
+                    var nombreCampo = celda.getAttribute("data-nombre");
                     var inputElement = celda.querySelector("input");
                     if (inputElement) {
                         var nuevoContenido = inputElement.value;
 
-                        // Asigna el nuevo contenido a la celda
                         celda.textContent = nuevoContenido;
 
-                        // Agrega el input a la lista
                         inputs.push(inputElement);
                     }
 
-                    // Agregar el campo y su valor al objeto actualiza
                     actualiza[nombreCampo] = nuevoContenido;
                 }
 
@@ -114,11 +124,22 @@ window.addEventListener('load', function () {
                 });
 
                 var id = fila.querySelector(".id").textContent.trim();
+                var fecha_ini = fila.querySelector(".fecha_ini").textContent.trim();
+                var fecha_fin = fila.querySelector(".fecha_fin").textContent.trim();
+                var fecha_ini_pruebas = fila.querySelector(".fecha_ini_pruebas").textContent.trim();
+                var fecha_fin_pruebas = fila.querySelector(".fecha_fin_pruebas").textContent.trim();
+                var fecha_lis_provisional = fila.querySelector(".fecha_lis_provisional").textContent.trim();
+                var fecha_lis_definitiva = fila.querySelector(".fecha_lis_definitiva").textContent.trim();
                 actualiza["id"] = id;
+                actualiza["fecha_ini"] = fecha_ini;
+                actualiza["fecha_fin"] = fecha_fin;
+                actualiza["fecha_ini_pruebas"] = fecha_ini_pruebas;
+                actualiza["fecha_fin_pruebas"] = fecha_fin_pruebas;
+                actualiza["fecha_lis_provisional"] = fecha_lis_provisional;
+                actualiza["fecha_lis_definitiva"] = fecha_lis_definitiva;
 
-                // Convertir el objeto actualiza a formato JSON
+
                 var actualizaJson = JSON.stringify(actualiza);
-                console.log(actualizaJson);
 
                 // Realiza la solicitud PUT
                 fetch("http://virtual.administracion.com/API/apiConvocatoria.php", {

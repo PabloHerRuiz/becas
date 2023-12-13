@@ -52,7 +52,7 @@ fieldset button{
 
 /* Estilo para los botones de las pestañas */
 .tab button {
-    background-color: inherit;
+    background-color: #d9d9d9;
     float: left;
     border: none;
     outline: none;
@@ -65,12 +65,12 @@ fieldset button{
 
 /* Cambia el color de fondo de los botones al pasar el mouse */
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #c9c9c9;
 }
 
 /* Estilo para el botón activo */
 .tab button.active {
-    background-color: #ccc;
+    background-color: #6e6e6e;
 }
 
 /* Estilo para el contenido de las pestañas */
