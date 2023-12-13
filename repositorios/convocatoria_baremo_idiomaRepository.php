@@ -21,9 +21,9 @@ class convocatoria_baremo_idiomaRepository
         return $convocatoria_baremo_idioma;
     }
 
-    public function getConvocatoria_baremo_idiomaById($id, $idConvocatorias, $idItem_baremables)
+    public function getConvocatoria_baremo_idiomaById($idConvocatorias)
     {
-        $sql = "SELECT * FROM convocatoria_baremo_idioma WHERE idNivel = $id and idConvocatorias = $idConvocatorias and idItem_baremables = $idItem_baremables";
+        $sql = "SELECT * FROM convocatoria_baremo_idioma WHERE idConvocatorias = $idConvocatorias";
         $result = $this->conexion->query($sql);
         $convocatoria_baremo_idioma = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -67,9 +67,9 @@ class convocatoria_baremo_idiomaRepository
         }
     }
 
-    public function deleteConvocatoria_baremo_idioma($id, $idConvocatorias, $idItem_baremables)
+    public function deleteConvocatoria_baremo_idioma($idConvocatorias)
     {
-        $sql = "DELETE FROM convocatoria_baremo_idioma WHERE idNivel = $id and idConvocatorias = $idConvocatorias and idItem_baremables = $idItem_baremables";
+        $sql = "DELETE FROM convocatoria_baremo_idioma WHERE idConvocatorias = $idConvocatorias";
         if ($this->conexion->exec($sql)) {
             return true;
         } else {

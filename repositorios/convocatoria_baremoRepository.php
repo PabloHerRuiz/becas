@@ -32,9 +32,9 @@ class convocatoria_baremoRepository
         return $convocatoria_baremo;
     }
 
-    public function getConvocatoria_baremoById($idConvocatorias, $idItem_baremables)
+    public function getConvocatoria_baremoById($idConvocatorias)
     {
-        $sql = "SELECT * FROM convocatoria_baremo WHERE idConvocatorias = $idConvocatorias and idItem_baremables = $idItem_baremables";
+        $sql = "SELECT * FROM convocatoria_baremo WHERE idConvocatorias = $idConvocatorias";
         $result = $this->conexion->query($sql);
         $convocatoria_baremo = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -124,9 +124,9 @@ class convocatoria_baremoRepository
 
     //deleteConvocatoria_baremo
 
-    public function deleteConvocatoria_baremo( $idConvocatorias, $idItem_baremables)
+    public function deleteConvocatoria_baremo( $idConvocatorias)
     {
-        $sql = "DELETE FROM convocatoria_baremo WHERE idConvocatorias = $idConvocatorias and idItem_baremables = $idItem_baremables";
+        $sql = "DELETE FROM convocatoria_baremo WHERE idConvocatorias = $idConvocatorias";
         if ($this->conexion->exec($sql)) {
             return true;
         } else {

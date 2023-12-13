@@ -84,7 +84,7 @@ class convocatoriaRepository
         $fecha_lis_definitiva = $convocatoria->getFechaLisDefinitiva();
         $fecha_lis_provisional = $convocatoria->getFechaLisProvisional();
 
-        $sql = "UPDATE convocatoria SET codProyecto = '$codProyecto', movilidades = '$movilidades', destinos='$destinos' tipo = '$tipo', fecha_ini = '$fecha_ini', fecha_fin = '$fecha_fin', fecha_ini_pruebas = '$fecha_ini_pruebas', fecha_fin_pruebas = '$fecha_fin_pruebas', fecha_lis_definitiva = '$fecha_lis_definitiva', fecha_lis_provisional = '$fecha_lis_provisional' WHERE idConvocatorias = $id";
+        $sql = "UPDATE convocatorias SET codProyecto = '$codProyecto', movilidades = '$movilidades', destinos='$destinos' , tipo = '$tipo', fecha_ini = '$fecha_ini', fecha_fin = '$fecha_fin', fecha_ini_pruebas = '$fecha_ini_pruebas', fecha_fin_pruebas = '$fecha_fin_pruebas', fecha_lis_definitiva = '$fecha_lis_definitiva', fecha_lis_provisional = '$fecha_lis_provisional' WHERE idConvocatorias = $id";
 
         if ($this->conexion->exec($sql)) {
             return true;
@@ -95,7 +95,7 @@ class convocatoriaRepository
 
     public function deleteConvocatoria($id)
     {
-        $sql = "DELETE FROM convocatoria WHERE idConvocatorias = $id";
+        $sql = "DELETE FROM convocatorias WHERE idConvocatorias = $id";
         if ($this->conexion->exec($sql)) {
             return true;
         } else {

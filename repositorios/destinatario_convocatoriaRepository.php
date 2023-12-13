@@ -22,9 +22,9 @@ class destinatario_convocatoriaRepository
         return $destinatarios_convocatoria;
     }
 
-    public function getDestinatarios_convocatoriaById($idConvocatorias, $idDestinatarios)
+    public function getDestinatarios_convocatoriaById($idConvocatorias)
     {
-        $sql = "SELECT * FROM destinatarios_convocatorias WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
+        $sql = "SELECT * FROM destinatarios_convocatorias WHERE idConvocatorias = $idConvocatorias";
         $result = $this->conexion->query($sql);
         $destinatarios_convocatoria = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -67,9 +67,9 @@ class destinatario_convocatoriaRepository
 
     //deleteDestinatarios_convocatoria
 
-    public function deleteDestinatarios_convocatoria($idConvocatorias, $idDestinatarios)
+    public function deleteDestinatarios_convocatoria($idConvocatorias)
     {
-        $sql = "DELETE FROM destinatarios_convocatorias WHERE idConvocatorias = $idConvocatorias and idDestinatarios = $idDestinatarios";
+        $sql = "DELETE FROM destinatarios_convocatorias WHERE idConvocatorias = $idConvocatorias";
         if ($this->conexion->exec($sql)) {
             return true;
         } else {
