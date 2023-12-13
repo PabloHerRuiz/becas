@@ -49,11 +49,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $baremacion = new Baremacion(null, $idConvocatorias, $id, $idItems[$i], null, $valor[$i]);
 
-        if ($baremacion) {
-            $baremacionRepository->createBaremaciones($baremacion);
-        } else {
-            echo "Error al  crear la baremacion. Por favor, inténtalo de nuevo.";
-            exit;
+        // Compruebamos si ya existe la baremacion
+        $existeBaremacion = $baremacionRepository->getBaremacionesById($id, $idConvocatorias, $idItems[$i]);
+
+        try {
+            if ($existeBaremacion) {
+                //actualizamos si existe
+                $baremacionRepository->updateBaremaciones($baremacion);
+            } else {
+                //creamos si no existe
+                $baremacionRepository->createBaremaciones($baremacion);
+            }
+        } catch (Exception $e) {
+            echo "Error al actualizar o crear la baremación: " . $e->getMessage();
         }
     }
 
@@ -61,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 } else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     try {
-        $baremacion = $baremacionRepository->getIdItemNota($id,$idConvocatorias);
+        $baremacion = $baremacionRepository->getIdItemNota($id, $idConvocatorias);
     } catch (Exception $e) {
         http_response_code(500);
         echo json_encode(['error' => 'Fallo al cargar baremacion']);

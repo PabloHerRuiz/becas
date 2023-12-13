@@ -247,6 +247,7 @@ window.addEventListener('load', function () {
                                         formulario.appendChild(boton);
                                         cambiarColor();
 
+                                        //tengo que solucionar esto
                                         fetch('http://virtual.administracion.com/API/apiBaremacion.php?id=' + solicitud.idCandidato + '&idConvocatorias=' + solicitud.idConvocatorias)
                                             .then(x => x.json())
                                             .then(y => {

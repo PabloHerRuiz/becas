@@ -21,7 +21,7 @@ window.addEventListener("load", function () {
         .then(y => {
             for (let i = 0; i < y.length; i++) {
                 let option = document.createElement("option");
-                option.value = y[i].idDestinatarios;
+                option.value = y[i].codGrupo;
                 option.innerHTML = y[i].codGrupo;
                 curso.appendChild(option);
             }
