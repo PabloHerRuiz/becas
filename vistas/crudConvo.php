@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilosCrud.css">
-    <script scr="js/crud.js"></script>
+    <script src="js/crud.js"></script>
     <title>Crud Convocatorias</title>
 </head>
 <body>
-    <h1>Hola</h1>
+    <table id="convocatorias-table"></table>
 </body>
 </html>

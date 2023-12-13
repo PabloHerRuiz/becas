@@ -40,19 +40,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             echo json_encode(["mensaje" => "No hay datos de baremacion cargados"]);
         }
     } else {
-        try {
-            $convocatorias = $convocatoriaRepository->getAllConvoDest($id);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['error' => 'Fallo al cargar becas']);
-            exit;
-        }
-        if ($convocatorias) {
-            header('Content-Type: application/json');
-            echo json_encode($convocatorias);
+        if (!empty($_GET["todas"])) {
+            try {
+                $convocatorias = $convocatoriaRepository->getAllConvocatorias();
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo json_encode(['error' => 'Fallo al cargar convocatorias']);
+                exit;
+            }
+            if ($convocatorias) {
+                header('Content-Type: application/json');
+                echo json_encode($convocatorias);
+            } else {
+                http_response_code(404);
+                echo json_encode(["mensaje" => "No hay convocatorias cargadas"]);
+            }
         } else {
-            http_response_code(404);
-            echo json_encode(["mensaje" => "No hay becas cargadas"]);
+            try {
+                $convocatorias = $convocatoriaRepository->getAllConvoDest($id);
+            } catch (Exception $e) {
+                http_response_code(500);
+                echo json_encode(['error' => 'Fallo al cargar becas']);
+                exit;
+            }
+            if ($convocatorias) {
+                header('Content-Type: application/json');
+                echo json_encode($convocatorias);
+            } else {
+                http_response_code(404);
+                echo json_encode(["mensaje" => "No hay becas cargadas"]);
+            }
         }
     }
 }
