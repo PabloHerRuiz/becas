@@ -213,6 +213,7 @@ window.addEventListener('load', function () {
                                             input.style.height = '78%';
                                             input.style.textAlign = 'center';
                                             input.max = element.maximo;
+                                            input.id = element.idItem_baremables;
                                             input.name = 'valor[]';
 
                                             hidden.type = 'hidden';
@@ -253,7 +254,7 @@ window.addEventListener('load', function () {
                                             .then(y => {
                                                 if (y.length) {
                                                     y.forEach(element => {
-                                                        var input = document.querySelectorAll(`input[name='valor[]']`)[element.idItem_baremables - 1];
+                                                        var input = document.querySelector(`input[name='valor[]'][id='${element.idItem_baremables}']`);
                                                         if (input) {
                                                             input.value = element.nota;
                                                         }
