@@ -12,8 +12,6 @@ body {
 
 button {
     border-radius: 20px;
-    /* border: 1px solid #FF4B2B;
-    background-color: #FF4B2B; */
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -21,6 +19,13 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+}
+
+fieldset button{
+    padding: 0px 0px;
+    background: transparent;
+    border: none;
+    cursor : pointer;
 }
 
 .soli {
@@ -125,5 +130,11 @@ button {
 }
 
 .solicitud-enviada {
-    color: #ff5e5e;
+    color: #b43232;
+    text-decoration: underline;
+}
+
+.solicitud-enviada:hover {
+    color: #ff0000;
+    text-decoration: underline;
 }

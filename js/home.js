@@ -78,7 +78,7 @@ window.addEventListener('load', function () {
 						var soli = plantillaSolicitud.cloneNode(true);
 
 						var spans = soli.getElementsByClassName("s2");
-						
+
 						//creamos el iframe
 						var iframe = document.createElement('iframe');
 
@@ -231,12 +231,18 @@ window.addEventListener('load', function () {
 						formulario.appendChild(titulo);
 
 						//nombre, apellidos, dni, email, telefono, domicilio, curso, archivos varios
-						var fileContainer = document.createElement('div');
+						var fileContainer = document.createElement('fieldSet');
 						fileContainer.id = "fileContainer";
 						fileContainer.style.marginTop = "12px";
 						fileContainer.style.display = "flex";
 						fileContainer.style.flexDirection = "column";
-						fileContainer.style.marginRight = "110px";
+						fileContainer.style.width = "50%";
+						fileContainer.style.border = "none";
+
+						var legend = document.createElement('legend');
+						legend.textContent = "Archivos";
+						legend.style.fontWeight = "bold";
+						fileContainer.appendChild(legend);
 
 						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&archivos=1")
 							.then(x => x.json())
@@ -254,9 +260,79 @@ window.addEventListener('load', function () {
 									var label = document.createElement('label');
 									label.htmlFor = element;
 									label.textContent = element;
+									label.style.marginTop = "10px";
+
+									var button = document.createElement('button');
+
+									button.addEventListener('click', function (ev) {
+										ev.preventDefault();
+										var documento = this.previousElementSibling
+										if (documento.files.length == 1 && documento.files[0].type == "application/pdf") {
+											var fileURL = URL.createObjectURL(documento.files[0]);
+
+											var iframe = document.createElement('iframe');
+											iframe.src = fileURL;
+											iframe.width = "100%";
+											iframe.height = "100%";
+
+											//fondo modal
+											var modal = document.createElement('div');
+											modal.style.position = "fixed";
+											modal.style.top = 0;
+											modal.style.left = 0;
+											modal.style.width = "100%";
+											modal.style.height = "100%";
+											modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+											modal.style.zIndex = 99;
+											document.body.appendChild(modal);
+
+											//contenido modal
+											var visualizador = document.createElement('div');
+											visualizador.style.position = "fixed";
+											visualizador.style.top = "15%";
+											visualizador.style.left = "15%";
+											visualizador.style.width = "70%";
+											visualizador.style.height = "70%";
+											visualizador.style.backgroundColor = "White";
+											visualizador.style.zIndex = 100;
+											visualizador.appendChild(iframe);
+											document.body.appendChild(visualizador);
+
+											//cerrar modal
+											var closer = document.createElement('img');
+											closer.style.position = "fixed";
+											closer.style.top = "0";
+											closer.style.right = "0";
+											closer.style.padding = "5px";
+											closer.style.zIndex = 111;
+											closer.style.cursor = "pointer";
+											closer.src = "/css/imagenes/cerrar.png";
+
+											closer.addEventListener("click", function () {
+												document.body.removeChild(visualizador);
+												document.body.removeChild(modal);
+												document.body.removeChild(this);
+											});
+
+											document.body.appendChild(closer);
+										}
+									});
+
+									var img = document.createElement('img');
+									img.src = 'css/imagenes/ojo.png';
+									img.alt = 'Descripción de la imagen';
+
+									button.appendChild(img);
+
+									var div = document.createElement('div');
+									div.style.display = "flex";
+									div.style.justifyContent = "space-between";
+
+									div.appendChild(file);
+									div.appendChild(button);
 
 									fileContainer.appendChild(label);
-									fileContainer.appendChild(file);
+									fileContainer.appendChild(div);
 								});
 							})
 							.catch(error => console.error(error));
@@ -550,8 +626,77 @@ window.addEventListener('load', function () {
 									label.textContent = element;
 									label.style.marginTop = "10px";
 
+									var button = document.createElement('button');
+
+									button.addEventListener('click', function (ev) {
+										ev.preventDefault();
+										var documento = this.previousElementSibling
+										if (documento.files.length == 1 && documento.files[0].type == "application/pdf") {
+											var fileURL = URL.createObjectURL(documento.files[0]);
+
+											var iframe = document.createElement('iframe');
+											iframe.src = fileURL;
+											iframe.width = "100%";
+											iframe.height = "100%";
+
+											//fondo modal
+											var modal = document.createElement('div');
+											modal.style.position = "fixed";
+											modal.style.top = 0;
+											modal.style.left = 0;
+											modal.style.width = "100%";
+											modal.style.height = "100%";
+											modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+											modal.style.zIndex = 99;
+											document.body.appendChild(modal);
+
+											//contenido modal
+											var visualizador = document.createElement('div');
+											visualizador.style.position = "fixed";
+											visualizador.style.top = "15%";
+											visualizador.style.left = "15%";
+											visualizador.style.width = "70%";
+											visualizador.style.height = "70%";
+											visualizador.style.backgroundColor = "White";
+											visualizador.style.zIndex = 100;
+											visualizador.appendChild(iframe);
+											document.body.appendChild(visualizador);
+
+											//cerrar modal
+											var closer = document.createElement('img');
+											closer.style.position = "fixed";
+											closer.style.top = "0";
+											closer.style.right = "0";
+											closer.style.padding = "5px";
+											closer.style.zIndex = 111;
+											closer.style.cursor = "pointer";
+											closer.src = "/css/imagenes/cerrar.png";
+
+											closer.addEventListener("click", function () {
+												document.body.removeChild(visualizador);
+												document.body.removeChild(modal);
+												document.body.removeChild(this);
+											});
+
+											document.body.appendChild(closer);
+										}
+									});
+
+									var img = document.createElement('img');
+									img.src = 'css/imagenes/ojo.png';
+									img.alt = 'Descripción de la imagen';
+
+									button.appendChild(img);
+
+									var div = document.createElement('div');
+									div.style.display = "flex";
+									div.style.justifyContent = "space-between";
+
+									div.appendChild(file);
+									div.appendChild(button);
+
 									fileContainer.appendChild(label);
-									fileContainer.appendChild(file);
+									fileContainer.appendChild(div);
 								});
 							})
 							.catch(error => console.error(error));
