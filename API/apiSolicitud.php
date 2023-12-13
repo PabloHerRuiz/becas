@@ -1,6 +1,10 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . '/helpers/autocargador.php';
 
+use GuzzleHttp\Client;
+
+require_once $_SERVER["DOCUMENT_ROOT"] . '../correo/vendor/autoload.php';
+
 try {
     $conn = db::abreconexion();
 } catch (Exception $e) {
@@ -112,6 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo json_encode(["error" => "Ya has enviado una solicitud a esta convocatoria."]);
             exit;
         } else if ($candidato_convocatoriaRepository->createCandidato_convocatorias($candidato_convocatoria)) {
+            $client = new Client();
+            $response = $client->request('GET', 'http://virtual.administracion.com/correo/apiCorreo.php?id=' . $id);
+            echo $response->getBody();
+
             header('Location:../?menu=home&id=' . $id);
             exit;
         } else {
