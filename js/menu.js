@@ -34,27 +34,15 @@ window.addEventListener("load", function () {
     });
 
     convocatoria.addEventListener("click", function () {
-        if (rol == "admin") {
-            document.location = "?menu=conv&id=" + id + "&rol=" + rol;
-        } else {
-            document.location = "?menu=crea&id=" + id;
-        }
+        document.location = "?menu=crea&id=" + id + "&rol=" + rol;
     });
 
     baremacion.addEventListener("click", function () {
-        if (rol == "admin") {
-            document.location = "?menu=bare&id=" + id + "&rol=" + rol;
-        } else {
-        document.location = "?menu=bare&id=" + id;
-        }
+        document.location = "?menu=bare&id=" + id + "&rol=" + rol;
     });
 
     crud.addEventListener("click", function () {
-        if (rol == "admin") {
-            document.location = "?menu=crud&id=" + id + "&rol=" + rol;
-        } else {
-        document.location = "?menu=crud&id=" + id;
-        }
+        document.location = "?menu=crud&id=" + id + "&rol=" + rol;
     });
 
     logout.addEventListener("click", function () {
