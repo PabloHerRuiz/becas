@@ -27,5 +27,9 @@ if (isset($_GET['menu'])) {
         require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/baremacion.php';
 
     }
+    if ($_GET['menu'] == "crud") {
+        require_once $_SERVER["DOCUMENT_ROOT"] . '/vistas/crudConvo.php';
+
+    }
 }
 ?>

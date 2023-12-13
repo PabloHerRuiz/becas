@@ -252,13 +252,10 @@ window.addEventListener('load', function () {
                                             .then(x => x.json())
                                             .then(y => {
                                                 if (y.length) {
-                                                    y.forEach((element, index) => {
-                                                        var input = document.querySelectorAll(`input[name='valor[]']`)[index];
+                                                    y.forEach(element => {
+                                                        var input = document.querySelectorAll(`input[name='valor[]']`)[element.idItem_baremables - 1];
                                                         if (input) {
-                                                            var hiddenInput = input.parentNode;
-                                                            if (hiddenInput && hiddenInput.value == element.idItembaremables) {
-                                                                input.value = element.nota;
-                                                            }
+                                                            input.value = element.nota;
                                                         }
                                                     });
                                                 } else {

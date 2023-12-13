@@ -3,6 +3,7 @@ window.addEventListener("load", function () {
     const perfil = document.getElementById("perf");
     const convocatoria = document.getElementById("conv");
     const baremacion = document.getElementById("bare");
+    const crud = document.getElementById("crud");
     const configuracion = document.getElementById("conf");
     const logout = document.getElementById("cerrar");
 
@@ -24,6 +25,10 @@ window.addEventListener("load", function () {
 
     baremacion.addEventListener("click", function () {
         document.location = "?menu=bare&id=" + id;
+    });
+
+    crud.addEventListener("click", function () {
+        document.location = "?menu=crud&id=" + id;
     });
 
     logout.addEventListener("click", function () {

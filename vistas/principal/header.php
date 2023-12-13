@@ -38,6 +38,15 @@ if (isset($_GET['menu'])) {
                 </a>
 
             </li>
+            <li id="crud">
+                <a href="#">
+                    <i class="fa fa-pencil-square-o fa-2x"></i>
+                    <span class="nav-text">
+                        CRUD Convocatorias
+                    </span>
+                </a>
+
+            </li>
             <li id="bare">
                 <a href="#">
                     <i class="fa fa-tasks fa-2x"></i>
