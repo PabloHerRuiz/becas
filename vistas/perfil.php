@@ -5,6 +5,7 @@
     <title>Perfil de Candidato</title>
     <link rel="stylesheet" href="css/estilosPerfil.css">
     <script src="js/perfil.js"></script>
+    <script src="js/foto.js"></script>
     <script src="js/validaciones.js"></script>
 </head>
 
@@ -12,6 +13,11 @@
     <div id="contenedor">
         <h2>Perfil de Candidato</h2>
         <form id="formPerfil">
+            <div id="foto">
+                <img id="imgFotoPerfil" src="" alt="Foto Perfil">
+                <button id="openWebcam" onclick="modalFoto(event)">Open Webcam Modal</button>
+                <input type="hidden" id="blob" name="foto" readonly>
+            </div>
             <label for="dni">DNI:</label>
             <p id="dni" name="dni">aqui vendria el dni del candidato</p>
             <label for="nombre">Nombre:</label>

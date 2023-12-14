@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $candidato = new Candidato($nombre, null, $dni, $password, null, $correo,null,null,null,null,"alumno",null);
+    $candidato = new Candidato($nombre, null, $dni, $password, null, $correo,null,null,null,null,"alumno",null,null);
 
     $errores = Validator::validateCandidato($candidato);
     // Si hay errores, manejarlos

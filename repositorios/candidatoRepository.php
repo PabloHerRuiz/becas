@@ -26,7 +26,7 @@ class candidatoRepository
         $result = $this->conexion->query($sql);
         $candidato = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $candidato = new Candidato($row['nombre'], $row['apellidos'], $row['dni'], $row['password'], $row['curso'], $row['correo'], $row['telefono'], $row['domicilio'], $row['fecha_nacimiento'], $row['tutor'], $row['rol'], $row['idCandidato']);
+            $candidato = new Candidato($row['nombre'], $row['apellidos'], $row['dni'], $row['password'], $row['curso'], $row['correo'], $row['telefono'], $row['domicilio'], $row['fecha_nacimiento'], $row['tutor'], $row['rol'], $row['foto'], $row['idCandidato']);
         }
         return $candidato;
     }
@@ -79,8 +79,9 @@ class candidatoRepository
         $domicilio = $candidato->getDomicilio();
         $fecha_nacimiento = $candidato->getFechaNacimiento();
         $telefono = $candidato->getTelefono();
+        $foto=$candidato->getFoto();
 
-        $sql = "UPDATE candidato SET nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', fecha_nacimiento = '$fecha_nacimiento', telefono = '$telefono' WHERE idCandidato = $id";
+        $sql = "UPDATE candidato SET nombre = '$nombre', apellidos = '$apellidos', correo = '$correo', curso = '$curso', domicilio = '$domicilio', fecha_nacimiento = '$fecha_nacimiento', telefono = '$telefono', foto = '$foto' WHERE idCandidato = $id";
 
         if ($this->conexion->exec($sql)) {
             return true;

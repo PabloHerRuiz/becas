@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $datos = json_decode(file_get_contents("php://input"), true);
         if ($datos) {
             try {
-                $candidato = new Candidato($datos['nombre'], $datos['apellidos'], null, null, $datos['curso'], $datos['correo'], $datos['telefono'], $datos['domicilio'], $datos['fecha_nacimiento'], null, null, $id);
+                $candidato = new Candidato($datos['nombre'], $datos['apellidos'], null, null, $datos['curso'], $datos['correo'], $datos['telefono'], $datos['domicilio'], $datos['fecha_nacimiento'], null, null, $datos['foto'],$id);
                 $candidatoRepository->updateCandidato($candidato);
                 http_response_code(200);
                 echo json_encode(['message' => 'Perfil actualizado correctamente']);

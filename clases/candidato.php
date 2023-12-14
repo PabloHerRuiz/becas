@@ -14,9 +14,10 @@ class Candidato implements JsonSerializable
     private $fecha_nacimiento;
     private $tutor;
     private $rol;
+    private $foto;
 
     //constructor
-    public function __construct($nombre, $apellidos = null, $dni, $password, $curso = null, $correo, $telefono = null, $domicilio = null, $fecha_nacimiento = null, $tutor = null, $rol = null, $idCandidato = null)
+    public function __construct($nombre, $apellidos = null, $dni, $password, $curso = null, $correo, $telefono = null, $domicilio = null, $fecha_nacimiento = null, $tutor = null, $rol = null,$foto=null, $idCandidato = null)
     {
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
@@ -29,6 +30,7 @@ class Candidato implements JsonSerializable
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->tutor = $tutor;
         $this->rol = $rol;
+        $this->foto=$foto;
         $this->idCandidato = $idCandidato;
     }
 
@@ -147,6 +149,15 @@ class Candidato implements JsonSerializable
     public function setRol($rol)
     {
         $this->rol = $rol;
+    }
+
+    public function getFoto()
+    {
+        return $this->foto;
+    }
+
+    public function setFoto($foto){
+        $this->foto=$foto;
     }
     //metodos
     public function jsonSerialize()

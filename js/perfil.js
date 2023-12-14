@@ -56,6 +56,10 @@ window.addEventListener("load", function () {
                 let fecha = new Date(y.fecha_nacimiento);
                 fecha_nacimiento.value = fecha.toISOString().slice(0, 10);
             }
+            if (y.foto !== undefined) {
+                document.getElementById('imgFotoPerfil').src = y.foto;
+                document.getElementById('blob').value = y.foto;
+            }
         });
 
     form.addEventListener("submit", function (ev) {
