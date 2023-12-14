@@ -5,7 +5,8 @@ body {
     flex-direction: column;
     font-family: 'Montserrat', sans-serif;
     height: 90vh;
-    margin: 30px;
+    margin: 0; /* Elimina el margen para que los elementos se extiendan hasta los bordes de la página */
+    padding: 30px; /* Agrega un padding para dar un poco de espacio alrededor de los elementos */
 }
 
 /* listado becas/convocatorias */
@@ -19,6 +20,7 @@ button {
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+    background-color: #007BFF; /* Agrega un color de fondo para hacer que los botones se destaquen más */
 }
 
 fieldset button{
@@ -33,21 +35,22 @@ fieldset button{
     padding: 10px 30px;
     margin-left: 13px;
     cursor: pointer;
+    background-color: #f1f1f1; /* Agrega un color de fondo para hacer que los elementos .soli se destaquen más */
 }
 
 #cuerpo {
     width: 96%;
     height: 0vh;
     margin-left: 26px;
+    background-color: #fff; /* Agrega un color de fondo para hacer que el cuerpo se destaque más */
 }
 
 /* Estilo para las pestañas */
 .tab {
     overflow: hidden;
-    /* border: 1px solid #ccc; */
     border-radius: 15px;
     background-color: #f1f1f1;
-    width: 103%;
+    width: 100%; /* Cambia el ancho al 100% para que las pestañas se extiendan hasta los bordes de la página */
 }
 
 /* Estilo para los botones de las pestañas */
@@ -67,7 +70,6 @@ fieldset button{
 .tab button:hover {
     background-color: #c9c9c9;
 }
-
 /* Estilo para el botón activo */
 .tab button.active {
     background-color: #6e6e6e;
@@ -77,49 +79,40 @@ fieldset button{
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    /* border: 1px solid #ccc; */
     border-top: none;
     width: 48.7%;
+    font-family: 'Roboto', sans-serif; /* Cambia la fuente a Roboto para un aspecto más moderno */
 }
-
 
 /* Estilo para el contenido de las pestañas */
-#lista-becas {
+#lista-becas, #lista-soli {
     overflow-y: auto;
+    list-style: none;
+    padding-left: 0px; 
 }
 
-#lista-becas li {
+#lista-becas li, #lista-soli li {
     color: rgb(103, 169, 255);
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
     list-style: none;
     margin-bottom: 20px;
+    font-size: 16px; 
+    border-left: 3px solid #007BFF; 
+    box-sizing: border-box; 
 }
 
-#lista-becas li:hover {
+#lista-becas li:hover, #lista-soli li:hover {
     color: #006eff;
-}
-
-#lista-soli {
-    overflow-y: auto;
-}
-
-#lista-soli li {
-    color: rgb(103, 169, 255);
-    text-decoration: underline;
-    cursor: pointer;
-    list-style: none;
-    margin-bottom: 20px;
-}
-
-#lista-soli li:hover {
-    color: #006eff;
+    background-color: #65a7fd;
 }
 
 #MisSolicitudes {
     float: right;
 }
-
+#lista-becas li a,#lista-soli li a{
+    margin-left:15px;
+}
 /* validaciones */
 .valido {
     border: 3px solid #66ff66;
@@ -127,14 +120,4 @@ fieldset button{
 
 .invalido {
     border: 3px solid red;
-}
-
-.solicitud-enviada {
-    color: #b43232;
-    text-decoration: underline;
-}
-
-.solicitud-enviada:hover {
-    color: #ff0000;
-    text-decoration: underline;
 }

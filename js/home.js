@@ -508,9 +508,19 @@ window.addEventListener('load', function () {
 					.then(x => x.json())
 					.then(y => {
 						if (y === true) {
-							// Si el usuario ha enviado una solicitud, añadimos la clase "solicitud-enviada" al elemento
-							becasElements[i].querySelector("a").classList.add('solicitud-enviada');
-							becasElements[i].querySelector("button").style.display = "none";
+							var solicitudElement = becasElements[i];
+							solicitudElement.style.color = "red";
+							solicitudElement.style.borderLeft = "3px solid red";
+
+
+							solicitudElement.onmouseover = function () {
+								this.style.backgroundColor = "#ffcccc";
+							}
+
+							solicitudElement.onmouseout = function () {
+								this.style.backgroundColor = "#f6f5f7";
+							}
+
 						}
 					});
 			}
