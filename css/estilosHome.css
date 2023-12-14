@@ -91,7 +91,7 @@ fieldset button{
     padding-left: 0px; 
 }
 
-#lista-becas li, #lista-soli li {
+#lista-becas li {
     color: rgb(103, 169, 255);
     text-decoration: none;
     cursor: pointer;
@@ -101,8 +101,22 @@ fieldset button{
     border-left: 3px solid #007BFF; 
     box-sizing: border-box; 
 }
+#lista-soli li {
+    color: rgb(255, 217, 0);
+    text-decoration: none;
+    cursor: pointer;
+    list-style: none;
+    margin-bottom: 20px;
+    font-size: 16px; 
+    border-left: 3px solid rgb(255, 217, 0); 
+    box-sizing: border-box; 
+}
 
-#lista-becas li:hover, #lista-soli li:hover {
+#lista-soli li:hover {
+    color: #ff7300;
+    background-color: #ffb443;
+}
+#lista-becas li:hover {
     color: #006eff;
     background-color: #65a7fd;
 }
