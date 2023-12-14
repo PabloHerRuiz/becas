@@ -16,7 +16,10 @@ try {
 
     $id = $_GET['id'];
 
-    // $stmt = $conn->query("SELECT correo FROM candidato WHERE idCandidato='$id'");
+    $stmt = $conn->query("SELECT correo FROM candidato WHERE idCandidato='$id'");
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $para = $row['correo'];
+
     // $stmt = $conn->query("SELECT * FROM candidato WHERE idCandidato='$id'");
 
     // // Guardar los datos en un array asociativo
@@ -34,15 +37,14 @@ try {
 
     // $json= json_encode($datos);
 
-    // $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    // $para = $row['correo'];
+    
 
     // $pdf = file_get_contents('http://virtual.administracion.com/correo/apiPdf.php?datos=' . $datos .')');
-    $pdf = file_get_contents('http://virtual.administracion.com/correo/apiPdf.php)');
+    $pdf = file_get_contents('http://virtual.administracion.com/correo/apiPdf.php');
     // Enviar el correo utilizando la clase ServicioCorreos
-    // $resultado = ServicioCorreos::enviarCorreo($para, $pdf);
+    $resultado = ServicioCorreos::enviarCorreo($para, $pdf);
 
-    $resultado = ServicioCorreos::enviarCorreo("pherrui680@g.educaand.es", $pdf);
+    // $resultado = ServicioCorreos::enviarCorreo("pherrui680@g.educaand.es", $pdf);
 
 
     // Imprimir el resultado

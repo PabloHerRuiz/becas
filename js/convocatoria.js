@@ -243,7 +243,7 @@ window.addEventListener('load', function () {
                     tablaIdioma.style.display = "table";
                 } else {
                     tablaIdioma.style.display = "none";
-                    tablaIdioma.querySelectorAll('input[type="text"][data-valida="numero"]').forEach(input => {
+                    tablaIdioma.querySelectorAll('input[type="number"][data-valida="numero"]').forEach(input => {
                         input.classList.remove('valido');
                         input.classList.remove('invalido');
                         input.value = "";

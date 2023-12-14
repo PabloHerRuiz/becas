@@ -80,12 +80,24 @@ window.addEventListener('load', function () {
 
 
                 // Obtén las fechas de los inputs en lugar de las celdas
+                if(fila.querySelector(".fecha_ini input") != null){
                 var fecha_ini = new Date(fila.querySelector(".fecha_ini input").value);
+                }
+                if(fila.querySelector(".fecha_fin input") != null){
                 var fecha_fin = new Date(fila.querySelector(".fecha_fin input").value);
+                }
+                if(fila.querySelector(".fecha_ini_pruebas input") != null){
                 var fecha_ini_pruebas = new Date(fila.querySelector(".fecha_ini_pruebas input").value);
+                }
+                if(fila.querySelector(".fecha_fin_pruebas input") != null){
                 var fecha_fin_pruebas = new Date(fila.querySelector(".fecha_fin_pruebas input").value);
+                }
+                if(fila.querySelector(".fecha_lis_provisional input") != null){
                 var fecha_lis_provisional = new Date(fila.querySelector(".fecha_lis_provisional input").value);
+                }
+                if(fila.querySelector(".fecha_lis_definitiva input") != null){
                 var fecha_lis_definitiva = new Date(fila.querySelector(".fecha_lis_definitiva input").value);
+                }
 
                 // Verificar que las fechas están en el orden correcto
                 if (fecha_ini > fecha_fin || fecha_fin > fecha_ini_pruebas || fecha_ini_pruebas > fecha_fin_pruebas || fecha_fin_pruebas > fecha_lis_provisional || fecha_lis_provisional > fecha_lis_definitiva) {

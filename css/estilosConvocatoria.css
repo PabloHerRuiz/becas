@@ -59,7 +59,7 @@ table th {
     margin-bottom: 0px;
 }
 
-.idioma input[type="text"] {
+.idioma input[type="number"] {
     width: 63%;
     margin-bottom: 0px;
     text-align: center;
