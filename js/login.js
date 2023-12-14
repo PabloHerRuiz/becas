@@ -37,33 +37,11 @@ window.addEventListener("load", function () {
     form2.addEventListener('submit', (event) => {
         event.preventDefault(); // Evita el envío del formulario
 
-        const dni = form2.elements["dni"].value;
-        const nombre = form2.elements["nombre"].value;
-        const email = form2.elements["correo"].value;
-        const contra = form2.elements["pass"].value;
-
-
         // Realiza las validaciones aquí...
-        if (nombre === '' || contra === '' || dni === '' || email === '') {
-            alert('Por favor, rellena todos los campos.');
-        } else if (!validadni(dni)) {
-            alert('El DNI no es válido.');
-        } else {
+        if (form2.valida()) {
             // Si las validaciones pasan, envía el formulario
-            form2.submit();
+            // form2.submit();
         }
     });
-
-    function validadni(dni) {
-        const letras = 'TRWAGMYFPDXBNJZSQVHLCKE';
-        const letra = dni.charAt(dni.length - 1).toUpperCase();
-        const numeros = dni.substring(0, dni.length - 1);
-
-        if (letras.charAt(numeros % 23) === letra) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 })

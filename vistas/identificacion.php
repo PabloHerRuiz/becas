@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilos.css">
     <script src="js/login.js"></script>
+    <script src="js/validaciones.js"></script>
     <title>Login</title>
 </head>
 
@@ -14,11 +15,11 @@
         <div class="form-container sign-up-container">
             <form action="/API/apiRegistro.php" method="post" id="formRegistro">
                 <h1>Registro</h1>
-                <input type="text" name="dni" placeholder="DNI">
-                <input type="text" name="nombre" placeholder="Nombre">
-                <input type="email" name="correo" placeholder="Correo">
-                <input type="password" name="pass" placeholder="Contraseña">
-                <button type="submit">Registrarse</button>
+                <input type="text" name="dni" placeholder="DNI" data-valida="dni">
+                <input type="text" name="nombre" placeholder="Nombre" data-valida="relleno">
+                <input type="email" name="correo" placeholder="Correo" data-valida="email">
+                <input type="password" name="pass" placeholder="Contraseña" data-valida="relleno">
+                <button type="submit" id="reg">Registrarse</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
