@@ -188,6 +188,10 @@ article input {
     cursor: pointer;
 }
 
+article input:hover{
+    background-color: #50bcf2;
+}
+
 input[type=checkbox]:checked~div {
     background-color: #50bcf2;
 }
