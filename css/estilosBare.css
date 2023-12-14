@@ -27,28 +27,42 @@ h1 {
     height: auto;
 }
 
-
 .list {
-    margin-top: 0;
+    margin-top: 20px;
     list-style: none;
     overflow: hidden;
     text-align: left;
     transition: all 0.4s ease-out;
-    width: 50%;
+    width: 25%;
     position: relative;
+    font-family: 'Roboto', sans-serif;
+    padding-left: 15px;
 }
 
-.list li{
+.list li {
     margin-bottom: 13px;
     cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    border-left: 3px solid #979797;
+    box-sizing: border-box;
 }
 
-.list a {
-    display: flex;
-    color: inherit;
-    text-transform: lowercase;
-    font-weight: 200;
-    text-decoration: none;
+.list li:hover {
+    background: #cccccc;
+}
+
+h2 {
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    transition: color 0.3s ease;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h2:hover {
+    color: #00a2ff;
 }
 
 #bare-container {
