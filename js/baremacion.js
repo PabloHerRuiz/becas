@@ -186,12 +186,14 @@ window.addEventListener('load', function () {
                                 baremos.style.width = "100%";
                                 baremos.style.height = "100%";
 
+                                //creamos el formulario
                                 var formulario = document.createElement('form');
                                 formulario.method = "POST";
                                 formulario.action = "http://virtual.administracion.com/API/apiBaremacion.php?id=" + solicitud.idCandidato + "&idConvocatorias=" + solicitud.idConvocatorias;
                                 formulario.style.width = "100%";
                                 formulario.style.height = "84%";
 
+                                //creamos la tabla
                                 fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + convocatoriasInfo.idConvocatorias + "&baremacion=1")
                                     .then(x => x.json())
                                     .then(y => {
@@ -201,6 +203,7 @@ window.addEventListener('load', function () {
                                         bare.style.height = '100%';
                                         bare.style.textAlign = 'center';
 
+                                        //llenamos la tabla
                                         y.baremables.forEach((element, index) => {
                                             var fila = document.createElement('tr');
                                             var uno = document.createElement('td');
@@ -312,15 +315,14 @@ window.addEventListener('load', function () {
                     }
                 });
 
+                //comprobamos si hay solicitudes
                 if (solicitudesCount === 0) {
                     var li = document.createElement("li");
                     li.innerHTML = "No hay solicitudes para esta beca";
                     li.dataset.noEvent = 'true';
                     ul.appendChild(li);
                 }
-
-
-
+                //añadimos todo al container
                 barecontainer.appendChild(bare);
                 i++;
             });

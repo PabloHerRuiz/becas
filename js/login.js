@@ -16,15 +16,8 @@ window.addEventListener("load", function () {
     const form = document.getElementById('formLogin');
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // Evita el envío del formulario
-
-        const nombre = form.elements["username"].value;
-        const contra = form.elements["password"].value;
-
         // Realiza las validaciones aquí...
-        if (nombre === '' || contra === '') {
-            alert('Por favor, rellena todos los campos.');
-        } else {
-            // Si las validaciones pasan, envía el formulario
+        if (form.valida()) {
             form.submit();
         }
     });

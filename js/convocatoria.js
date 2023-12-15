@@ -1,5 +1,6 @@
 window.addEventListener('load', function () {
 
+    //variables
     const proyecto = document.getElementById('proyecto');
     const movilidades = document.getElementById('movilidades');
     const tipo = document.getElementById('tipo');
@@ -73,16 +74,21 @@ window.addEventListener('load', function () {
             for (let i = 0; i < y.length; i++) {
                 var idiomas = plantillaIdioma.cloneNode(true);
 
+                //creamos los th y guardamos el nivel
                 var th = document.createElement('th');
                 var nivel = idiomas.querySelector(".nIdioma");
 
+                //le damos el value de idNivel
                 var inputhidden = idiomas.querySelector('input[type="hidden"][name="nivel[]"]');
                 inputhidden.value = y[i].idNivel;
 
+                //le escribimos el nombre del nivel
                 nivel.textContent = y[i].nombre;
+                //añadimos al th y a la tabla
                 th.appendChild(nivel);
                 theadIdioma.appendChild(th);
 
+                //creamos los td y guardamos el nivel
                 var nota = document.createElement('td');
                 nota = idiomas.querySelector("td");
                 nota.querySelector('input').id = y[i].idNivel;
@@ -99,13 +105,16 @@ window.addEventListener('load', function () {
             for (let i = 0; i < y.length; i++) {
                 var destinatario = plantillaDest.cloneNode(true);
 
+                //le damos el value de idDestinatarios e id del checkbox
                 var checkbox = destinatario.querySelector('input[type="checkbox"][name="destinos[]"]');
                 checkbox.id = y[i].codGrupo;
                 checkbox.value = y[i].idDestinatarios;
 
+                //escribimos el nombre del destinatario
                 destinatario.querySelector(".codGrupo").innerHTML = y[i].codGrupo;
                 destinatario.title = y[i].nombre;
 
+                //añadimos al fieldset
                 fieldDestinatario.appendChild(destinatario);
             }
         });
@@ -120,34 +129,40 @@ window.addEventListener('load', function () {
             for (let i = 0; i < y.length; i++) {
                 var itemBaremable = plantillaItem.cloneNode(true);
 
+                //le damos el nombre del item
                 var item = itemBaremable.querySelector(".item");
                 item.textContent = y[i].nombre;
 
+                //le damos el value de idItem_baremables
                 var inputhidden = itemBaremable.querySelector('input[type="hidden"][name="item[]"]');
                 inputhidden.value = y[i].idItem_baremables;
 
+                //le damos el value de idItem_baremables y el id del checkbox
                 var checkbox = itemBaremable.querySelector('input[type="checkbox"][name="habilitador[]"]');
                 checkbox.id = y[i].nombre + "CB";
                 checkbox.value = y[i].idItem_baremables;
 
+                //le damos el value de idItem_baremables
                 var requisitocb = itemBaremable.querySelector('input[type="checkbox"][name="requisito[]"]');
                 requisitocb.value = y[i].idItem_baremables;
 
+                //le damos el value de idItem_baremables
                 var aportacb = itemBaremable.querySelector('input[type="checkbox"][name="aporta[]"]');
                 aportacb.value = y[i].idItem_baremables;
 
+                //deshabilitamos los inputs
                 var maxInput = itemBaremable.querySelector('input[type="number"][name="maximo[]"]');
                 if (maxInput) {
                     maxInput.setAttribute('disabled', '');
                 }
 
-
+                //deshabilitamos los inputs
                 var minInput = itemBaremable.querySelector('input[type="number"][name="minimo[]"]');
                 if (minInput) {
                     minInput.setAttribute('disabled', '');
                     minInput.parentNode.classList.add('disabled');
                 }
-
+                //agregamos un label al checkbox
                 var label = itemBaremable.querySelector('label');
                 label.htmlFor = y[i].nombre + "CB";
 
@@ -170,6 +185,7 @@ window.addEventListener('load', function () {
                 });
             });
 
+            // Añade la clase disabled a todos los elementos de cada fila, excepto al checkbox 'habilitador[]'
             const checkboxes = document.querySelectorAll('.baremable input[type="checkbox"][name="habilitador[]"]');
 
             checkboxes.forEach(checkbox => {
@@ -177,12 +193,12 @@ window.addEventListener('load', function () {
                 checkbox.addEventListener('change', function () {
                     var img = this.nextElementSibling.querySelector('.checkbox-image');
                     const children = Array.from(this.parentNode.parentNode.children);
-
+                    //si esta marcado
                     if (this.checked) {
                         checkbox.parentElement.style.backgroundColor = '';
                         //cambiamos la imagen
                         img.src = 'css/imagenes/candado-abierto.png';
-
+                        //habilitamos los inputs
                         children.forEach(child => {
                             const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
                             const inputMaximo = child.querySelector('input[name="maximo[]"]');
@@ -198,7 +214,7 @@ window.addEventListener('load', function () {
                         checkbox.parentElement.style.backgroundColor = 'rgb(215 215 215)';
                         //cambiamos la imagen
                         img.src = 'css/imagenes/cerrar-con-llave.png';
-
+                        //deshabilitamos los inputs
                         children.forEach(child => {
                             const checkbox = child.querySelector('input[type="checkbox"][name="habilitador[]"]');
                             const inputMinimo = child.querySelector('input[name="minimo[]"]');
@@ -206,7 +222,9 @@ window.addEventListener('load', function () {
                             const inputRequisito = child.querySelector('input[name="requisito[]"]');
                             const inputAporta = child.querySelector('input[name="aporta[]"]');
 
+                            //si esta marcado
                             if (inputRequisito) {
+                                //deshabilitamos el input
                                 inputRequisito.checked = false;
                             }
                             if (inputAporta) {
@@ -217,14 +235,14 @@ window.addEventListener('load', function () {
                                 child.classList.add('disabled');
                             }
 
-
+                            //deshabilitamos el input
                             if (inputMaximo) {
                                 inputMaximo.value = "";
                                 inputMaximo.setAttribute('disabled', '');
                                 inputMaximo.classList.remove('valido');
                                 inputMaximo.classList.remove('invalido');
                             }
-
+                            //deshabilitamos el input
                             if (inputMinimo) {
                                 inputMinimo.value = "";
                                 inputMinimo.setAttribute('disabled', '');
@@ -236,6 +254,7 @@ window.addEventListener('load', function () {
                 });
             });
 
+            //funcionalidad para el cb de idiomas
             const idiomaCB = document.getElementById('IdiomaCB');
             const tablaIdioma = document.getElementsByClassName('idioma')[0];
             idiomaCB.addEventListener('change', function () {
@@ -251,11 +270,12 @@ window.addEventListener('load', function () {
                 }
             });
 
-
+            //funcionalidad para el cb de requisitos
             const requisitos = document.querySelectorAll("input[type='checkbox'][name='requisito[]']");
             requisitos.forEach(requisito => {
                 requisito.addEventListener('change', function () {
                     const inputMinimo = this.parentNode.parentNode.querySelector("input[name='minimo[]']");
+                    //si esta checked habilitamos el input
                     if (this.checked) {
                         inputMinimo.removeAttribute('disabled');
                         inputMinimo.parentNode.classList.remove('disabled');
@@ -275,6 +295,7 @@ window.addEventListener('load', function () {
         var fechaActual = new Date();
         fechaActual.setHours(0, 0, 0, 0);
 
+        //comprobamos que la fecha no sea anterior a la actual
         if (fecha.getTime() < fechaActual.getTime()) {
             alert("La fecha seleccionada no puede ser anterior a la fecha actual");
             fechaInicio.value = "";
@@ -283,6 +304,7 @@ window.addEventListener('load', function () {
             fechaFin.disabled = false;
         }
 
+        //si se ha seleccionado una fecha de fin, la borramos
         if (fechaFin.value) {
             fechaFin.value = "";
             fechaFin.disabled = false;
@@ -297,6 +319,8 @@ window.addEventListener('load', function () {
         }
     });
 
+
+    //controlamos que la fecha de fin no sea anterior a la fecha de inicio
     fechaFin.addEventListener('change', function () {
         var fecha = new Date(this.value);
 
@@ -323,6 +347,7 @@ window.addEventListener('load', function () {
 
     });
 
+    //controlamos que la fecha de inicio de la prueba no sea anterior a la fecha de fin
     fecha_inicio_prueba.addEventListener('change', function () {
         var fecha = new Date(this.value);
 
@@ -346,6 +371,7 @@ window.addEventListener('load', function () {
         }
     });
 
+    //controlamos que la fecha de fin de la prueba no sea anterior a la fecha de inicio
     fecha_fin_prueba.addEventListener('change', function () {
         var fecha = new Date(this.value);
 
@@ -367,6 +393,8 @@ window.addEventListener('load', function () {
 
     });
 
+
+    //controlamos que la fecha del listado provisional no sea anterior a la fecha de fin de la prueba
     fecha_listado_provisional.addEventListener('change', function () {
         var fecha = new Date(this.value);
 
@@ -386,6 +414,8 @@ window.addEventListener('load', function () {
         }
     });
 
+
+    //controlamos que la fecha del listado definitivo no sea anterior a la fecha del listado provisional
     fecha_listado_definitivo.addEventListener('change', function () {
         var fecha = new Date(this.value);
 
@@ -399,8 +429,8 @@ window.addEventListener('load', function () {
         }
     });
 
-    //controlamos el evento de envio del formulario
 
+    //controlamos el evento de envio del formulario
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 

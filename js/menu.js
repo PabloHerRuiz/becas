@@ -11,12 +11,14 @@ window.addEventListener("load", function () {
     var rol = url.searchParams.get("rol");
     var id = url.searchParams.get("id");
 
+    //en funcion del rol se muestran unos botones u otros
     if (rol !== "admin") {
         convocatoria.style.display = "none";
         baremacion.style.display = "none";
         crud.style.display = "none";
     }
 
+    //en funcion del rol manda mas o menos parametros
     home.addEventListener("click", function () {
         if (rol == "admin") {
             document.location = "?menu=home&id=" + id + "&rol=" + rol;
@@ -24,7 +26,7 @@ window.addEventListener("load", function () {
             document.location = "?menu=home&id=" + id;
         }
     });
-
+    //en funcion del rol manda mas o menos parametros
     perfil.addEventListener("click", function () {
         if (rol == "admin") {
             document.location = "?menu=perfil&id=" + id + "&rol=" + rol;
@@ -33,6 +35,7 @@ window.addEventListener("load", function () {
         }
     });
 
+    //manda a la pagina de que sea
     convocatoria.addEventListener("click", function () {
         document.location = "?menu=crea&id=" + id + "&rol=" + rol;
     });
@@ -45,6 +48,8 @@ window.addEventListener("load", function () {
         document.location = "?menu=crud&id=" + id + "&rol=" + rol;
     });
 
+
+    //cierra sesion
     logout.addEventListener("click", function () {
         fetch("http://virtual.administracion.com/API/apiSesion.php")
             .then(x => {

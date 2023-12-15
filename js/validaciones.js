@@ -1,3 +1,4 @@
+//comprueba si esta relleno el input
 HTMLInputElement.prototype.relleno = function () {
     var respuesta = false;
     if (this.value != "") {
@@ -5,7 +6,7 @@ HTMLInputElement.prototype.relleno = function () {
     }
     return respuesta;
 }
-
+//comprueba el dni
 HTMLInputElement.prototype.dni = function () {
     var respuesta = false;
     if (this.value != "") {
@@ -18,7 +19,7 @@ HTMLInputElement.prototype.dni = function () {
     }
     return respuesta;
 }
-
+//comprueba la edad
 HTMLInputElement.prototype.edad = function () {
     var respuesta = false;
     if (this.value == parseInt(this.value) && this.value >= 0 && this.value < 150) {
@@ -26,6 +27,7 @@ HTMLInputElement.prototype.edad = function () {
     }
     return respuesta;
 }
+//comprueba si esta seleccionado
 HTMLInputElement.prototype.seleccionado = function () {
     var respuesta = false;
     var name=this.name;
@@ -34,7 +36,7 @@ HTMLInputElement.prototype.seleccionado = function () {
     }
     return respuesta;
 }
-
+//comprueba el email
 HTMLInputElement.prototype.email = function () {
     var respuesta = false;
     if (this.value != "") {
@@ -45,7 +47,7 @@ HTMLInputElement.prototype.email = function () {
     }
     return respuesta;
 }
-
+//comprueba el telefono
 HTMLInputElement.prototype.telefono = function () {
     var respuesta = false;
     if (this.value != "") {
@@ -56,7 +58,7 @@ HTMLInputElement.prototype.telefono = function () {
     }
     return respuesta;
 }
-
+//comprueba la fecha
 HTMLInputElement.prototype.fecha = function () {
     var respuesta = false;
     if (this.value != "") {
@@ -68,7 +70,7 @@ HTMLInputElement.prototype.fecha = function () {
     }
     return respuesta;
 }
-
+//comprueba el numero
 HTMLInputElement.prototype.numero = function () {
     var respuesta = false;
     if (this.value != "") {
@@ -79,7 +81,7 @@ HTMLInputElement.prototype.numero = function () {
     }
     return respuesta;
 }
-
+//comprueba el pdf
 HTMLInputElement.prototype.pdfSeleccionado = function () {
     var respuesta = false;
     if (this.files.length > 0) {
@@ -92,7 +94,7 @@ HTMLInputElement.prototype.pdfSeleccionado = function () {
     }
     return respuesta;
 }
-
+//valida el contenido de fildset
 HTMLFieldSetElement.prototype.valida = function () {
     // Buscar todos los checkboxes en el fieldset
     var checkboxes = this.querySelectorAll('input[type="checkbox"]');
@@ -108,7 +110,7 @@ HTMLFieldSetElement.prototype.valida = function () {
     // Si ninguno está marcado, la validación falla
     return false;
 }
-
+//comprueba si esta relleno el select
 HTMLSelectElement.prototype.relleno = function () {
     var respuesta = false;
     // Si el select tiene un valor que no es el valor predeterminado (deshabilitado), es válido
@@ -117,15 +119,17 @@ HTMLSelectElement.prototype.relleno = function () {
     }
     return respuesta;
 };
-
+//valida el formulario
 HTMLFormElement.prototype.valida = function () {
     var elementos = this.querySelectorAll("input[data-valida]:not(td.disabled > *),select[data-valida],fieldset[data-valida]");
     var respuesta = true;
     let n = elementos.length;
     for (let i = 0; i < n; i++) {
 
+        //si no esta visible no se valida
         if (elementos[i].offsetParent === null) continue;
 
+        //coge los datos que tengan el dataset valida
         let tipo = elementos[i].getAttribute("data-valida");
         var aux=elementos[i][tipo]();
         if(aux){

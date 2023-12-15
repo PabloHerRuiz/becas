@@ -15,7 +15,8 @@
         <form id="formPerfil">
             <div id="foto">
                 <img id="imgFotoPerfil" src="" alt="Foto Perfil">
-                <button id="openWebcam" onclick="modalFoto(event)">Open Webcam Modal</button>
+                <button id="openWebcam" onclick="modalFoto(event)"><img src="css/imagenes/camara.png" alt=""></button>
+                <input type="file" id="fotoSelect">
                 <input type="hidden" id="blob" name="foto" readonly>
             </div>
             <label for="dni">DNI:</label>

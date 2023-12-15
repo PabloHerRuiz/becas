@@ -1,3 +1,4 @@
+//funcion para pasar las pestañas
 function openTab(evt, tabName) {
 	var i, tabcontent, tablinks;
 	tabcontent = document.getElementsByClassName("tabcontent");
@@ -52,6 +53,7 @@ window.addEventListener('load', function () {
 
 				becas.setAttribute("data-id", y[i].idConvocatorias);
 
+				//cogemos los datos de la plantilla
 				var destinos = becas.querySelector(".des");
 				var movilidades = becas.querySelector(".mov");
 				var tipo = becas.querySelector(".tip");
@@ -59,6 +61,7 @@ window.addEventListener('load', function () {
 				var button = becas.querySelector("button");
 				var enlace = becas.querySelector("a");
 
+				//le añadimos los datos de la beca
 				destinos.innerHTML = y[i].destinos;
 				fin.innerHTML = y[i].fecha_fin;
 				movilidades.innerHTML = y[i].movilidades;
@@ -103,6 +106,7 @@ window.addEventListener('load', function () {
 							fetch(`http://virtual.administracion.com/API/apiPerfil.php?id=${id}`)
 								.then(x => x.json())
 								.then(y => {
+									//rellenamos en funcion si viene de la bd
 									if (y.dni !== undefined) {
 										spans[1].innerHTML = y.dni;
 									}
@@ -208,6 +212,7 @@ window.addEventListener('load', function () {
 
 						//contenido modal
 
+						//creamos el formulario
 						var formulario = document.createElement('form');
 						formulario.method = "POST";
 						formulario.action = "http://virtual.administracion.com/API/apiSolicitud.php?idConvocatorias=" + idConvocatorias + "&id=" + id;
@@ -222,6 +227,7 @@ window.addEventListener('load', function () {
 						formulario.style.padding = "20px";
 						formulario.style.borderRadius = "10px";
 
+						//creamos un titulo para el formulario
 						var titulo = document.createElement('h1');
 						titulo.innerHTML = "Formulario de solicitud";
 						titulo.style.textAlign = "center";
@@ -239,14 +245,17 @@ window.addEventListener('load', function () {
 						fileContainer.style.width = "50%";
 						fileContainer.style.border = "none";
 
+						//añadimos un legend para el fieldset
 						var legend = document.createElement('legend');
 						legend.textContent = "Archivos";
 						legend.style.fontWeight = "bold";
 						fileContainer.appendChild(legend);
 
+						//cargamos los input file necesarios para la convocatoria
 						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&archivos=1")
 							.then(x => x.json())
 							.then(y => {
+								//creamos los input file en funcion de cuantos necesite aportar el usuario
 								y.forEach(element => {
 									var file = document.createElement('input');
 									file.type = "file";
@@ -264,6 +273,7 @@ window.addEventListener('load', function () {
 
 									var button = document.createElement('button');
 
+									//funcionalidad para ver el pdf
 									button.addEventListener('click', function (ev) {
 										ev.preventDefault();
 										var documento = this.previousElementSibling
@@ -337,6 +347,7 @@ window.addEventListener('load', function () {
 							})
 							.catch(error => console.error(error));
 
+						//creamos los inputs del formulario	
 						var nombre = document.createElement('input');
 						nombre.type = "text";
 						nombre.name = "nombre";
@@ -414,6 +425,7 @@ window.addEventListener('load', function () {
 						fetch(`http://virtual.administracion.com/API/apiPerfil.php?id=${id}`)
 							.then(x => x.json())
 							.then(y => {
+								//rellenamos en funcion si viene de la bd
 								if (y.dni !== undefined) {
 									dniSpan.innerHTML = y.dni;
 									dniInput.value = y.dni;
@@ -435,6 +447,7 @@ window.addEventListener('load', function () {
 								}
 							});
 
+						//rellenamos el curso
 						fetch(`http://virtual.administracion.com/API/apiDestinatario.php?id=${id}`)
 							.then(x => x.json())
 							.then(y => {
@@ -444,6 +457,7 @@ window.addEventListener('load', function () {
 								}
 							});
 
+						//agregamos todo al formulario
 						formulario.appendChild(dni);
 						formulario.appendChild(dniInput);
 						formulario.appendChild(nombre);
@@ -454,6 +468,7 @@ window.addEventListener('load', function () {
 						formulario.appendChild(cursoInput);
 						formulario.appendChild(fileContainer);
 
+						//creamos el boton de enviar
 						var boton = document.createElement('input');
 						boton.type = "submit";
 						boton.value = "Enviar";
@@ -494,24 +509,23 @@ window.addEventListener('load', function () {
 					});
 				})(button);
 
-
-
-
+				//agregamos a la lista
 				listaBecas.appendChild(becas);
 			}
 			// Después de que todos los elementos <a> hayan sido creados, hacer la comprobación
 			var becasElements = document.querySelectorAll('#lista-becas li');
 
 			for (let i = 0; i < becasElements.length; i++) {
-
+				//comprobamos si se ha hecho solicitud a esa convocatoria
 				fetch('http://virtual.administracion.com/API/apiSolicitud.php?id=' + id + '&idConvocatorias=' + becasElements[i].getAttribute('data-id') + '&comprobacion=1')
 					.then(x => x.json())
 					.then(y => {
+						//en funcion de si lo esta solicitado se cambia el color
 						if (y === true) {
 							var solicitudElement = becasElements[i];
 							solicitudElement.style.color = "red";
 							solicitudElement.style.borderLeft = "3px solid red";
-
+							becasElements[i].querySelector("button").style.visibility = "hidden";
 
 							solicitudElement.onmouseover = function () {
 								this.style.backgroundColor = "#ffcccc";
@@ -535,12 +549,14 @@ window.addEventListener('load', function () {
 
 				becas.setAttribute("data-id", y[i].idConvocatorias);
 
+				//cogemos los datos de la plantilla
 				var destinos = becas.querySelector(".des");
 				var movilidades = becas.querySelector(".mov");
 				var tipo = becas.querySelector(".tip");
 				var fin = becas.querySelector(".fin");
 				var button = becas.querySelector("button");
 
+				//le añadimos los datos de la beca
 				destinos.innerHTML = y[i].destinos;
 				fin.innerHTML = y[i].fecha_fin;
 				movilidades.innerHTML = y[i].movilidades;
@@ -582,6 +598,7 @@ window.addEventListener('load', function () {
 
 						//contenido modal
 
+						//creamos el formulario
 						var formulario = document.createElement('form');
 						formulario.method = "POST";
 						formulario.action = "http://virtual.administracion.com/API/apiSolicitud.php?idConvocatorias=" + idConvocatorias + "&id=" + id + "&actualizar=1";
@@ -596,6 +613,7 @@ window.addEventListener('load', function () {
 						formulario.style.padding = "20px";
 						formulario.style.borderRadius = "10px";
 
+						//creamos un titulo para el formulario
 						var titulo = document.createElement('h1');
 						titulo.innerHTML = "Formulario de solicitud";
 						titulo.style.textAlign = "center";
@@ -613,15 +631,18 @@ window.addEventListener('load', function () {
 						fileContainer.style.width = "50%";
 						fileContainer.style.border = "none";
 
+						//añadimos un legend para el fieldset
 						var legend = document.createElement('legend');
 						legend.textContent = "Archivos";
 						legend.style.fontWeight = "bold";
 						fileContainer.appendChild(legend);
 
+						//cargamos los input file necesarios para la convocatoria
 						fetch("http://virtual.administracion.com/API/apiItem.php?idConvocatorias=" + idConvocatorias + "&archivos=1")
 							.then(x => x.json())
 							.then(y => {
 								y.forEach(element => {
+									//creamos los input file en funcion de cuantos necesite aportar el usuario
 									var file = document.createElement('input');
 									file.type = "file";
 									file.id = element;
@@ -638,6 +659,7 @@ window.addEventListener('load', function () {
 
 									var button = document.createElement('button');
 
+									//funcionalidad para ver el pdf
 									button.addEventListener('click', function (ev) {
 										ev.preventDefault();
 										var documento = this.previousElementSibling
@@ -711,6 +733,7 @@ window.addEventListener('load', function () {
 							})
 							.catch(error => console.error(error));
 
+						//creamos los inputs del formulario
 						var nombre = document.createElement('input');
 						nombre.type = "text";
 						nombre.name = "nombre";
@@ -788,6 +811,7 @@ window.addEventListener('load', function () {
 						fetch(`http://virtual.administracion.com/API/apiSolicitud.php?id=${id}` + '&idConvocatorias=' + idConvocatorias + '&proceso=1')
 							.then(x => x.json())
 							.then(y => {
+								//rellenamos en funcion si viene de la bd
 								if (y.dni !== undefined) {
 									dniSpan.innerHTML = y.dni;
 									dniInput.value = y.dni;
@@ -809,6 +833,7 @@ window.addEventListener('load', function () {
 								}
 							});
 
+						//rellenamos el curso
 						fetch(`http://virtual.administracion.com/API/apiDestinatario.php?id=${id}`)
 							.then(x => x.json())
 							.then(y => {
@@ -818,6 +843,7 @@ window.addEventListener('load', function () {
 								}
 							});
 
+						//agregamos todo al formulario
 						formulario.appendChild(dni);
 						formulario.appendChild(dniInput);
 						formulario.appendChild(nombre);
@@ -828,6 +854,7 @@ window.addEventListener('load', function () {
 						formulario.appendChild(cursoInput);
 						formulario.appendChild(fileContainer);
 
+						//creamos el boton de enviar
 						var boton = document.createElement('input');
 						boton.type = "submit";
 						boton.value = "Enviar";
@@ -837,7 +864,7 @@ window.addEventListener('load', function () {
 
 						formulario.appendChild(boton);
 
-						//formulario
+						//formulario validacion
 						formulario.addEventListener("submit", function (ev) {
 							ev.preventDefault();
 							if (formulario.valida()) {
@@ -869,7 +896,7 @@ window.addEventListener('load', function () {
 				})(button);
 
 
-
+				//agregamos a la lista
 				listaSolicitudes.appendChild(becas);
 			}
 		});

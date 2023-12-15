@@ -17,7 +17,7 @@
                 <h1>Registro</h1>
                 <input type="text" name="dni" placeholder="DNI" data-valida="dni">
                 <input type="text" name="nombre" placeholder="Nombre" data-valida="relleno">
-                <input type="email" name="correo" placeholder="Correo" data-valida="email">
+                <input type="text" name="correo" placeholder="Correo" data-valida="email">
                 <input type="password" name="pass" placeholder="Contraseña" data-valida="relleno">
                 <button type="submit" id="reg">Registrarse</button>
             </form>

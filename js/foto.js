@@ -99,11 +99,12 @@ function modalFoto(ev) {
     document.body.appendChild(visualizador);
 
 
-    var closer = document.createElement("div");
-    closer.innerHTML = "X";
+    var closer = document.createElement("img");
+    closer.src = "css/imagenes/cerrar.png";
     closer.style.position = "fixed";
     closer.style.padding = "5px";
-    closer.style.backgroundColor = "white";
+    // closer.style.backgroundColor = "white";
+    closer.style.cursor = "pointer";
     closer.style.top = 0;
     closer.style.right = 0;
     closer.style.zIndex = 101;

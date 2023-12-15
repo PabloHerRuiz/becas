@@ -8,6 +8,7 @@ window.addEventListener("load", function () {
     const curso = document.getElementById("curso");
     const domicilio = document.getElementById("domicilio");
     const fecha_nacimiento = document.getElementById("fecha_nacimiento");
+    const boton2 = document.getElementById("fotoSelect");
 
     const form = document.getElementById("formPerfil");
 
@@ -26,7 +27,7 @@ window.addEventListener("load", function () {
                 curso.appendChild(option);
             }
         });
-    
+
     //cargar los datos de ese usuario
     fetch(`http://virtual.administracion.com/API/apiPerfil.php?id=${id}`)
         .then(x => x.json())
@@ -59,6 +60,7 @@ window.addEventListener("load", function () {
             if (y.foto !== undefined) {
                 document.getElementById('imgFotoPerfil').src = y.foto;
                 document.getElementById('blob').value = y.foto;
+                boton2.value = "";
             }
         });
 
@@ -82,5 +84,28 @@ window.addEventListener("load", function () {
         }
     })
 
+
+    boton2.addEventListener('change', function () {
+        if (this.files && this.files[0]) {
+            var file = this.files[0];
+
+            // Comprueba si el archivo es una imagen
+            if (!file.type.startsWith('image/')) {
+                alert('Por favor, selecciona una imagen.');
+                return;
+            }
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // e.target.result contiene el dato URL (base64)
+                document.getElementById('imgFotoPerfil').src = e.target.result;
+                document.getElementById('blob').value = e.target.result;
+
+            };
+
+            reader.readAsDataURL(file); // lee el archivo como un dato URL
+        }
+    });
 
 })
