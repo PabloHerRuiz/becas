@@ -109,7 +109,7 @@ class candidatoRepository
         $candidato = null;
         if ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             if (password_verify($password, $row['password'])) {
-                $candidato = new Candidato($row['nombre'], $row['apellidos'], $row['dni'], $row['password'], $row['curso'], $row['correo'], $row['telefono'], $row['domicilio'], $row['fecha_nacimiento'], $row['tutor'], $row['rol'], $row['idCandidato']);
+                $candidato = new Candidato($row['nombre'], $row['apellidos'], $row['dni'], $row['password'], $row['curso'], $row['correo'], $row['telefono'], $row['domicilio'], $row['fecha_nacimiento'], $row['tutor'], $row['rol'],$row['foto'], $row['idCandidato']);
             }
         }
         return $candidato;

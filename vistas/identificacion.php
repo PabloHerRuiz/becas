@@ -25,8 +25,8 @@
         <div class="form-container sign-in-container">
             <form action="/API/apiLogin.php" method="post" id="formLogin">
                 <h1>Login</h1>
-                <input type="text" name="username" placeholder="Usuario">
-                <input type="password" name="password" placeholder="Password">
+                <input type="text" name="username" placeholder="Usuario" data-valida="relleno">
+                <input type="password" name="password" placeholder="Password" data-valida="relleno">
                 <button type="submit">Login</button>
             </form>
         </div>
